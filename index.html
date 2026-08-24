@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nussy Motorsport — International Esports Racing Team</title>
+<meta name="description" content="Nussy Motorsport is a 20+ member international sim racing team competing in GT3, GT4 and prototype esports championships, building a structured pathway to real-world karting in 2027.">
+<meta property="og:title" content="Nussy Motorsport — International Esports Racing Team">
+<meta property="og:description" content="One team. One family. One mission. From the sim rig to the karting grid.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="images/nussynormal.jpg">
+<meta name="theme-color" content="#0b0d0c">
+<link rel="icon" type="image/png" href="images/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -13,19 +20,22 @@
     --fog: #f4f7f5;
     --ink: #0b0d0c;
     --card-bg: #111412;
-    --accent: #25d366; /* Kräftiges, echtes Motorsport-Grün */
-    --accent-glow: rgba(37, 211, 102, 0.25);
-    --green-deep: #0b1a10;
-    --green-mid: #14331e;
+    --accent: #9be000; /* Nussy livery lime-green */
+    --accent-rgb: 155, 224, 0;
+    --accent-glow: rgba(155, 224, 0, 0.28);
+    --green-deep: #0e1806;
+    --green-mid: #33520e;
     --line: rgba(255, 255, 255, 0.1);
     --line-light: #e0e7e3;
     --shadow: 0 20px 40px rgba(0,0,0,0.08);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
     --display: 'Rajdhani', sans-serif;
     --body: 'Inter', sans-serif;
     --mono: 'Share Tech Mono', monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:auto;}
+  html.no-lenis, html.reduced-motion{scroll-behavior:smooth;}
   body{
     font-family:var(--body);
     color:var(--ink);
@@ -33,7 +43,9 @@
     overflow-x:hidden;
     -webkit-font-smoothing:antialiased;
   }
-  
+  body.lenis, body.lenis html{ height:auto; }
+  body.loading{ visibility:hidden; }
+
   img{max-width:100%;display:block;}
   a{color:inherit;text-decoration:none;}
   .wrap{max-width:1280px;margin:0 auto;padding:0 32px;}
@@ -41,7 +53,15 @@
 
   ::selection{background:var(--accent);color:var(--ink);}
 
-  /* Clean Badge Animation */
+  /* ============ SCROLL PROGRESS ============ */
+  .scroll-progress{
+    position:fixed;top:0;left:0;height:3px;width:0%;
+    background:var(--accent);z-index:400;
+    box-shadow:0 0 12px var(--accent-glow);
+    transition:width .05s linear;
+  }
+
+  /* Badge */
   .plate{
     display:inline-flex;align-items:center;gap:10px;
     background:rgba(255,255,255,0.05);
@@ -65,7 +85,7 @@
 
   .panel-cut{ border-radius: 12px; overflow: hidden; }
 
-  /* Header Navigation */
+  /* ============ HEADER ============ */
   header{
     position:fixed;top:0;left:0;right:0;z-index:200;
     transition:all .4s ease;
@@ -104,7 +124,7 @@
   .nav ul li a:hover{ color: var(--white); opacity: 1; }
   .nav ul li a:hover::after{width:100%;}
   .nav-right{display:flex;align-items:center;gap:18px;}
-  
+
   .lang-toggle{
     display:flex;border:1px solid rgba(255,255,255,.2);border-radius:20px;overflow:hidden;
     background: rgba(0,0,0,0.3); backdrop-filter: blur(8px);
@@ -115,22 +135,23 @@
     opacity: 0.6; transition:all .3s ease;
   }
   .lang-toggle button.active{background:var(--accent);color:var(--ink);opacity:1;font-weight:700;}
-  .burger{display:none;background:none;border:none;cursor:pointer;padding:4px;}
-  .burger span{display:block;width:24px;height:2px;background:var(--white);margin:5px 0;transition:.3s;}
+  .burger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+  .burger span{display:block;width:24px;height:2px;background:var(--white);transition:.3s;}
+  .burger.active span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .burger.active span:nth-child(2){ opacity:0; }
+  .burger.active span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
 
-  /* Hero Section Zentriert & Edles Grün */
+  /* ============ HERO ============ */
   .hero{
     position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
     overflow:hidden;color:var(--white);text-align:center;padding:140px 0 60px;
   }
   .hero-bg{
-    position:absolute;inset:0;z-index:0;
-    background:url('images/hero-lights.jpg') center/cover no-repeat;
-    filter: brightness(0.4) contrast(1.1);
-    transform: scale(1.05);
-    animation:kenburns 25s ease-in-out infinite alternate;
+    position:absolute;inset:-10% 0 0 0;height:120%;z-index:0;
+    background:url('images/nussynormal.jpg') center/cover no-repeat;
+    filter: brightness(0.38) contrast(1.12) saturate(1.05);
+    will-change:transform;
   }
-  @keyframes kenburns{from{transform:scale(1.05);}to{transform:scale(1.15);}}
   .hero-scrim{
     position:absolute;inset:0;z-index:1;
     background:
@@ -141,35 +162,36 @@
     position:relative;z-index:2;max-width:900px;margin:0 auto;
     display:flex;flex-direction:column;align-items:center;
   }
-  .hero .plate{ margin-bottom:30px; }
+  .hero .plate{ margin-bottom:30px; opacity:0; transform:translateY(20px); }
   .hero h1{
     font-size:clamp(48px, 7.5vw, 96px);
     line-height: 1.02;
     letter-spacing: -0.01em;
   }
-  .hero h1 .l1{
-    color:rgba(255,255,255,0.4);
-    display:block; font-weight: 500;
-  }
-  .hero h1 .l2{color:var(--white);display:block;}
-  .hero h1 .l3{
-    color:var(--accent);display:block;
+  .hero h1 .line{ display:block; overflow:hidden; }
+  .hero h1 .l1 .word-inner{ color:rgba(255,255,255,0.4); font-weight: 500; }
+  .hero h1 .l2 .word-inner{ color:var(--white); }
+  .hero h1 .l3 .word-inner{
+    color:var(--accent);
     text-shadow: 0 0 30px var(--accent-glow);
   }
+  .word{ display:inline-block; overflow:hidden; vertical-align:top; }
+  .word-inner{ display:inline-block; transform:translateY(115%); will-change:transform; }
   .hero p.sub{
     font-size:clamp(16px,1.5vw,19px);max-width:680px;margin-top:28px;
     color:rgba(255,255,255,.75);font-weight:300;line-height:1.7;
+    opacity:0; transform:translateY(20px);
   }
-  
+
   /* Buttons */
-  .hero-cta{display:flex;gap:18px;margin-top:40px;justify-content:center;flex-wrap:wrap;}
+  .hero-cta{display:flex;gap:18px;margin-top:40px;justify-content:center;flex-wrap:wrap;opacity:0;transform:translateY(20px);}
   .btn{
     font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;
-    padding:16px 36px;cursor:pointer;border-radius: 30px;
-    transition:all .3s cubic-bezier(0.16, 1, 0.3, 1);
+    padding:16px 36px;cursor:pointer;border-radius: 30px;border:none;
+    transition:background .3s var(--ease), color .3s var(--ease), box-shadow .3s var(--ease);
     display:inline-flex;align-items:center;gap:10px;
+    will-change:transform;
   }
-  .btn:hover{transform:translateY(-3px);}
   .btn-primary{
     background:var(--accent);color:var(--ink);
     box-shadow: 0 10px 25px var(--accent-glow);
@@ -184,13 +206,13 @@
   }
   .btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,0.1);}
 
-  /* Hero Stats Counter Panel Zentriert */
+  /* Hero Stats */
   .hero-stats{
     position:relative;z-index:2;margin-top:70px;width:100%;max-width:860px;
     display:grid;grid-template-columns:repeat(3,1fr);
     border:1px solid var(--line);border-radius:16px;
     background:rgba(255,255,255,0.02);backdrop-filter:blur(16px);
-    overflow:hidden;
+    overflow:hidden;opacity:0;transform:translateY(24px);
   }
   .hero-stats .stat{
     padding:28px 20px;border-right:1px solid var(--line);
@@ -207,7 +229,17 @@
     color:rgba(255,255,255,.5);margin-top:6px;
   }
 
-  /* Ticker Bar */
+  .scroll-cue{
+    position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:2;
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.45);
+    opacity:0;
+  }
+  .scroll-cue .stick{width:1px;height:40px;background:rgba(255,255,255,.15);position:relative;overflow:hidden;}
+  .scroll-cue .stick::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--accent);animation:cueDrip 2s infinite;}
+  @keyframes cueDrip{ 0%{top:-100%;} 60%{top:100%;} 100%{top:100%;} }
+
+  /* Ticker */
   .ticker-outer{
     background:var(--ink);color:rgba(255,255,255,0.7);
     overflow:hidden;white-space:nowrap;
@@ -227,23 +259,24 @@
   .ticker span::before{content:'◇';font-size:10px;color:rgba(255,255,255,0.3);}
   @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-  /* Sections Base */
+  /* Sections base */
   section{padding:120px 0;position:relative;}
   .section-head{max-width:720px;margin-bottom:60px;}
-  .section-head .plate{
-    margin-bottom:20px;background:var(--fog);
-    border-color:var(--line-light);color:var(--green-mid);
-  }
+  .section-head .plate{ margin-bottom:20px;background:var(--fog); border-color:var(--line-light);color:var(--green-mid); }
   .section-head .plate::before{background:var(--accent);box-shadow:none;}
   .section-head h2{font-size:clamp(32px,4vw,52px);color:var(--ink);}
   .section-head p{margin-top:18px;font-size:17px;line-height:1.65;color:#555;}
 
-  /* About Section */
+  /* Generic scroll reveal (GSAP-driven) */
+  .reveal-gsap{ opacity:0; transform:translateY(36px); will-change:transform,opacity; }
+
+  /* About */
   .about{background:var(--fog);}
   .about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:76px;align-items:center;}
   .about-copy p{font-size:16.5px;line-height:1.8;color:#444;margin-bottom:20px;}
   .about-copy p strong{color:var(--ink);font-weight:600;}
-  .about-media{position:relative;box-shadow:var(--shadow);}
+  .about-media{position:relative;box-shadow:var(--shadow);overflow:hidden;border-radius:16px;}
+  .about-media img{ transform:scale(1.14); will-change:transform; }
   .about-media .tag{
     position:absolute;bottom:20px;left:20px;z-index:3;
     background:rgba(11,13,12,0.85);backdrop-filter:blur(10px);
@@ -251,20 +284,22 @@
     padding:8px 16px;font-family:var(--mono);font-size:12px;color:var(--accent);
   }
 
-  /* Quote Family Banner */
+  /* Family quote (pinned statement) */
   .family{
-    position:relative;padding:140px 0;
+    position:relative;height:100vh;
     color:var(--white);text-align:center;overflow:hidden;
     background: var(--ink);
+    display:flex;align-items:center;justify-content:center;
   }
   .family-bg{
     position:absolute;inset:0;
-    background:url('images/gallery-3.jpg') center/cover no-repeat;
-    opacity: 0.25; filter: grayscale(1);
+    background:url('images/NussyDark.jpg') center/cover no-repeat;
+    opacity: 0.28; filter: grayscale(1);
+    transform:scale(1);will-change:transform;
   }
-  .family-inner{position:relative;z-index:2;max-width:880px;margin:0 auto;}
+  .family-inner{position:relative;z-index:2;max-width:880px;margin:0 auto;padding:0 32px;}
   .family blockquote{
-    font-family:var(--display);font-size:clamp(28px,4vw,48px);
+    font-family:var(--display);font-size:clamp(28px,4.4vw,52px);
     font-weight:500;text-transform:none;line-height:1.3;
   }
   .family blockquote .lime{color:var(--accent);font-style:normal;}
@@ -273,40 +308,47 @@
     font-family:var(--mono);font-size:13px;letter-spacing:.14em;color:rgba(255,255,255,.5);
   }
 
-  /* Gallery Grid */
-  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-  .gallery-grid figure{position:relative;box-shadow:var(--shadow);overflow:hidden;border-radius:12px;}
-  .gallery-grid img{width:100%;height:380px;object-fit:cover;transition:transform .6s ease;}
-  .gallery-grid figure:hover img{transform:scale(1.05);}
-  .gallery-grid figcaption{
-    position:absolute;left:0;bottom:0;right:0;z-index:3;
-    padding:20px;
+  /* Team horizontal pin gallery */
+  .team-section{padding-bottom:0;}
+  .scroll-track{ position:relative; }
+  .scroll-pin{ height:100vh; display:flex; align-items:center; overflow:hidden; }
+  .scroll-images{ display:flex; gap:32px; width:max-content; padding:0 8vw; will-change:transform; }
+  .scroll-images figure{
+    position:relative; flex:none; width:min(78vw,760px); height:58vh;
+    border-radius:18px; overflow:hidden; box-shadow:var(--shadow);
+  }
+  .scroll-images img{ width:100%; height:100%; object-fit:cover; }
+  .scroll-images figcaption{
+    position:absolute;left:0;bottom:0;right:0;z-index:3;padding:22px 26px;
+    background:linear-gradient(0deg, rgba(11,13,12,.92) 0%, transparent 100%);
+    color:var(--white);font-family:var(--mono);font-size:13px;letter-spacing:.08em;
+  }
+  /* Mobile / non-pin fallback for team gallery */
+  .gallery-grid-static{ display:none; grid-template-columns:repeat(3,1fr); gap:28px; }
+  .gallery-grid-static figure{ position:relative; box-shadow:var(--shadow); overflow:hidden; border-radius:12px; }
+  .gallery-grid-static img{ width:100%; height:340px; object-fit:cover; }
+  .gallery-grid-static figcaption{
+    position:absolute;left:0;bottom:0;right:0;z-index:3;padding:20px;
     background:linear-gradient(0deg, rgba(11,13,12,.9) 0%, transparent 100%);
     color:var(--white);font-family:var(--mono);font-size:13px;letter-spacing:.08em;
   }
 
-  /* Pillars Section */
+  /* Pillars */
   .pillars{background:var(--white);}
-  .pillar-grid{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
-  }
+  .pillar-grid{ display:grid;grid-template-columns:repeat(4,1fr);gap:20px; }
   .pillar{
     background:var(--fog);padding:40px 28px;border-radius:12px;
-    border:1px solid var(--line-light);transition:all .3s ease;
+    border:1px solid var(--line-light);transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
   }
-  .pillar:hover{
-    transform: translateY(-5px);
-    box-shadow: var(--shadow);
-    border-color: var(--accent);
-  }
+  .pillar:hover{ transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--accent); }
   .pillar .num{
-    font-family:var(--mono);color:var(--green-mid);background:rgba(37, 211, 102, 0.15);
+    font-family:var(--mono);color:var(--green-mid);background:rgba(155, 224, 0, 0.15);
     display:inline-block;padding:4px 10px;font-size:12px;border-radius:6px;font-weight:700;
   }
   .pillar h3{font-size:22px;margin-top:20px;color:var(--ink);}
   .pillar p{font-size:14.5px;line-height:1.7;color:#666;margin-top:12px;}
 
-  /* Drivers Roster */
+  /* Drivers */
   .drivers{background:var(--fog);}
   .driver-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
   .driver-card{
@@ -314,19 +356,17 @@
     border-radius:12px;overflow:hidden;
     border:1px solid var(--line-light);
     transition: transform .3s ease, box-shadow .3s ease;
+    opacity:0;transform:translateY(30px);
   }
-  .driver-card:hover{
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-  }
-  .driver-card .photo{height:260px;position:relative;}
-  .driver-card .photo img{width:100%;height:100%;object-fit:cover;}
+  .driver-card:hover{ transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+  .driver-card .photo{height:260px;position:relative;overflow:hidden;}
+  .driver-card .photo img{width:100%;height:100%;object-fit:cover;clip-path:inset(0 0 100% 0);will-change:clip-path;}
   .driver-card .num-badge{
     position:absolute;top:16px;left:16px;z-index:4;
     background:rgba(11,13,12,0.85);backdrop-filter:blur(8px);
     border-radius:20px;color:var(--accent);
     padding:4px 14px;font-family:var(--mono);font-weight:700;font-size:13px;
-    border:1px solid rgba(37, 211, 102, 0.3);
+    border:1px solid rgba(155, 224, 0, 0.3);
   }
   .driver-card .info{padding:26px;}
   .driver-card .info h3{font-size:22px;color:var(--ink);}
@@ -337,28 +377,28 @@
   .driver-card .info .bio{font-size:14.5px;line-height:1.7;color:#555;margin-top:16px;}
   .driver-note{margin-top:30px;font-size:13px;color:#888;font-style:italic;}
 
-  /* Roadmap Section */
+  /* Roadmap */
   .roadmap{background:var(--ink);color:var(--white);}
   .roadmap .section-head p{color:rgba(255,255,255,.6);}
   .roadmap .section-head .plate{background:rgba(255,255,255,0.05);color:var(--accent);border-color:var(--line);}
   .roadmap .section-head h2{color:var(--white);}
   .timeline{position:relative;padding-left:48px;}
-  .timeline::before{
-    content:'';position:absolute;left:9px;top:8px;bottom:8px;width:1px;
-    background:var(--line);
-  }
-  .t-item{position:relative;padding-bottom:56px;}
+  .timeline-rail{ position:absolute;left:9px;top:8px;bottom:8px;width:1px;background:var(--line); }
+  .timeline-progress{ position:absolute;left:9px;top:8px;width:1px;height:0%;background:var(--accent);box-shadow:0 0 8px var(--accent-glow); }
+  .t-item{position:relative;padding-bottom:56px;opacity:0;transform:translateY(20px);}
   .t-item:last-child{padding-bottom:0;}
   .t-item::before{
     content:'';position:absolute;left:-48px;top:6px;width:12px;height:12px;
     background:var(--ink);border:2px solid var(--accent);border-radius:50%;
+    transform:scale(0);transform-origin:center;
   }
   .t-item.future::before{background:var(--accent);box-shadow:0 0 12px var(--accent);}
+  .t-item.dot-in::before{ transform:scale(1); transition:transform .5s cubic-bezier(.34,1.56,.64,1); }
   .t-year{font-family:var(--mono);color:var(--accent);font-size:14px;letter-spacing:.1em;}
   .t-item h3{font-size:24px;margin-top:8px;}
   .t-item p{font-size:15.5px;line-height:1.7;color:rgba(255,255,255,.6);margin-top:8px;max-width:600px;}
 
-  /* Join CTA Section */
+  /* Join CTA */
   .join{background:var(--white);text-align:center;padding:140px 0;}
   .join .plate{ background:var(--fog); border-color:var(--line-light); color:var(--green-mid); margin-bottom:24px; }
   .join .plate::before{ background:var(--accent); box-shadow:none; }
@@ -372,6 +412,7 @@
   }
   .join .btn-primary{background:var(--accent);color:var(--ink);box-shadow: 0 10px 25px var(--accent-glow);}
   .join .btn-primary:hover{background:var(--ink);color:var(--white);}
+  .magnetic-wrap{ display:inline-block; }
 
   /* Footer */
   footer{background:var(--ink);color:rgba(255,255,255,.5);padding:70px 0 36px;border-top:1px solid var(--line);}
@@ -394,26 +435,28 @@
     font-size:13px;flex-wrap:wrap;gap:12px;
   }
 
-  /* Reveal Animations */
-  .reveal{
-    opacity:0;transform:translateY(30px);
-    transition:all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  /* ============ PRELOADER ============ */
+  .preloader{
+    position:fixed;inset:0;z-index:5000;background:var(--ink);
+    display:flex;align-items:center;justify-content:center;
   }
-  .reveal.in{opacity:1;transform:translateY(0);}
+  .preloader img{ height:56px; width:auto; opacity:0; transform:scale(.92); }
 
-  /* Mobile Responsive */
+  /* ============ MOBILE MENU ============ */
   @media (max-width:920px){
     .nav ul{
-      position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(11, 13, 12, 0.98);
+      position:fixed;inset:0;background:rgba(11, 13, 12, 0.98);
       backdrop-filter: blur(20px);
       flex-direction:column;justify-content:center;align-items:center;gap:28px;
-      display:none;z-index:150;
+      opacity:0;visibility:hidden;transition:opacity .35s ease, visibility .35s ease;
+      z-index:150;
     }
-    .nav ul.open{display:flex;}
+    .nav ul.open{ opacity:1; visibility:visible; }
     .nav ul li a{font-size:24px;}
-    .burger{display:block;z-index:160;}
+    .burger{display:flex;z-index:160;}
     .about-grid{grid-template-columns:1fr;gap:44px;}
-    .gallery-grid{grid-template-columns:1fr;}
+    .about-media img{transform:scale(1.05);}
+    .gallery-grid-static{grid-template-columns:1fr;}
     .pillar-grid{grid-template-columns:1fr 1fr;}
     .driver-grid{grid-template-columns:1fr;}
     .hero-stats{grid-template-columns:1fr;}
@@ -423,10 +466,23 @@
     .wrap{padding:0 20px;}
     .pillar-grid{grid-template-columns:1fr;}
     .footer-top{flex-direction:column;}
+    .family blockquote{font-size:clamp(24px,7vw,34px);}
+  }
+
+  /* Reduced motion: keep it simple & safe */
+  @media (prefers-reduced-motion: reduce){
+    .word-inner{ transform:none !important; }
+    .driver-card .photo img{ clip-path:none !important; }
   }
 </style>
 </head>
-<body>
+<body class="loading">
+
+<div class="preloader" id="preloader">
+  <img src="images/logo.png" alt="Nussy Motorsport">
+</div>
+
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <header id="siteHeader">
   <nav class="nav">
@@ -445,7 +501,7 @@
         <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
         <button id="btn-de" onclick="setLang('de')">DE</button>
       </div>
-      <button class="burger" onclick="document.getElementById('navList').classList.toggle('open')">
+      <button class="burger" id="burgerBtn" aria-label="Navigation" aria-expanded="false" aria-controls="navList">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -454,25 +510,25 @@
 
 <div id="top"></div>
 
-<!-- Hero Section Zentriert & Ausbalanciert -->
+<!-- Hero -->
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg" id="heroBg"></div>
   <div class="hero-scrim"></div>
   <div class="hero-content wrap">
     <div class="plate">
       <span class="i18n" data-en="International Esports Racing Team" data-de="Internationales Esports Racing Team">International Esports Racing Team</span>
     </div>
     <h1>
-      <span class="l1 i18n" data-en="One Team." data-de="Ein Team.">One Team.</span>
-      <span class="l2 i18n" data-en="One Family." data-de="Eine Familie.">One Family.</span>
-      <span class="l3 i18n" data-en="One Mission." data-de="Eine Mission.">One Mission.</span>
+      <span class="line l1" data-en="One Team." data-de="Ein Team.">One Team.</span>
+      <span class="line l2" data-en="One Family." data-de="Eine Familie.">One Family.</span>
+      <span class="line l3" data-en="One Mission." data-de="Eine Mission.">One Mission.</span>
     </h1>
     <p class="sub i18n" data-en="20+ drivers, engineers and creators from across the globe, racing under one green-and-white livery in the world's toughest sim racing championships — with our sights fixed firmly on the karting grid in 2027." data-de="20+ Fahrer, Ingenieure und Creator aus aller Welt, vereint unter einer grün-weißen Livery in den härtesten Sim-Racing-Meisterschaften der Welt — mit klarem Blick auf die Kartbahn im Jahr 2027.">
         20+ drivers, engineers and creators from across the globe, racing under one green-and-white livery in the world's toughest sim racing championships — with our sights fixed firmly on the karting grid in 2027.
     </p>
     <div class="hero-cta">
-      <a href="#drivers" class="btn btn-primary i18n" data-en="Meet the Team" data-de="Team kennenlernen">Meet the Team</a>
-      <a href="#roadmap" class="btn btn-ghost i18n" data-en="Our Road to Karting" data-de="Unser Weg zum Kart">Our Road to Karting</a>
+      <a href="#drivers" class="btn btn-primary i18n magnetic" data-en="Meet the Team" data-de="Team kennenlernen">Meet the Team</a>
+      <a href="#roadmap" class="btn btn-ghost i18n magnetic" data-en="Our Road to Karting" data-de="Unser Weg zum Kart">Our Road to Karting</a>
     </div>
 
     <div class="hero-stats">
@@ -490,6 +546,10 @@
       </div>
     </div>
   </div>
+  <div class="scroll-cue" id="scrollCue">
+    <span class="i18n" data-en="Scroll" data-de="Scrollen">Scroll</span>
+    <div class="stick"></div>
+  </div>
 </section>
 
 <div class="ticker-outer">
@@ -498,25 +558,25 @@
 
 <section class="about" id="about">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head reveal-gsap">
       <div class="plate">
         <span class="i18n" data-en="Pit Board // About" data-de="Boxentafel // Über uns">Pit Board // About</span>
       </div>
       <h2 class="i18n" data-en="Built like a family. Racing like professionals." data-de="Aufgebaut wie eine Familie. Rennen wie Profis.">Built like a family. Racing like professionals.</h2>
     </div>
     <div class="about-grid">
-      <div class="about-copy reveal">
-        <p class="i18n" data-en="Nussy Motorsport was founded in 2026 — not as a business plan, but as a group of sim racers who trusted each other on track and off it. That trust is still the foundation of everything we do." data-de="Nussy Motorsport wurde 2026 gegründet — nicht als Businessplan, sondern als eine Gruppe von Sim-Racern, die sich auf und abseits der Strecke vertraut haben. Dieses Vertrauen ist bis heute das Fundament von allem, was wir tun.">
+      <div class="about-copy">
+        <p class="reveal-gsap i18n" data-en="Nussy Motorsport was founded in 2026 — not as a business plan, but as a group of sim racers who trusted each other on track and off it. That trust is still the foundation of everything we do." data-de="Nussy Motorsport wurde 2026 gegründet — nicht als Businessplan, sondern als eine Gruppe von Sim-Racern, die sich auf und abseits der Strecke vertraut haben. Dieses Vertrauen ist bis heute das Fundament von allem, was wir tun.">
           Nussy Motorsport was founded in 2026 — not as a business plan, but as a group of sim racers who trusted each other on track and off it. That trust is still the foundation of everything we do.
         </p>
-        <p class="i18n" data-en="Today we're an <strong>international roster of 20+ members</strong> — drivers, race engineers, strategists, media producers and partnership leads — competing in premier endurance and GT esports championships, on the same simulators used by real-world race teams." data-de="Heute sind wir ein <strong>internationales Team mit über 20 Mitgliedern</strong> — Fahrer, Renningenieure, Strategen, Medienschaffende und Partnerschaftsverantwortliche — die in erstklassigen Endurance- und GT-Esports-Meisterschaften an den Start gehen, auf denselben Simulatoren, die auch echte Rennteams nutzen.">
+        <p class="reveal-gsap i18n" data-en="Today we're an <strong>international roster of 20+ members</strong> — drivers, race engineers, strategists, media producers and partnership leads — competing in premier endurance and GT esports championships, on the same simulators used by real-world race teams." data-de="Heute sind wir ein <strong>internationales Team mit über 20 Mitgliedern</strong> — Fahrer, Renningenieure, Strategen, Medienschaffende und Partnerschaftsverantwortliche — die in erstklassigen Endurance- und GT-Esports-Meisterschaften an den Start gehen, auf denselben Simulatoren, die auch echte Rennteams nutzen.">
           Today we're an <strong>international roster of 20+ members</strong> — drivers, race engineers, strategists, media producers and partnership leads — competing in premier endurance and GT esports championships, on the same simulators used by real-world race teams.
         </p>
-        <p class="i18n" data-en="Our next chapter takes that same discipline off the screen: a structured pathway that puts our drivers behind the wheel of a real kart in 2027. Same team. Same green. Real tarmac." data-de="Unser nächstes Kapitel bringt genau diese Disziplin von der Simulation auf die echte Strecke: ein strukturierter Weg, der unsere Fahrer 2027 ins echte Kart setzt. Gleiches Team. Gleiches Grün. Echter Asphalt.">
+        <p class="reveal-gsap i18n" data-en="Our next chapter takes that same discipline off the screen: a structured pathway that puts our drivers behind the wheel of a real kart in 2027. Same team. Same green. Real tarmac." data-de="Unser nächstes Kapitel bringt genau diese Disziplin von der Simulation auf die echte Strecke: ein strukturierter Weg, der unsere Fahrer 2027 ins echte Kart setzt. Gleiches Team. Gleiches Grün. Echter Asphalt.">
           Our next chapter takes that same discipline off the screen: a structured pathway that puts our drivers behind the wheel of a real kart in 2027. Same team. Same green. Real tarmac.
         </p>
       </div>
-      <div class="about-media panel-cut reveal">
+      <div class="about-media panel-cut reveal-gsap" id="aboutMedia">
         <img src="images/Mercedes.png" alt="Nussy Motorsport Mercedes-AMG GT3 on track">
         <div class="tag">#9 · PRO CLASS</div>
       </div>
@@ -524,9 +584,9 @@
   </div>
 </section>
 
-<section class="family reveal">
-  <div class="family-bg"></div>
-  <div class="wrap family-inner">
+<section class="family" id="family">
+  <div class="family-bg" id="familyBg"></div>
+  <div class="family-inner">
     <blockquote class="i18n" data-en='We didn&rsquo;t build a roster. We built a <span class="lime">family</span> that happens to race.' data-de='Wir haben kein Kader zusammengestellt. Wir haben eine <span class="lime">Familie</span> aufgebaut, die zufällig Rennen fährt.'>
       We didn&rsquo;t build a roster. We built a <span class="lime">family</span> that happens to race.
     </blockquote>
@@ -534,18 +594,38 @@
   </div>
 </section>
 
-<section id="team">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="plate">
-        <span class="i18n" data-en="On Track" data-de="Auf der Strecke">On Track</span>
-      </div>
-      <h2 class="i18n" data-en="Where our team lives." data-de="Zuhause unseres Teams.">Where our team lives.</h2>
-      <p class="i18n" data-en="From qualifying under floodlights to fighting for position in the midday sun — this is the world our team races in every week." data-de="Von der Qualifikation unter Flutlicht bis zum Positionskampf in der Mittagssonne — das ist die Welt, in der unser Team jede Woche antritt.">
-        From qualifying under floodlights to fighting for position in the midday sun — this is the world our team races in every week.
-      </p>
+<section class="team-section" id="team">
+  <div class="wrap section-head reveal-gsap">
+    <div class="plate">
+      <span class="i18n" data-en="On Track" data-de="Auf der Strecke">On Track</span>
     </div>
-    <div class="gallery-grid reveal">
+    <h2 class="i18n" data-en="Where our team lives." data-de="Zuhause unseres Teams.">Where our team lives.</h2>
+    <p class="i18n" data-en="From qualifying under floodlights to fighting for position in the midday sun — this is the world our team races in every week." data-de="Von der Qualifikation unter Flutlicht bis zum Positionskampf in der Mittagssonne — das ist die Welt, in der unser Team jede Woche antritt.">
+      From qualifying under floodlights to fighting for position in the midday sun — this is the world our team races in every week.
+    </p>
+  </div>
+
+  <div class="scroll-track" id="scrollTrack">
+    <div class="scroll-pin">
+      <div class="scroll-images" id="scrollImages">
+        <figure>
+          <img src="images/nussynormal.jpg" alt="Nussy Motorsport car in the pit lane during a sunny race day">
+          <figcaption class="i18n" data-en="Pit Lane · Race Day" data-de="Boxengasse · Renntag">Pit Lane · Race Day</figcaption>
+        </figure>
+        <figure>
+          <img src="images/NussyDark.jpg" alt="Nussy Motorsport car under floodlights in the rain">
+          <figcaption class="i18n" data-en="Night Qualifying · Wet Conditions" data-de="Nachtqualifikation · Nasse Bedingungen">Night Qualifying · Wet Conditions</figcaption>
+        </figure>
+        <figure>
+          <img src="images/nussy199.jpg" alt="Nussy Motorsport car exiting a corner at night">
+          <figcaption class="i18n" data-en="#199 · Fighting for Position" data-de="#199 · Kampf um die Position">#199 · Fighting for Position</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="gallery-grid-static" id="galleryStatic">
       <figure class="panel-cut">
         <img src="images/nussynormal.jpg" alt="Nussy Motorsport car in the pit lane during a sunny race day">
         <figcaption class="i18n" data-en="Pit Lane · Race Day" data-de="Boxengasse · Renntag">Pit Lane · Race Day</figcaption>
@@ -564,29 +644,29 @@
 
 <section class="pillars">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head reveal-gsap">
       <div class="plate">
         <span class="i18n" data-en="Inside the Team" data-de="Im Team">Inside the Team</span>
       </div>
       <h2 class="i18n" data-en="Four crews. One garage." data-de="Vier Crews. Eine Box.">Four crews. One garage.</h2>
     </div>
-    <div class="pillar-grid reveal">
-      <div class="pillar">
+    <div class="pillar-grid">
+      <div class="pillar reveal-gsap">
         <div class="num">01</div>
         <h3 class="i18n" data-en="Drivers" data-de="Fahrer">Drivers</h3>
         <p class="i18n" data-en="A multi-class roster racing GT3, GT4 and prototype machinery across the world's leading endurance and sprint series." data-de="Ein Fahrerkader über mehrere Klassen hinweg — GT3, GT4 und Prototypen — in den führenden Endurance- und Sprintserien der Welt.">A multi-class roster racing GT3, GT4 and prototype machinery across the world's leading endurance and sprint series.</p>
       </div>
-      <div class="pillar">
+      <div class="pillar reveal-gsap">
         <div class="num">02</div>
         <h3 class="i18n" data-en="Engineers &amp; Strategy" data-de="Ingenieure &amp; Strategie">Engineers &amp; Strategy</h3>
         <p class="i18n" data-en="Setup work, stint planning and live race strategy, built with the same rigor as a real-world pit wall." data-de="Setup-Arbeit, Stint-Planung und Live-Strategie — mit derselben Präzision wie an einer echten Boxenmauer.">Setup work, stint planning and live race strategy, built with the same rigor as a real-world pit wall.</p>
       </div>
-      <div class="pillar">
+      <div class="pillar reveal-gsap">
         <div class="num">03</div>
         <h3 class="i18n" data-en="Media &amp; Content" data-de="Medien &amp; Content">Media &amp; Content</h3>
         <p class="i18n" data-en="Broadcast-quality highlights, livery design and storytelling that brings every race weekend to our fans." data-de="Highlights in Broadcast-Qualität, Liverydesign und Storytelling, das jedes Rennwochenende zu unseren Fans bringt.">Broadcast-quality highlights, livery design and storytelling that brings every race weekend to our fans.</p>
       </div>
-      <div class="pillar">
+      <div class="pillar reveal-gsap">
         <div class="num">04</div>
         <h3 class="i18n" data-en="Partnerships" data-de="Partnerschaften">Partnerships</h3>
         <p class="i18n" data-en="The people building the relationships that will carry this team from the sim rig onto a real kart track in 2027." data-de="Die Menschen, die die Beziehungen aufbauen, die dieses Team 2027 vom Simulator auf die echte Kartbahn bringen.">The people building the relationships that will carry this team from the sim rig onto a real kart track in 2027.</p>
@@ -597,7 +677,7 @@
 
 <section class="drivers" id="drivers">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head reveal-gsap">
       <div class="plate">
         <span class="i18n" data-en="The Roster" data-de="Das Aufgebot">The Roster</span>
       </div>
@@ -605,25 +685,19 @@
       <p>20+ members strong and growing. Here's a taste of who's behind the wheel.</p>
     </div>
 
-    <div class="driver-grid reveal">
+    <div class="driver-grid" id="driverGrid">
 
       <div class="driver-card">
-        <div class="photo panel-cut">
-          <img src="images/matt.jpeg" alt="Driver number 009">
-          <div class="num-badge">#009</div>
-        </div>
+        <div class="photo panel-cut"><img src="images/matt.jpeg" alt="Driver number 009"><div class="num-badge">#009</div></div>
         <div class="info">
           <h3>Matt Diaconu</h3>
           <div class="role">GT3 Pro Driver · Romania</div>
-          <p class="bio">Hi, I’m Matt Diaconu and I’m racing for NUSSY Motorsport we illustrate high levels of consistency such as my consistency of 99.28% in the last few league races at ASPL and am racing Endurance Racing in the GT3 class. Come on join me on this journey.</p>
+          <p class="bio">Hi, I'm Matt Diaconu and I'm racing for NUSSY Motorsport we illustrate high levels of consistency such as my consistency of 99.28% in the last few league races at ASPL and am racing Endurance Racing in the GT3 class. Come on join me on this journey.</p>
         </div>
       </div>
 
       <div class="driver-card">
-        <div class="photo panel-cut">
-          <img src="images/charlie.jpeg" alt="Driver number 13">
-          <div class="num-badge">#13</div>
-        </div>
+        <div class="photo panel-cut"><img src="images/charlie.jpeg" alt="Driver number 13"><div class="num-badge">#13</div></div>
         <div class="info">
           <h3>Charlie Backhouse</h3>
           <div class="role">GT3 Academy · United Kingdom</div>
@@ -632,367 +706,166 @@
       </div>
 
       <div class="driver-card">
-        <div class="photo panel-cut">
-          <img src="images/bells.png" alt="">
-          <div class="num-badge">Media</div>
-        </div>
+        <div class="photo panel-cut"><img src="images/bells.png" alt=""><div class="num-badge">Media</div></div>
         <div class="info">
           <h3>Bells</h3>
           <div class="role">Graphic &amp; Media Specialist / Social Media manager · United Kingdom</div>
           <p class="bio">:]</p>
         </div>
       </div>
-      <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/vlad.png" alt="Driver #11"> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">#11</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Vladyslav Holovanov</h3>
-    <!-- Rolle / Land -->
-    <div class="role">GT3 Specialist · Slovakia</div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-      Hi im Vladyslav Holovanov  I’m racing for Nussy team about me : GT3 driver from Slovakia. I specialize in Assetto Corsa Competizione, I'm constantly working to improve my pace, consistency, and racecraft while pushing towards professional- level performance. Every lap is another step closer to my goal of competing at the highest level. Join me on this journey.
 
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/Triggy.jpg" alt="Driver #77"> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">#77</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Darcy bernuetz</h3>
-    <!-- Rolle / Land -->
-    <div class="role">GT3 Specialist · Australia </div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-       karting and sim racer Driving for Nussy Motorsport on ACC
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/Jenson.png" alt="Driver #101"> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">#101</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Jenson mabbley</h3>
-    <!-- Rolle / Land -->
-    <div class="role">GT3 Academy · United Kingdom</div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-      Hello I’m Jenson mabbley I’m a driver for nussy motorsport check me out on TikTok jenson_sim |111 
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/vlad.png" alt="Driver #11"><div class="num-badge">#11</div></div>
+        <div class="info">
+          <h3>Vladyslav Holovanov</h3>
+          <div class="role">GT3 Specialist · Slovakia</div>
+          <p class="bio">Hi im Vladyslav Holovanov I'm racing for Nussy team about me: GT3 driver from Slovakia. I specialize in Assetto Corsa Competizione, I'm constantly working to improve my pace, consistency, and racecraft while pushing towards professional-level performance. Every lap is another step closer to my goal of competing at the highest level. Join me on this journey.</p>
+        </div>
+      </div>
 
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/alvaro.jpg" alt="Driver #20"> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">#20</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Álvaro Tortajada</h3>
-    <!-- Rolle / Land -->
-    <div class="role">F1 Specialist · Spain</div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-      Spanish F1 driver of Nussy, Valencia, and Umar Sadiq is the GOAT
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/Kirito.png" alt="Driver "> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">Management</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Kirito Akerman</h3>
-    <!-- Rolle / Land -->
-    <div class="role">Discord Systems Manager · Spain</div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-      Responsible for Discord management, bot configuration, permissions, server organization, and automation. Focused on creating a clean, efficient, and enjoyable experience for the entire community.
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/marek.png" alt="Driver #61"> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">#61</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Marek Bittner</h3>
-    <!-- Rolle / Land -->
-    <div class="role">GT3 Specialist · Czechia </div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-      15-year-old sim racer from Czechia, Racing in Assetto Corsa Competizione for nussy motorsport, F1, and Gran Turismo 7. Focused on clean racing, consistency, racecraft, and improving.
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/christopher.png" alt="Driver #42"> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">#95</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Christopher Lawrence Erwin</h3>
-    <!-- Rolle / Land -->
-    <div class="role">F1 Specialist · America</div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-      I love the new regulations
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/kayle.png" alt="Driver Media"> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">Media</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Kayley</h3>
-    <!-- Rolle / Land -->
-    <div class="role">Media Specialist · United Kingdom</div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-      hey, im Kayley and i am an small editor looking to build my audience and expand my editing skills  <3 
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/Triggy.jpg" alt="Driver #77"><div class="num-badge">#77</div></div>
+        <div class="info">
+          <h3>Darcy Bernuetz</h3>
+          <div class="role">GT3 Specialist · Australia</div>
+          <p class="bio">Karting and sim racer driving for Nussy Motorsport on ACC.</p>
+        </div>
+      </div>
 
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/zz.png" alt="Driver #42"> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">#24</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Szalontai Zalán Márk</h3>
-    <!-- Rolle / Land -->
-    <div class="role">F1 Specialist · Hungary</div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-      I am 13 years old young driver. I love Formula 1 and I've been playing Formula 1 games for 4 years.
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/chad.png" alt="Driver #199"> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">#199</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Chad Wilmott</h3>
-    <!-- Rolle / Land -->
-    <div class="role">GT3 Specialist, THE BEST NUSSY DRIVER · Jamaica</div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-      -Karting Driver🇯🇲🇹🇹 -esports driver 
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/ryan.png" alt="Driver #40"> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">#40</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Ryan Flack</h3>
-    <!-- Rolle / Land -->
-    <div class="role">GT3 Academy · United Kingdom</div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-       young racer thats committed to improving and having fun doing it
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/molnar.png" alt="Driver #97"> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">#97</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Máté Molnár</h3>
-    <!-- Rolle / Land -->
-    <div class="role">F1 Specialist · Hungary</div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-      I am Máté Molnár, a Hungarian Formula 1 sim racing driver representing Nussy Motorsport. I am constantly striving to improve my speed, consistency, and racecraft, always pushing myself to perform at the highest level.
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/Jenson.png" alt="Driver #101"><div class="num-badge">#101</div></div>
+        <div class="info">
+          <h3>Jenson Mabbley</h3>
+          <div class="role">GT3 Academy · United Kingdom</div>
+          <p class="bio">Hello I'm Jenson Mabbley, I'm a driver for Nussy Motorsport. Check me out on TikTok jenson_sim | 111.</p>
+        </div>
+      </div>
 
-For me, sim racing is more than just a hobby—it's a passion. Every race is an opportunity to learn, improve, and compete against the best. I believe that dedication, discipline, and hard work are the keys to success, and I aim to represent Nussy Motorsport with professionalism, respect, and determination both on and off the track.
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/alvaro.jpg" alt="Driver #20"><div class="num-badge">#20</div></div>
+        <div class="info">
+          <h3>Álvaro Tortajada</h3>
+          <div class="role">F1 Specialist · Spain</div>
+          <p class="bio">Spanish F1 driver of Nussy, Valencia, and Umar Sadiq is the GOAT.</p>
+        </div>
+      </div>
 
-My long-term goal is to establish myself as a top-level sim racer and compete successfully in both national and international championships.
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/Kirito.png" alt="Driver"><div class="num-badge">Management</div></div>
+        <div class="info">
+          <h3>Kirito Akerman</h3>
+          <div class="role">Discord Systems Manager · Spain</div>
+          <p class="bio">Responsible for Discord management, bot configuration, permissions, server organization, and automation. Focused on creating a clean, efficient, and enjoyable experience for the entire community.</p>
+        </div>
+      </div>
 
-"Every lap is another step towards becoming a better driver." 
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/connor.png" alt="Driver "> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">Management</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Connor Blacow</h3>
-    <!-- Rolle / Land -->
-    <div class="role">Managemnt part of nussy · United Kingdom</div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-      Once the COO of Nussy Cooperation, now an helping hand in management.
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/Vihaan.png" alt="Driver #64"> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">Media</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Vihaan Sisodia</h3>
-    <!-- Rolle / Land -->
-    <div class="role">Media Specialist · Switzerland</div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-       Video editor for Nussy Motorsport
-CrumbzzzF1 on TikTok
-@vihaan.vs13 on all socials
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/raphael.png" alt="Driver #16"> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">#16</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Raphael Delgado</h3>
-    <!-- Rolle / Land -->
-    <div class="role">F1 Specialist · USA</div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-      Our Strongest F1 Driver, i am trying to build up even more skill and compete in championships for nussy motorsport.
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/daniel.png" alt="Driver #42"> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">#93</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Daniel Gonzalez</h3>
-    <!-- Rolle / Land -->
-    <div class="role">F1 Specialist · Spain</div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-      One of the biggest legends in our team, hes part of an f1 pace and speed foundation. with an extreme pace and always good lap times he performs better then most.
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
- <!-- NEUER FAHRER START -->
-<div class="driver-card">
-  <div class="photo panel-cut">
-    <!-- Bildpfad hier anpassen -->
-    <img src="images/mrc.png" alt="Driver #42"> 
-    <!-- Startnummer hier anpassen -->
-    <div class="num-badge">#42</div>
-  </div>
-  <div class="info">
-    <!-- Name des Fahrers -->
-    <h3>Marco Baba</h3>
-    <!-- Rolle / Land -->
-    <div class="role">media Specialist · Germany</div>
-    <!-- Kurze Biografie / Beschreibung -->
-    <p class="bio">
-      Hi, I'm Marco, video editor for Nussy Motorsport's media team. I've been sim racing since early 2023 - starting with GT7 on PlayStation, then ACC, and for the last year exclusively LMU on PC. Since August 2025 I've been sharing my sim racing journey as mrcbaba on Instagram and Twitch, turning my passion for motorsport into edits, videos and live streams.
-    </p>
-  </div>
-</div>
-<!-- NEUER FAHRER ENDE -->
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/marek.png" alt="Driver #61"><div class="num-badge">#61</div></div>
+        <div class="info">
+          <h3>Marek Bittner</h3>
+          <div class="role">GT3 Specialist · Czechia</div>
+          <p class="bio">15-year-old sim racer from Czechia, racing in Assetto Corsa Competizione for Nussy Motorsport, F1, and Gran Turismo 7. Focused on clean racing, consistency, racecraft, and improving.</p>
+        </div>
+      </div>
+
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/christopher.png" alt="Driver #95"><div class="num-badge">#95</div></div>
+        <div class="info">
+          <h3>Christopher Lawrence Erwin</h3>
+          <div class="role">F1 Specialist · America</div>
+          <p class="bio">I love the new regulations.</p>
+        </div>
+      </div>
+
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/kayle.png" alt="Driver Media"><div class="num-badge">Media</div></div>
+        <div class="info">
+          <h3>Kayley</h3>
+          <div class="role">Media Specialist · United Kingdom</div>
+          <p class="bio">Hey, I'm Kayley and I am a small editor looking to build my audience and expand my editing skills. &lt;3</p>
+        </div>
+      </div>
+
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/zz.png" alt="Driver #24"><div class="num-badge">#24</div></div>
+        <div class="info">
+          <h3>Szalontai Zalán Márk</h3>
+          <div class="role">F1 Specialist · Hungary</div>
+          <p class="bio">I am 13 years old young driver. I love Formula 1 and I've been playing Formula 1 games for 4 years.</p>
+        </div>
+      </div>
+
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/chad.png" alt="Driver #199"><div class="num-badge">#199</div></div>
+        <div class="info">
+          <h3>Chad Wilmott</h3>
+          <div class="role">GT3 Specialist, THE BEST NUSSY DRIVER · Jamaica</div>
+          <p class="bio">Karting Driver 🇯🇲🇹🇹 · Esports driver.</p>
+        </div>
+      </div>
+
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/ryan.png" alt="Driver #40"><div class="num-badge">#40</div></div>
+        <div class="info">
+          <h3>Ryan Flack</h3>
+          <div class="role">GT3 Academy · United Kingdom</div>
+          <p class="bio">Young racer that's committed to improving and having fun doing it.</p>
+        </div>
+      </div>
+
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/molnar.png" alt="Driver #97"><div class="num-badge">#97</div></div>
+        <div class="info">
+          <h3>Máté Molnár</h3>
+          <div class="role">F1 Specialist · Hungary</div>
+          <p class="bio">I am Máté Molnár, a Hungarian Formula 1 sim racing driver representing Nussy Motorsport. I am constantly striving to improve my speed, consistency, and racecraft, always pushing myself to perform at the highest level. For me, sim racing is more than just a hobby — it's a passion. "Every lap is another step towards becoming a better driver."</p>
+        </div>
+      </div>
+
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/connor.png" alt="Driver"><div class="num-badge">Management</div></div>
+        <div class="info">
+          <h3>Connor Blacow</h3>
+          <div class="role">Management · United Kingdom</div>
+          <p class="bio">Once the COO of Nussy Cooperation, now a helping hand in management.</p>
+        </div>
+      </div>
+
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/Vihaan.png" alt="Driver Media"><div class="num-badge">Media</div></div>
+        <div class="info">
+          <h3>Vihaan Sisodia</h3>
+          <div class="role">Media Specialist · Switzerland</div>
+          <p class="bio">Video editor for Nussy Motorsport. CrumbzzzF1 on TikTok, @vihaan.vs13 on all socials.</p>
+        </div>
+      </div>
+
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/raphael.png" alt="Driver #16"><div class="num-badge">#16</div></div>
+        <div class="info">
+          <h3>Raphael Delgado</h3>
+          <div class="role">F1 Specialist · USA</div>
+          <p class="bio">Our strongest F1 driver, trying to build up even more skill and compete in championships for Nussy Motorsport.</p>
+        </div>
+      </div>
+
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/daniel.png" alt="Driver #93"><div class="num-badge">#93</div></div>
+        <div class="info">
+          <h3>Daniel Gonzalez</h3>
+          <div class="role">F1 Specialist · Spain</div>
+          <p class="bio">One of the biggest legends in our team, part of an F1 pace and speed foundation. With extreme pace and always good lap times, he performs better than most.</p>
+        </div>
+      </div>
+
+      <div class="driver-card">
+        <div class="photo panel-cut"><img src="images/mrc.png" alt="Driver #42"><div class="num-badge">#42</div></div>
+        <div class="info">
+          <h3>Marco Baba</h3>
+          <div class="role">Media Specialist · Germany</div>
+          <p class="bio">Hi, I'm Marco, video editor for Nussy Motorsport's media team. I've been sim racing since early 2023 — starting with GT7 on PlayStation, then ACC, and for the last year exclusively LMU on PC. Since August 2025 I've been sharing my sim racing journey as mrcbaba on Instagram and Twitch.</p>
+        </div>
+      </div>
 
     </div>
     <p class="driver-note">Driver bios are written once and shown as-is in every language.</p>
@@ -1001,7 +874,7 @@ CrumbzzzF1 on TikTok
 
 <section class="roadmap" id="roadmap">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head reveal-gsap">
       <div class="plate">
         <span class="i18n" data-en="The Journey" data-de="Die Reise">The Journey</span>
       </div>
@@ -1011,7 +884,9 @@ CrumbzzzF1 on TikTok
       </p>
     </div>
 
-    <div class="timeline reveal">
+    <div class="timeline" id="timeline">
+      <div class="timeline-rail"></div>
+      <div class="timeline-progress" id="timelineProgress"></div>
       <div class="t-item">
         <div class="t-year">2026</div>
         <h3 class="i18n" data-en="Founded" data-de="Gegründet">Founded</h3>
@@ -1032,7 +907,7 @@ CrumbzzzF1 on TikTok
 </section>
 
 <section class="join" id="join">
-  <div class="wrap reveal">
+  <div class="wrap reveal-gsap">
     <div class="plate">
       <span class="i18n" data-en="Recruitment" data-de="Rekrutierung">Recruitment</span>
     </div>
@@ -1044,7 +919,9 @@ CrumbzzzF1 on TikTok
       <span class="i18n" data-en="Content Creators" data-de="Content Creator">Content Creators</span>
       <span class="i18n" data-en="Sponsors &amp; Partners" data-de="Sponsoren &amp; Partner">Sponsors &amp; Partners</span>
     </div>
-    <a href="mailto:Support@nussymotorsport.de" class="btn btn-primary i18n" data-en="Get in Touch" data-de="Kontakt Aufnehmen">Get in Touch</a>
+    <span class="magnetic-wrap">
+      <a href="mailto:Support@nussymotorsport.de" class="btn btn-primary i18n magnetic" data-en="Get in Touch" data-de="Kontakt Aufnehmen">Get in Touch</a>
+    </span>
   </div>
 </section>
 
@@ -1083,80 +960,286 @@ CrumbzzzF1 on TikTok
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 <script>
-  // Language Switcher
-  let currentLang = 'en';
-  function setLang(lang) {
+(function(){
+  "use strict";
+
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
+  if (hasGsap) gsap.registerPlugin(ScrollTrigger);
+
+  /* ============ LANGUAGE SWITCH ============ */
+  var currentLang = 'en';
+  function applyLang(lang) {
+    document.querySelectorAll('.i18n').forEach(function(el){
+      var text = el.getAttribute('data-' + lang);
+      if (text) el.innerHTML = text;
+    });
+    splitHeroLines();
+  }
+  window.setLang = function(lang) {
     currentLang = lang;
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     document.getElementById('btn-de').classList.toggle('active', lang === 'de');
-    
-    document.querySelectorAll('.i18n').forEach(el => {
-      const text = el.getAttribute(`data-${lang}`);
-      if (text) el.innerHTML = text;
+    applyLang(lang);
+    if (hasGsap) {
+      clearTimeout(window.__stRefresh);
+      window.__stRefresh = setTimeout(function(){ ScrollTrigger.refresh(); }, 120);
+    }
+  };
+
+  /* ============ HERO WORD SPLIT ============ */
+  function splitHeroLines() {
+    document.querySelectorAll('.hero h1 .line').forEach(function(lineEl){
+      var text = lineEl.getAttribute('data-' + currentLang) || lineEl.textContent;
+      var words = text.trim().split(/\s+/);
+      lineEl.innerHTML = words.map(function(w){
+        return '<span class="word"><span class="word-inner">' + w + '</span></span>';
+      }).join(' ');
     });
   }
+  splitHeroLines();
 
-  // Header Scroll State
-  const header = document.getElementById('siteHeader');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
+  /* ============ MOBILE MENU ============ */
+  var burgerBtn = document.getElementById('burgerBtn');
+  var navList = document.getElementById('navList');
+  var menuOpen = false;
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+    navList.classList.toggle('open', menuOpen);
+    burgerBtn.classList.toggle('active', menuOpen);
+    document.body.classList.toggle('menu-open', menuOpen);
+    burgerBtn.setAttribute('aria-expanded', String(menuOpen));
+    if (hasGsap && menuOpen) {
+      gsap.fromTo(navList.querySelectorAll('li'),
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: .5, stagger: .06, ease: 'power3.out', delay: .1 });
     }
+  }
+  burgerBtn.addEventListener('click', toggleMenu);
+  navList.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ if (menuOpen) toggleMenu(); });
   });
 
-  // Ticker Content Setup
-  const tickerItems = [
+  /* ============ HEADER SCROLL STATE + PROGRESS BAR ============ */
+  var header = document.getElementById('siteHeader');
+  var progressBar = document.getElementById('scrollProgress');
+  function updateChrome() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    header.classList.toggle('scrolled', scrollTop > 50);
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+  }
+  window.addEventListener('scroll', updateChrome, { passive: true });
+  updateChrome();
+
+  /* ============ TICKER CONTENT ============ */
+  var tickerItems = [
     "<b>20+</b> TEAM MEMBERS",
     "<b>GT3 &amp; PROTO</b> CHAMPIONSHIPS",
     "<b>TARGET 2027:</b> REAL KARTING GRID",
     "<b>ONE LIVERY</b> ONE FAMILY",
     "<b>24H</b> ENDURANCE SPECIALISTS"
   ];
-  const tickerRow = document.getElementById('tickerRow');
-  const fullContent = tickerItems.map(item => `<span>${item}</span>`).join('') ;
-  tickerRow.innerHTML = fullContent + fullContent + fullContent; // Repeat for smooth loop
+  var tickerRow = document.getElementById('tickerRow');
+  var fullContent = tickerItems.map(function(item){ return '<span>' + item + '</span>'; }).join('');
+  tickerRow.innerHTML = fullContent + fullContent + fullContent;
 
-  // Counter Animation
-  const counters = document.querySelectorAll('.num[data-count]');
-  let animated = false;
-
+  /* ============ COUNTERS ============ */
   function runCounters() {
-    counters.forEach(counter => {
-      const target = +counter.getAttribute('data-count');
-      const suffix = counter.getAttribute('data-suffix') || '';
-      let count = 0;
-      const speed = target / 50;
-      
-      const update = () => {
-        count += speed;
-        if (count < target) {
-          counter.innerText = Math.ceil(count) + suffix;
-          setTimeout(update, 30);
-        } else {
-          counter.innerText = target + suffix;
-        }
-      };
-      update();
+    document.querySelectorAll('.hero-stats .num[data-count]').forEach(function(counter){
+      var target = +counter.getAttribute('data-count');
+      var suffix = counter.getAttribute('data-suffix') || '';
+      var obj = { val: 0 };
+      if (hasGsap && !reducedMotion) {
+        gsap.to(obj, {
+          val: target, duration: 1.6, ease: 'power2.out',
+          onUpdate: function(){ counter.textContent = Math.round(obj.val) + suffix; }
+        });
+      } else {
+        counter.textContent = target + suffix;
+      }
     });
   }
 
-  // Scroll Reveal Animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in');
-        if (!animated && entry.target.classList.contains('hero-content')) {
-          animated = true;
-          runCounters();
-        }
+  /* ============ MAGNETIC BUTTONS ============ */
+  if (!reducedMotion && hasGsap && matchMedia('(hover:hover)').matches) {
+    document.querySelectorAll('.magnetic').forEach(function(btn){
+      btn.addEventListener('mousemove', function(e){
+        var r = btn.getBoundingClientRect();
+        var x = e.clientX - r.left - r.width / 2;
+        var y = e.clientY - r.top - r.height / 2;
+        gsap.to(btn, { x: x * 0.25, y: y * 0.5, duration: .4, ease: 'power3.out' });
+      });
+      btn.addEventListener('mouseleave', function(){
+        gsap.to(btn, { x: 0, y: 0, duration: .5, ease: 'elastic.out(1, 0.4)' });
+      });
+    });
+  }
+
+  /* ============ PRELOADER + INTRO TIMELINE ============ */
+  function playIntro() {
+    document.body.classList.remove('loading');
+    if (!hasGsap) { runCounters(); return; }
+
+    var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.to('.preloader img', { opacity: 1, scale: 1, duration: .5 })
+      .to('.preloader', { yPercent: -100, duration: .9, ease: 'expo.inOut', delay: .25 })
+      .set('.preloader', { display: 'none' })
+      .to('.hero .plate', { opacity: 1, y: 0, duration: .6 }, '-=0.5')
+      .to('.hero .word-inner', { yPercent: -115, duration: 1, stagger: .04, ease: 'expo.out' }, '-=0.35')
+      .to('.hero .sub', { opacity: 1, y: 0, duration: .7 }, '-=0.6')
+      .to('.hero-cta', { opacity: 1, y: 0, duration: .7 }, '-=0.5')
+      .to('.hero-stats', { opacity: 1, y: 0, duration: .7, onStart: runCounters }, '-=0.5')
+      .to('#scrollCue', { opacity: 1, duration: .6 }, '-=0.3');
+  }
+
+  /* ============ LENIS SMOOTH SCROLL ============ */
+  var lenis = null;
+  if (!reducedMotion && typeof Lenis !== 'undefined') {
+    try {
+      lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+      lenis.on('scroll', function(){ if (hasGsap) ScrollTrigger.update(); });
+      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+      if (hasGsap) {
+        gsap.ticker.add(function(time){ lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
+      }
+    } catch (e) { lenis = null; }
+  } else {
+    document.documentElement.classList.add('no-lenis');
+  }
+
+  /* ============ SCROLL-DRIVEN ANIMATIONS ============ */
+  if (hasGsap) {
+    // Generic reveal-on-scroll for batched elements
+    ScrollTrigger.batch('.reveal-gsap', {
+      start: 'top 88%',
+      onEnter: function(batch){
+        gsap.to(batch, { opacity: 1, y: 0, duration: .9, stagger: .12, ease: 'power3.out', overwrite: true });
+      },
+      once: true
+    });
+
+    ScrollTrigger.batch('.pillar', {
+      start: 'top 90%',
+      onEnter: function(batch){
+        gsap.to(batch, { opacity: 1, y: 0, duration: .8, stagger: .1, ease: 'power3.out' });
+      },
+      once: true
+    });
+    gsap.set('.pillar', { opacity: 0, y: 30 });
+
+    ScrollTrigger.batch('.driver-card', {
+      start: 'top 92%',
+      onEnter: function(batch){
+        gsap.to(batch, { opacity: 1, y: 0, duration: .7, stagger: .08, ease: 'power3.out' });
+        batch.forEach(function(card){
+          var img = card.querySelector('.photo img');
+          if (img) gsap.to(img, { clipPath: 'inset(0 0 0% 0)', duration: 1.1, ease: 'power4.inOut' });
+        });
+      },
+      once: true
+    });
+
+    // Timeline draw + dot pop
+    gsap.to('#timelineProgress', {
+      height: '100%', ease: 'none',
+      scrollTrigger: { trigger: '#timeline', start: 'top 65%', end: 'bottom 75%', scrub: .6 }
+    });
+    ScrollTrigger.batch('.t-item', {
+      start: 'top 80%',
+      onEnter: function(batch){
+        gsap.to(batch, { opacity: 1, y: 0, duration: .7, stagger: .15, ease: 'power3.out' });
+        batch.forEach(function(item, i){
+          gsap.delayedCall(.2 + i * .15, function(){ item.classList.add('dot-in'); });
+        });
+      },
+      once: true
+    });
+
+    gsap.matchMedia().add({
+      isDesktop: '(min-width: 901px)',
+      isMobile: '(max-width: 900px)',
+      reduced: '(prefers-reduced-motion: reduce)'
+    }, function(ctx){
+      var isDesktop = ctx.conditions.isDesktop;
+      var reduced = ctx.conditions.reduced;
+
+      // Hero parallax
+      if (!reduced) {
+        gsap.to('#heroBg', {
+          yPercent: 14, ease: 'none',
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+        });
+      }
+
+      // About media reveal
+      gsap.fromTo('#aboutMedia img',
+        { scale: 1.14 },
+        { scale: 1, ease: 'none',
+          scrollTrigger: { trigger: '#aboutMedia', start: 'top 90%', end: 'bottom 30%', scrub: .6 } });
+
+      if (isDesktop && !reduced) {
+        // Family pinned big statement
+        gsap.set('.family blockquote, .family cite', { opacity: .35, y: 24 });
+        var famTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '.family', start: 'top top', end: '+=90%', scrub: .6, pin: true, anticipatePin: 1
+          }
+        });
+        famTl.to('.family blockquote', { opacity: 1, y: 0, ease: 'power1.out' }, 0)
+             .to('.family cite', { opacity: 1, y: 0, ease: 'power1.out' }, 0.15)
+             .to('#familyBg', { scale: 1.15, ease: 'none' }, 0);
+
+        // Team horizontal pin gallery
+        var track = document.getElementById('scrollTrack');
+        var imagesEl = document.getElementById('scrollImages');
+        document.getElementById('galleryStatic').style.display = 'none';
+        track.style.display = 'block';
+
+        ScrollTrigger.create({
+          trigger: track,
+          start: 'top top',
+          end: function(){ return '+=' + (imagesEl.scrollWidth); },
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: function(self){
+            var maxX = imagesEl.scrollWidth - window.innerWidth + 64;
+            gsap.set(imagesEl, { x: -self.progress * maxX });
+          }
+        });
+      } else {
+        // Mobile / reduced-motion fallback: static grid, no pin
+        var track2 = document.getElementById('scrollTrack');
+        if (track2) track2.style.display = 'none';
+        var gStatic = document.getElementById('galleryStatic');
+        if (gStatic) gStatic.style.display = 'grid';
       }
     });
-  }, { threshold: 0.1 });
+  }
 
-  document.querySelectorAll('.reveal, .hero-content').forEach(el => observer.observe(el));
+  /* ============ BOOT ============ */
+  function boot(){
+    setTimeout(playIntro, reducedMotion ? 0 : 250);
+    if (hasGsap) setTimeout(function(){ ScrollTrigger.refresh(); }, 400);
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    boot();
+  } else {
+    document.addEventListener('DOMContentLoaded', boot);
+  }
+  window.addEventListener('load', function(){
+    if (hasGsap) ScrollTrigger.refresh();
+  });
+})();
 </script>
 </body>
 </html>
