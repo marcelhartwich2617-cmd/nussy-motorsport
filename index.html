@@ -147,20 +147,23 @@
     overflow:hidden;color:var(--white);text-align:center;padding:140px 0 60px;
   }
   .hero-bg{
-    position:absolute;inset:-10% 0 0 0;height:120%;z-index:0;
+    position:absolute;inset:-20% 0 0 0;height:145%;z-index:0;
     background:url('images/nussynormal.jpg') center/cover no-repeat;
     filter: brightness(0.38) contrast(1.12) saturate(1.05);
     will-change:transform;
+    transform-origin:center top;
   }
   .hero-scrim{
     position:absolute;inset:0;z-index:1;
     background:
       radial-gradient(circle at center, rgba(11,26,16,0.5) 0%, rgba(11,13,12,0.95) 100%),
       linear-gradient(180deg, rgba(11,13,12,0.6) 0%, rgba(11,13,12,1) 100%);
+    will-change:opacity;
   }
   .hero-content{
     position:relative;z-index:2;max-width:900px;margin:0 auto;
     display:flex;flex-direction:column;align-items:center;
+    will-change:transform,opacity;transform-origin:center 30%;
   }
   .hero .plate{ margin-bottom:30px; opacity:0; transform:translateY(20px); }
   .hero h1{
@@ -268,15 +271,17 @@
   .section-head p{margin-top:18px;font-size:17px;line-height:1.65;color:#555;}
 
   /* Generic scroll reveal (GSAP-driven) */
-  .reveal-gsap{ opacity:0; transform:translateY(36px); will-change:transform,opacity; }
+  .reveal-gsap{ opacity:0; transform:translateY(70px) scale(.96); will-change:transform,opacity; }
+  .reveal-left{ opacity:0; transform:translateX(-90px); will-change:transform,opacity; }
 
   /* About */
   .about{background:var(--fog);}
-  .about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:76px;align-items:center;}
-  .about-copy p{font-size:16.5px;line-height:1.8;color:#444;margin-bottom:20px;}
+  .about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:76px;align-items:start;}
+  .about-copy{ padding:16vh 0 46vh; }
+  .about-copy p{font-size:16.5px;line-height:1.8;color:#444;margin-bottom:34px;}
   .about-copy p strong{color:var(--ink);font-weight:600;}
-  .about-media{position:relative;box-shadow:var(--shadow);overflow:hidden;border-radius:16px;}
-  .about-media img{ transform:scale(1.14); will-change:transform; }
+  .about-media{position:relative;box-shadow:var(--shadow);overflow:hidden;border-radius:16px;will-change:transform;}
+  .about-media img{ transform:scale(1.45) rotate(2deg); will-change:transform; }
   .about-media .tag{
     position:absolute;bottom:20px;left:20px;z-index:3;
     background:rgba(11,13,12,0.85);backdrop-filter:blur(10px);
@@ -297,7 +302,7 @@
     opacity: 0.28; filter: grayscale(1);
     transform:scale(1);will-change:transform;
   }
-  .family-inner{position:relative;z-index:2;max-width:880px;margin:0 auto;padding:0 32px;}
+  .family-inner{position:relative;z-index:2;max-width:880px;margin:0 auto;padding:0 32px;will-change:transform,opacity,filter;}
   .family blockquote{
     font-family:var(--display);font-size:clamp(28px,4.4vw,52px);
     font-weight:500;text-transform:none;line-height:1.3;
@@ -311,11 +316,12 @@
   /* Team horizontal pin gallery */
   .team-section{padding-bottom:0;}
   .scroll-track{ position:relative; }
-  .scroll-pin{ height:100vh; display:flex; align-items:center; overflow:hidden; }
+  .scroll-pin{ height:100vh; display:flex; align-items:center; overflow:hidden; perspective:1600px; }
   .scroll-images{ display:flex; gap:32px; width:max-content; padding:0 8vw; will-change:transform; }
   .scroll-images figure{
     position:relative; flex:none; width:min(78vw,760px); height:58vh;
     border-radius:18px; overflow:hidden; box-shadow:var(--shadow);
+    will-change:transform; transform-style:preserve-3d;
   }
   .scroll-images img{ width:100%; height:100%; object-fit:cover; }
   .scroll-images figcaption{
@@ -356,7 +362,7 @@
     border-radius:12px;overflow:hidden;
     border:1px solid var(--line-light);
     transition: transform .3s ease, box-shadow .3s ease;
-    opacity:0;transform:translateY(30px);
+    opacity:0;
   }
   .driver-card:hover{ transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
   .driver-card .photo{height:260px;position:relative;overflow:hidden;}
@@ -385,7 +391,7 @@
   .timeline{position:relative;padding-left:48px;}
   .timeline-rail{ position:absolute;left:9px;top:8px;bottom:8px;width:1px;background:var(--line); }
   .timeline-progress{ position:absolute;left:9px;top:8px;width:1px;height:0%;background:var(--accent);box-shadow:0 0 8px var(--accent-glow); }
-  .t-item{position:relative;padding-bottom:56px;opacity:0;transform:translateY(20px);}
+  .t-item{position:relative;padding-bottom:56px;opacity:0;}
   .t-item:last-child{padding-bottom:0;}
   .t-item::before{
     content:'';position:absolute;left:-48px;top:6px;width:12px;height:12px;
@@ -566,17 +572,17 @@
     </div>
     <div class="about-grid">
       <div class="about-copy">
-        <p class="reveal-gsap i18n" data-en="Nussy Motorsport was founded in 2026 — not as a business plan, but as a group of sim racers who trusted each other on track and off it. That trust is still the foundation of everything we do." data-de="Nussy Motorsport wurde 2026 gegründet — nicht als Businessplan, sondern als eine Gruppe von Sim-Racern, die sich auf und abseits der Strecke vertraut haben. Dieses Vertrauen ist bis heute das Fundament von allem, was wir tun.">
+        <p class="reveal-left i18n" data-en="Nussy Motorsport was founded in 2026 — not as a business plan, but as a group of sim racers who trusted each other on track and off it. That trust is still the foundation of everything we do." data-de="Nussy Motorsport wurde 2026 gegründet — nicht als Businessplan, sondern als eine Gruppe von Sim-Racern, die sich auf und abseits der Strecke vertraut haben. Dieses Vertrauen ist bis heute das Fundament von allem, was wir tun.">
           Nussy Motorsport was founded in 2026 — not as a business plan, but as a group of sim racers who trusted each other on track and off it. That trust is still the foundation of everything we do.
         </p>
-        <p class="reveal-gsap i18n" data-en="Today we're an <strong>international roster of 20+ members</strong> — drivers, race engineers, strategists, media producers and partnership leads — competing in premier endurance and GT esports championships, on the same simulators used by real-world race teams." data-de="Heute sind wir ein <strong>internationales Team mit über 20 Mitgliedern</strong> — Fahrer, Renningenieure, Strategen, Medienschaffende und Partnerschaftsverantwortliche — die in erstklassigen Endurance- und GT-Esports-Meisterschaften an den Start gehen, auf denselben Simulatoren, die auch echte Rennteams nutzen.">
+        <p class="reveal-left i18n" data-en="Today we're an <strong>international roster of 20+ members</strong> — drivers, race engineers, strategists, media producers and partnership leads — competing in premier endurance and GT esports championships, on the same simulators used by real-world race teams." data-de="Heute sind wir ein <strong>internationales Team mit über 20 Mitgliedern</strong> — Fahrer, Renningenieure, Strategen, Medienschaffende und Partnerschaftsverantwortliche — die in erstklassigen Endurance- und GT-Esports-Meisterschaften an den Start gehen, auf denselben Simulatoren, die auch echte Rennteams nutzen.">
           Today we're an <strong>international roster of 20+ members</strong> — drivers, race engineers, strategists, media producers and partnership leads — competing in premier endurance and GT esports championships, on the same simulators used by real-world race teams.
         </p>
-        <p class="reveal-gsap i18n" data-en="Our next chapter takes that same discipline off the screen: a structured pathway that puts our drivers behind the wheel of a real kart in 2027. Same team. Same green. Real tarmac." data-de="Unser nächstes Kapitel bringt genau diese Disziplin von der Simulation auf die echte Strecke: ein strukturierter Weg, der unsere Fahrer 2027 ins echte Kart setzt. Gleiches Team. Gleiches Grün. Echter Asphalt.">
+        <p class="reveal-left i18n" data-en="Our next chapter takes that same discipline off the screen: a structured pathway that puts our drivers behind the wheel of a real kart in 2027. Same team. Same green. Real tarmac." data-de="Unser nächstes Kapitel bringt genau diese Disziplin von der Simulation auf die echte Strecke: ein strukturierter Weg, der unsere Fahrer 2027 ins echte Kart setzt. Gleiches Team. Gleiches Grün. Echter Asphalt.">
           Our next chapter takes that same discipline off the screen: a structured pathway that puts our drivers behind the wheel of a real kart in 2027. Same team. Same green. Real tarmac.
         </p>
       </div>
-      <div class="about-media panel-cut reveal-gsap" id="aboutMedia">
+      <div class="about-media panel-cut" id="aboutMedia">
         <img src="images/Mercedes.png" alt="Nussy Motorsport Mercedes-AMG GT3 on track">
         <div class="tag">#9 · PRO CLASS</div>
       </div>
@@ -651,22 +657,22 @@
       <h2 class="i18n" data-en="Four crews. One garage." data-de="Vier Crews. Eine Box.">Four crews. One garage.</h2>
     </div>
     <div class="pillar-grid">
-      <div class="pillar reveal-gsap">
+      <div class="pillar">
         <div class="num">01</div>
         <h3 class="i18n" data-en="Drivers" data-de="Fahrer">Drivers</h3>
         <p class="i18n" data-en="A multi-class roster racing GT3, GT4 and prototype machinery across the world's leading endurance and sprint series." data-de="Ein Fahrerkader über mehrere Klassen hinweg — GT3, GT4 und Prototypen — in den führenden Endurance- und Sprintserien der Welt.">A multi-class roster racing GT3, GT4 and prototype machinery across the world's leading endurance and sprint series.</p>
       </div>
-      <div class="pillar reveal-gsap">
+      <div class="pillar">
         <div class="num">02</div>
         <h3 class="i18n" data-en="Engineers &amp; Strategy" data-de="Ingenieure &amp; Strategie">Engineers &amp; Strategy</h3>
         <p class="i18n" data-en="Setup work, stint planning and live race strategy, built with the same rigor as a real-world pit wall." data-de="Setup-Arbeit, Stint-Planung und Live-Strategie — mit derselben Präzision wie an einer echten Boxenmauer.">Setup work, stint planning and live race strategy, built with the same rigor as a real-world pit wall.</p>
       </div>
-      <div class="pillar reveal-gsap">
+      <div class="pillar">
         <div class="num">03</div>
         <h3 class="i18n" data-en="Media &amp; Content" data-de="Medien &amp; Content">Media &amp; Content</h3>
         <p class="i18n" data-en="Broadcast-quality highlights, livery design and storytelling that brings every race weekend to our fans." data-de="Highlights in Broadcast-Qualität, Liverydesign und Storytelling, das jedes Rennwochenende zu unseren Fans bringt.">Broadcast-quality highlights, livery design and storytelling that brings every race weekend to our fans.</p>
       </div>
-      <div class="pillar reveal-gsap">
+      <div class="pillar">
         <div class="num">04</div>
         <h3 class="i18n" data-en="Partnerships" data-de="Partnerschaften">Partnerships</h3>
         <p class="i18n" data-en="The people building the relationships that will carry this team from the sim rig onto a real kart track in 2027." data-de="Die Menschen, die die Beziehungen aufbauen, die dieses Team 2027 vom Simulator auf die echte Kartbahn bringen.">The people building the relationships that will carry this team from the sim rig onto a real kart track in 2027.</p>
@@ -1117,47 +1123,82 @@
 
   /* ============ SCROLL-DRIVEN ANIMATIONS ============ */
   if (hasGsap) {
-    // Generic reveal-on-scroll for batched elements
+    // Generic reveal-on-scroll for batched elements — big travel, no timid fades
     ScrollTrigger.batch('.reveal-gsap', {
       start: 'top 88%',
       onEnter: function(batch){
-        gsap.to(batch, { opacity: 1, y: 0, duration: .9, stagger: .12, ease: 'power3.out', overwrite: true });
+        gsap.to(batch, { opacity: 1, y: 0, scale: 1, duration: 1.1, stagger: .14, ease: 'power4.out', overwrite: true });
       },
       once: true
     });
 
-    ScrollTrigger.batch('.pillar', {
+    // About copy — big diagonal slide-in per paragraph
+    ScrollTrigger.batch('.reveal-left', {
       start: 'top 90%',
       onEnter: function(batch){
-        gsap.to(batch, { opacity: 1, y: 0, duration: .8, stagger: .1, ease: 'power3.out' });
+        gsap.to(batch, { opacity: 1, x: 0, duration: 1, stagger: .18, ease: 'power4.out' });
       },
       once: true
     });
-    gsap.set('.pillar', { opacity: 0, y: 30 });
 
-    ScrollTrigger.batch('.driver-card', {
+    // Pillars — alternate big slide-in from left/right with a tilt that settles
+    var pillars = gsap.utils.toArray('.pillar');
+    pillars.forEach(function(p, i){
+      var fromLeft = i % 2 === 0;
+      gsap.set(p, { opacity: 0, x: fromLeft ? -140 : 140, rotate: fromLeft ? -6 : 6, scale: .88 });
+    });
+    ScrollTrigger.batch(pillars, {
+      start: 'top 90%',
+      onEnter: function(batch){
+        gsap.to(batch, { opacity: 1, x: 0, rotate: 0, scale: 1, duration: 1.1, stagger: .12, ease: 'back.out(1.5)', clearProps: 'transform' });
+      },
+      once: true
+    });
+
+    // Driver cards — big rise + alternating tilt + directional clip-path wipe
+    var driverCards = gsap.utils.toArray('.driver-card');
+    driverCards.forEach(function(card, i){
+      gsap.set(card, { opacity: 0, y: 130, scale: .8, rotate: i % 2 === 0 ? -3 : 3 });
+      var img = card.querySelector('.photo img');
+      if (img) {
+        var fromLeftClip = i % 3 === 0;
+        var fromBottomClip = i % 3 === 1;
+        gsap.set(img, {
+          clipPath: fromBottomClip ? 'inset(0 0 100% 0)' : fromLeftClip ? 'inset(0 100% 0 0)' : 'inset(0 0 0 100%)',
+          scale: 1.25
+        });
+      }
+    });
+    ScrollTrigger.batch(driverCards, {
       start: 'top 92%',
       onEnter: function(batch){
-        gsap.to(batch, { opacity: 1, y: 0, duration: .7, stagger: .08, ease: 'power3.out' });
+        gsap.to(batch, { opacity: 1, y: 0, scale: 1, rotate: 0, duration: .9, stagger: .09, ease: 'power4.out', clearProps: 'transform' });
         batch.forEach(function(card){
           var img = card.querySelector('.photo img');
-          if (img) gsap.to(img, { clipPath: 'inset(0 0 0% 0)', duration: 1.1, ease: 'power4.inOut' });
+          if (img) {
+            gsap.to(img, { clipPath: 'inset(0 0 0 0)', duration: 1.3, ease: 'power4.inOut' });
+            gsap.to(img, { scale: 1, duration: 1.6, ease: 'power3.out' });
+          }
         });
       },
       once: true
     });
 
-    // Timeline draw + dot pop
+    // Timeline draw + dot pop, alternating slide-in per milestone
     gsap.to('#timelineProgress', {
       height: '100%', ease: 'none',
-      scrollTrigger: { trigger: '#timeline', start: 'top 65%', end: 'bottom 75%', scrub: .6 }
+      scrollTrigger: { trigger: '#timeline', start: 'top 75%', end: 'bottom 60%', scrub: .6 }
     });
-    ScrollTrigger.batch('.t-item', {
+    var tItems = gsap.utils.toArray('.t-item');
+    tItems.forEach(function(item, i){
+      gsap.set(item, { opacity: 0, x: i % 2 === 0 ? -100 : 100 });
+    });
+    ScrollTrigger.batch(tItems, {
       start: 'top 80%',
       onEnter: function(batch){
-        gsap.to(batch, { opacity: 1, y: 0, duration: .7, stagger: .15, ease: 'power3.out' });
+        gsap.to(batch, { opacity: 1, x: 0, duration: .9, stagger: .18, ease: 'power4.out' });
         batch.forEach(function(item, i){
-          gsap.delayedCall(.2 + i * .15, function(){ item.classList.add('dot-in'); });
+          gsap.delayedCall(.25 + i * .18, function(){ item.classList.add('dot-in'); });
         });
       },
       once: true
@@ -1171,42 +1212,75 @@
       var isDesktop = ctx.conditions.isDesktop;
       var reduced = ctx.conditions.reduced;
 
-      // Hero parallax
+      // Hero — deep parallax + pinned "curtain" exit: content zooms/dives away
+      // as the next section rises over it, instead of just scrolling past.
       if (!reduced) {
         gsap.to('#heroBg', {
-          yPercent: 14, ease: 'none',
+          yPercent: 30, scale: 1.28, ease: 'none',
           scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
         });
+
+        if (isDesktop) {
+          gsap.timeline({
+            scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=70%', scrub: .7, pin: true, anticipatePin: 1 }
+          })
+          .to('.hero-content', { scale: .78, y: -60, opacity: 0, filter: 'blur(6px)', ease: 'power2.in' }, 0)
+          .to('.hero-scrim', { opacity: 0.35, ease: 'none' }, 0)
+          .to('#scrollCue', { opacity: 0, ease: 'none' }, 0);
+        }
       }
 
-      // About media reveal
-      gsap.fromTo('#aboutMedia img',
-        { scale: 1.14 },
-        { scale: 1, ease: 'none',
-          scrollTrigger: { trigger: '#aboutMedia', start: 'top 90%', end: 'bottom 30%', scrub: .6 } });
+      // About — sticky media: image pins beside the scrolling copy and
+      // dramatically de-zooms/straightens as the reader moves through the text.
+      if (isDesktop) {
+        var aboutEnd = function(){
+          var copyEl = document.querySelector('.about-copy');
+          var extra = copyEl.offsetHeight - window.innerHeight + 200;
+          return '+=' + Math.max(extra, 500);
+        };
+        gsap.fromTo('#aboutMedia img',
+          { scale: 1.45, rotate: 2 },
+          { scale: 1, rotate: 0, ease: 'none',
+            scrollTrigger: { trigger: '.about-copy', start: 'top 100px', end: aboutEnd, scrub: .7, invalidateOnRefresh: true } });
+        ScrollTrigger.create({
+          trigger: '.about-copy',
+          start: 'top 100px',
+          end: aboutEnd,
+          pin: '#aboutMedia',
+          pinSpacing: false,
+          invalidateOnRefresh: true
+        });
+      } else {
+        gsap.fromTo('#aboutMedia img',
+          { scale: 1.3 },
+          { scale: 1, ease: 'none',
+            scrollTrigger: { trigger: '#aboutMedia', start: 'top 90%', end: 'bottom 40%', scrub: .6 } });
+      }
 
       if (isDesktop && !reduced) {
-        // Family pinned big statement
-        gsap.set('.family blockquote, .family cite', { opacity: .35, y: 24 });
+        // Family pinned big statement — deep scale/blur build, longer hold
+        gsap.set('.family-inner', { opacity: 0, scale: .55, y: 60, filter: 'blur(14px)' });
         var famTl = gsap.timeline({
           scrollTrigger: {
-            trigger: '.family', start: 'top top', end: '+=90%', scrub: .6, pin: true, anticipatePin: 1
+            trigger: '.family', start: 'top top', end: '+=130%', scrub: .6, pin: true, anticipatePin: 1
           }
         });
-        famTl.to('.family blockquote', { opacity: 1, y: 0, ease: 'power1.out' }, 0)
-             .to('.family cite', { opacity: 1, y: 0, ease: 'power1.out' }, 0.15)
-             .to('#familyBg', { scale: 1.15, ease: 'none' }, 0);
+        famTl.to('.family-inner', { opacity: 1, scale: 1, y: 0, filter: 'blur(0px)', ease: 'power1.inOut', duration: .7 }, 0)
+             .to('#familyBg', { scale: 1.35, ease: 'none', duration: 1 }, 0)
+             .to('.family-inner', { scale: 1.08, ease: 'power1.in', duration: .3 }, .7);
 
-        // Team horizontal pin gallery
+        // Team horizontal pin gallery — images scale/tilt through 3D space
+        // as they pass, instead of a flat side-scroll.
         var track = document.getElementById('scrollTrack');
         var imagesEl = document.getElementById('scrollImages');
+        var figures = gsap.utils.toArray('#scrollImages figure');
         document.getElementById('galleryStatic').style.display = 'none';
         track.style.display = 'block';
 
         ScrollTrigger.create({
           trigger: track,
           start: 'top top',
-          end: function(){ return '+=' + (imagesEl.scrollWidth); },
+          end: function(){ return '+=' + (imagesEl.scrollWidth * 1.15); },
           pin: true,
           scrub: 1,
           anticipatePin: 1,
@@ -1214,6 +1288,18 @@
           onUpdate: function(self){
             var maxX = imagesEl.scrollWidth - window.innerWidth + 64;
             gsap.set(imagesEl, { x: -self.progress * maxX });
+            var centerX = window.innerWidth / 2;
+            figures.forEach(function(fig){
+              var r = fig.getBoundingClientRect();
+              var figCenter = r.left + r.width / 2;
+              var dist = (figCenter - centerX) / centerX; // -1..1 roughly
+              var clamped = Math.max(-1, Math.min(1, dist));
+              gsap.set(fig, {
+                scale: 1 - Math.abs(clamped) * 0.22,
+                rotateY: clamped * -22,
+                opacity: 1 - Math.abs(clamped) * 0.35
+              });
+            });
           }
         });
       } else {
