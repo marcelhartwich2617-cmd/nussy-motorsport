@@ -73,7 +73,7 @@
   .btn-dark:hover{background:#000;}
 
   /* ---------- Reveal initial states (only when JS+GSAP present) ---------- */
-  .js .reveal,.js .stat,.js .bento-card,.js .p-card,.js .rm-item,.js .driver-card,.js .family-inner{opacity:0;}
+  .js .reveal,.js .stat,.js .l-card,.js .bento-card,.js .p-card,.js .rm-item,.js .driver-card,.js .family-inner{opacity:0;}
   .js .hero-copy>*{opacity:0;}
   .js .hero-media{opacity:0;}
   .js .statement .w{color:#d2d2d7;}
@@ -162,6 +162,18 @@
   .b-lime p{color:rgba(10,26,0,.74);}
   .b-ghost{position:absolute !important;top:24px;right:34px;font-size:clamp(120px,16vw,220px);font-weight:800;letter-spacing:-.06em;line-height:1;color:rgba(0,0,0,.05);z-index:1 !important;pointer-events:none;}
   .b-lime .b-ghost{color:rgba(10,26,0,.1);}
+
+  /* ---------- Leagues ---------- */
+  .leagues{background:#fff;padding:150px 0 160px;}
+  .l-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  .l-card{position:relative;overflow:hidden;border-radius:32px;background:#000;color:#f5f5f7;min-height:420px;padding:44px;display:flex;flex-direction:column;will-change:transform,opacity;}
+  .l-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 85% 0%,rgba(155,224,0,.28),rgba(0,0,0,0) 65%);pointer-events:none;}
+  .l-card>*{position:relative;}
+  .l-game{font-size:15px;font-weight:600;color:var(--accent);}
+  .l-big{margin-top:auto;font-size:clamp(56px,6.8vw,98px);font-weight:800;letter-spacing:-.055em;line-height:1;padding-bottom:.06em;background:linear-gradient(180deg,#fff 20%,#6e6e73 140%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
+  .l-card h3{margin-top:22px;font-size:clamp(26px,2.8vw,38px);font-weight:700;letter-spacing:-.035em;line-height:1.08;}
+  .l-card p{margin-top:12px;font-size:17px;line-height:1.45;color:#a1a1a6;max-width:440px;}
+  .l-card .link-more{margin-top:22px;align-self:flex-start;}
 
   /* ---------- Family quote ---------- */
   .family{position:relative;min-height:90vh;background:#000;color:#f5f5f7;text-align:center;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:120px 0;}
@@ -255,6 +267,8 @@
     .stats-grid{grid-template-columns:repeat(2,1fr);row-gap:56px;}
     .stat:nth-child(3){border-left:0;padding-left:0;}
     .p-grid{grid-template-columns:1fr;}
+    .l-grid{grid-template-columns:1fr;}
+    .l-card{min-height:340px;padding:34px 28px;}
     .p-card{min-height:240px;}
     .foot-cols{grid-template-columns:1fr 1fr;}
   }
@@ -277,7 +291,7 @@
     .hero-caption{left:22px;right:22px;bottom:18px;}
     .about-visual{margin-top:70px;border-radius:26px;}
     .stats{padding:110px 0 120px;}
-    .about,.crews,.drivers,.partners{padding-top:100px;padding-bottom:100px;}
+    .about,.crews,.leagues,.drivers,.partners{padding-top:100px;padding-bottom:100px;}
     .roadmap,.join{padding-top:110px;padding-bottom:120px;}
     .head{margin-bottom:48px;}
   }
@@ -413,6 +427,32 @@
   </div>
 </section>
 
+<!-- ============ LEAGUES ============ -->
+<section class="leagues" id="leagues">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow i18n" data-en="Where we race" data-de="Wo wir fahren">Where we race</p>
+      <h2 class="h2 i18n" data-en="Two leagues. One team." data-de="Zwei Ligen. Ein Team.">Two leagues. One team.</h2>
+      <p class="lead i18n" data-en="Every week our drivers line up on the grid of two competitive leagues." data-de="Jede Woche gehen unsere Fahrer in zwei Ligen an den Start.">Every week our drivers line up on the grid of two competitive leagues.</p>
+    </div>
+    <div class="l-grid">
+      <article class="l-card">
+        <p class="l-game">Assetto Corsa Competizione</p>
+        <div class="l-big">ASPL</div>
+        <h3 class="i18n" data-en="Our GT3 crew in ACC" data-de="Unsere GT3-Crew in ACC">Our GT3 crew in ACC</h3>
+        <p class="i18n" data-en="In ACC we race in the ASPL league." data-de="In ACC fahren wir in der ASPL-Liga.">In ACC we race in the ASPL league.</p>
+        <a class="link-more" href="https://asplracing.com" target="_blank" rel="noopener">asplracing.com</a>
+      </article>
+      <article class="l-card">
+        <p class="l-game">F1</p>
+        <div class="l-big">Quantum</div>
+        <h3 class="i18n" data-en="Our F1 drivers" data-de="Unsere F1-Fahrer">Our F1 drivers</h3>
+        <p class="i18n" data-en="In F1 we race in the Quantum Racing League." data-de="In der F1 fahren wir in der Quantum Racing League.">In F1 we race in the Quantum Racing League.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ============ FAMILY QUOTE ============ -->
 <section class="family" id="family">
   <div class="family-bg" id="familyBg"></div>
@@ -468,9 +508,9 @@
 
     <div class="driver-grid" id="driverGrid">
 
-      <article class="driver-card" data-cat="gt3">
+      <article class="driver-card" data-cat="gt3 mgmt">
         <div class="photo"><img src="images/matt.jpeg" alt="Matt Diaconu" loading="lazy" decoding="async"><div class="num-badge">#009</div></div>
-        <div class="info"><h3>Matt Diaconu</h3><div class="role">GT3 Pro Driver · Romania</div>
+        <div class="info"><h3>Matt Diaconu</h3><div class="role">GT3 Driver &amp; Head of Management · Romania</div>
           <p class="bio">Hi, I'm Matt Diaconu and I'm racing for NUSSY Motorsport we illustrate high levels of consistency such as my consistency of 99.28% in the last few league races at ASPL and am racing Endurance Racing in the GT3 class. Come on join me on this journey.</p><button class="more-btn" hidden></button></div>
       </article>
 
@@ -841,7 +881,7 @@
 
   function applyFilter(f){
     var cards = Array.prototype.slice.call(document.querySelectorAll('.driver-card'));
-    var show = cards.filter(function(c){ return f === 'all' || c.getAttribute('data-cat') === f; });
+    var show = cards.filter(function(c){ return f === 'all' || c.getAttribute('data-cat').split(' ').indexOf(f) > -1; });
     if (hasGsap) {
       cards.forEach(function(c){
         gsap.set(c, { opacity: 1, y: 0, scale: 1 });
@@ -913,6 +953,7 @@
 
     revealBatch('.reveal', { opacity: 0, y: 70 }, { opacity: 1, y: 0 }, 'top 90%');
     revealBatch('.stat', { opacity: 0, y: 90 }, { opacity: 1, y: 0 }, 'top 90%', .14);
+    revealBatch('.l-card', { opacity: 0, y: 100, scale: .93 }, { opacity: 1, y: 0, scale: 1 }, 'top 92%', .16);
     revealBatch('.bento-card', { opacity: 0, y: 110, scale: .9 }, { opacity: 1, y: 0, scale: 1 }, 'top 92%', .14);
     revealBatch('.p-card', { opacity: 0, y: 100, scale: .94 }, { opacity: 1, y: 0, scale: 1 }, 'top 92%', .14);
     revealBatch('.rm-item', { opacity: 0, y: 90 }, { opacity: 1, y: 0 }, 'top 88%', .18);
