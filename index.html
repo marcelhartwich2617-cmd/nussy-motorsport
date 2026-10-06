@@ -4,964 +4,713 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nussy Motorsport — International Esports Racing Team</title>
-<meta name="description" content="Nussy Motorsport is a 20+ member international sim racing team competing in GT3, GT4 and prototype esports championships, building a structured pathway to real-world karting in 2027.">
-<meta property="og:title" content="Nussy Motorsport — International Esports Racing Team">
-<meta property="og:description" content="One team. One family. One mission. From the sim rig to the karting grid.">
+<meta name="description" content="Nussy Motorsport is an international sim racing team of 20+ drivers, engineers and creators competing in GT3, GT4 and F1 esports — on the road to a real karting grid in 2027.">
+<link rel="canonical" href="https://www.nussymotorsport.de/">
+<meta property="og:title" content="Nussy Motorsport — One Team. One Family. One Mission.">
+<meta property="og:description" content="From the sim rig to the karting grid. An international esports racing team of 20+.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="images/nussynormal.jpg">
-<meta name="theme-color" content="#0b0d0c">
+<meta property="og:url" content="https://www.nussymotorsport.de/">
+<meta property="og:image" content="https://www.nussymotorsport.de/images/nussynormal.jpg">
+<meta name="theme-color" content="#000000">
 <link rel="icon" type="image/png" href="images/logo.png">
+<script>document.documentElement.classList.add('js');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --white: #ffffff;
-    --fog: #f4f7f5;
-    --ink: #0b0d0c;
-    --card-bg: #111412;
-    --accent: #9be000; /* Nussy livery lime-green */
-    --accent-rgb: 155, 224, 0;
-    --accent-glow: rgba(155, 224, 0, 0.28);
-    --green-deep: #0e1806;
-    --green-mid: #33520e;
-    --line: rgba(255, 255, 255, 0.1);
-    --line-light: #e0e7e3;
-    --shadow: 0 20px 40px rgba(0,0,0,0.08);
-    --ease: cubic-bezier(0.16, 1, 0.3, 1);
-    --display: 'Rajdhani', sans-serif;
-    --body: 'Inter', sans-serif;
-    --mono: 'Share Tech Mono', monospace;
+    --black:#000;
+    --ink:#1d1d1f;
+    --ink-2:#6e6e73;
+    --ink-3:#86868b;
+    --light:#f5f5f7;
+    --line-d:rgba(255,255,255,.14);
+    --line-l:#d2d2d7;
+    --accent:#9be000;
+    --accent-2:#3fbf3f;
+    --accent-ink:#4f7d00;
+    --radius:28px;
+    --nav-h:48px;
+    --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Helvetica Neue",Arial,sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:auto;}
-  html.no-lenis, html.reduced-motion{scroll-behavior:smooth;}
+  html{-webkit-text-size-adjust:100%;}
+  html.native-scroll{scroll-behavior:smooth;}
+  html.lenis,html.lenis body{height:auto;}
+  .lenis.lenis-smooth{scroll-behavior:auto !important;}
+  .lenis.lenis-stopped{overflow:hidden;}
   body{
-    font-family:var(--body);
-    color:var(--ink);
-    background:var(--white);
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
+    font-family:var(--font);color:var(--ink);background:var(--black);
+    overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+    font-size:17px;line-height:1.47;letter-spacing:-.01em;
   }
-  body.lenis, body.lenis html{ height:auto; }
-  body.loading{ visibility:hidden; }
-
+  body.menu-open{overflow:hidden;}
   img{max-width:100%;display:block;}
   a{color:inherit;text-decoration:none;}
-  .wrap{max-width:1280px;margin:0 auto;padding:0 32px;}
-  h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:.02em;text-transform:uppercase;line-height:1.05;}
+  button{font-family:inherit;}
+  ::selection{background:var(--accent);color:#000;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 28px;}
+  .narrow{max-width:1020px;}
 
-  ::selection{background:var(--accent);color:var(--ink);}
+  /* ---------- Type ---------- */
+  .eyebrow{font-size:clamp(17px,1.7vw,22px);font-weight:600;letter-spacing:-.01em;color:var(--accent-ink);}
+  .on-dark .eyebrow,.eyebrow.on-dark{color:var(--accent);}
+  .h2{font-size:clamp(38px,6.4vw,84px);font-weight:700;line-height:1.04;letter-spacing:-.04em;}
+  .lead{font-size:clamp(19px,2vw,27px);line-height:1.3;font-weight:500;letter-spacing:-.02em;color:var(--ink-3);max-width:760px;}
+  .head{text-align:center;max-width:960px;margin:0 auto 72px;}
+  .head .eyebrow{margin-bottom:14px;}
+  .head .lead{margin:22px auto 0;}
 
-  /* ============ SCROLL PROGRESS ============ */
-  .scroll-progress{
-    position:fixed;top:0;left:0;height:3px;width:0%;
-    background:var(--accent);z-index:400;
-    box-shadow:0 0 12px var(--accent-glow);
-    transition:width .05s linear;
-  }
+  .link-more{display:inline-flex;align-items:center;gap:.3em;font-size:clamp(17px,1.5vw,21px);font-weight:500;color:var(--accent);transition:opacity .3s;}
+  .link-more::after{content:'›';font-size:1.35em;line-height:1;transition:transform .35s cubic-bezier(.16,1,.3,1);}
+  .link-more:hover::after{transform:translateX(5px);}
+  .link-more.on-light{color:var(--accent-ink);}
 
-  /* Badge */
-  .plate{
-    display:inline-flex;align-items:center;gap:10px;
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.15);
-    backdrop-filter: blur(10px);
-    border-radius:30px;
-    padding:8px 20px;
-    font-family:var(--mono);
-    font-size:12px;
-    letter-spacing:.15em;
-    text-transform:uppercase;
-    color: var(--accent);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    transition: all .3s ease;
-  }
-  .plate::before{
-    content:'';width:6px;height:6px;
-    background:var(--accent);border-radius:50%;
-    box-shadow:0 0 10px var(--accent);
-  }
+  .btn{display:inline-flex;align-items:center;justify-content:center;font-size:17px;font-weight:500;letter-spacing:-.01em;padding:13px 26px;border-radius:980px;cursor:pointer;border:0;transition:background .3s,color .3s,transform .3s;}
+  .btn-primary{background:var(--accent);color:#000;}
+  .btn-primary:hover{background:#b8f535;}
+  .btn-dark{background:var(--ink);color:#fff;}
+  .btn-dark:hover{background:#000;}
 
-  .panel-cut{ border-radius: 12px; overflow: hidden; }
+  /* ---------- Reveal initial states (only when JS+GSAP present) ---------- */
+  .js .reveal,.js .stat,.js .bento-card,.js .p-card,.js .rm-item,.js .driver-card,.js .family-inner{opacity:0;}
+  .js .hero-copy>*{opacity:0;}
+  .js .hero-media{opacity:0;}
+  .js .statement .w{color:#d2d2d7;}
 
-  /* ============ HEADER ============ */
-  header{
-    position:fixed;top:0;left:0;right:0;z-index:200;
-    transition:all .4s ease;
-    border-bottom:1px solid transparent;
-  }
-  header.scrolled{
-    background:rgba(11, 13, 12, 0.88);
-    backdrop-filter:blur(16px);
-    border-color:var(--line);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  }
-  .nav{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:24px 32px;
-    max-width:1280px;margin:0 auto;
-    transition:padding .4s ease;
-  }
-  header.scrolled .nav{padding:16px 32px;}
-  .nav .brand img{
-    height:36px;width:auto;filter:brightness(0) invert(1);
-    transition: transform .3s ease;
-  }
-  .nav .brand:hover img{ transform: scale(1.05); }
-  .nav ul{list-style:none;display:flex;gap:36px;}
-  .nav ul li a{
-    font-family:var(--display);font-weight:600;font-size:15px;
-    text-transform:uppercase;letter-spacing:.1em;color:var(--white);
-    position:relative;padding:6px 0;opacity: 0.85;
-    transition: all .3s ease;
-  }
-  .nav ul li a::after{
-    content:'';position:absolute;left:50%;bottom:0;width:0;height:2px;
-    background:var(--accent);transition:all .3s ease;
-    transform: translateX(-50%);
-  }
-  .nav ul li a:hover{ color: var(--white); opacity: 1; }
-  .nav ul li a:hover::after{width:100%;}
-  .nav-right{display:flex;align-items:center;gap:18px;}
+  /* ---------- Global nav ---------- */
+  .gnav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:300;}
+  /* blur lives on a pseudo-element: a backdrop-filter on .gnav itself would trap the fixed mobile menu inside the 48px bar */
+  .gnav::before{content:'';position:absolute;inset:0;z-index:0;background:rgba(22,22,23,.72);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);opacity:0;transition:opacity .45s;}
+  .gnav.scrolled::before,body.menu-open .gnav::before{opacity:1;}
+  .gnav-in{position:relative;max-width:1240px;margin:0 auto;height:100%;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+  .logo-crop{display:block;width:124px;height:31px;overflow:hidden;flex:none;position:relative;z-index:2;}
+  .logo-crop img{width:164px;max-width:none;height:auto;margin:-34.7px 0 0 -19.2px;}
+  .gnav ul{list-style:none;display:flex;align-items:center;gap:34px;}
+  .gnav ul a{font-size:12px;font-weight:400;color:rgba(245,245,247,.8);transition:color .25s;letter-spacing:-.005em;}
+  .gnav ul a:hover{color:#fff;}
+  .gnav ul .li-join{display:none;}
+  .gnav-right{display:flex;align-items:center;gap:14px;position:relative;z-index:2;}
+  .lang{display:flex;background:rgba(255,255,255,.14);border-radius:980px;padding:2px;}
+  .lang button{border:0;background:transparent;color:#f5f5f7;font-size:11px;font-weight:600;line-height:1;padding:5px 10px;border-radius:980px;cursor:pointer;opacity:.7;transition:all .25s;}
+  .lang button.active{background:#f5f5f7;color:#000;opacity:1;}
+  .gnav-cta{background:var(--accent);color:#000;font-size:12px;font-weight:600;padding:6px 14px;border-radius:980px;transition:background .25s;}
+  .gnav-cta:hover{background:#b8f535;}
+  .burger{display:none;width:28px;height:28px;background:none;border:0;cursor:pointer;position:relative;}
+  .burger span{position:absolute;left:5px;right:5px;height:1.5px;background:#f5f5f7;transition:transform .35s,top .35s;}
+  .burger span:nth-child(1){top:10px;}
+  .burger span:nth-child(2){top:17px;}
+  .burger.active span:nth-child(1){top:13.5px;transform:rotate(45deg);}
+  .burger.active span:nth-child(2){top:13.5px;transform:rotate(-45deg);}
 
-  .lang-toggle{
-    display:flex;border:1px solid rgba(255,255,255,.2);border-radius:20px;overflow:hidden;
-    background: rgba(0,0,0,0.3); backdrop-filter: blur(8px);
-  }
-  .lang-toggle button{
-    padding:6px 14px;background:transparent;border:none;cursor:pointer;
-    color:var(--white);font-family:var(--mono);font-size:12px;letter-spacing:.08em;
-    opacity: 0.6; transition:all .3s ease;
-  }
-  .lang-toggle button.active{background:var(--accent);color:var(--ink);opacity:1;font-weight:700;}
-  .burger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
-  .burger span{display:block;width:24px;height:2px;background:var(--white);transition:.3s;}
-  .burger.active span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
-  .burger.active span:nth-child(2){ opacity:0; }
-  .burger.active span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  /* ---------- Hero ---------- */
+  .hero{position:relative;background:#000;color:#f5f5f7;text-align:center;padding:calc(var(--nav-h) + 11vh) 0 90px;overflow:hidden;}
+  .hero-copy{position:relative;z-index:3;max-width:1180px;margin:0 auto;padding:0 24px;will-change:transform,opacity;}
+  .hero-eyebrow{font-size:clamp(17px,1.8vw,24px);font-weight:600;color:var(--accent);margin-bottom:18px;}
+  .hero h1{font-size:clamp(42px,7.4vw,104px);font-weight:700;line-height:1.04;letter-spacing:-.045em;}
+  .hero h1 .line{display:block;}
+  .word{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em;}
+  .word-inner{display:inline-block;will-change:transform;}
+  .hero h1 .l2 .word-inner{background:linear-gradient(92deg,#d8ff55 0%,#9be000 45%,#3fbf3f 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
+  .hero-sub{max-width:760px;margin:26px auto 0;font-size:clamp(18px,1.9vw,25px);line-height:1.3;font-weight:500;letter-spacing:-.02em;color:#a1a1a6;}
+  .hero-links{display:flex;gap:34px;justify-content:center;flex-wrap:wrap;margin-top:28px;}
+  .hero-media{position:relative;z-index:1;margin:64px auto 0;width:min(1180px,calc(100% - 40px));aspect-ratio:16/8;border-radius:var(--radius);overflow:hidden;background:#111;}
+  .hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 60%;filter:brightness(.78) saturate(1.05);will-change:transform;}
+  .hero-media::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.72) 100%);pointer-events:none;}
+  .hero-caption{position:absolute;z-index:2;left:30px;bottom:24px;right:30px;font-size:clamp(17px,2vw,26px);font-weight:600;letter-spacing:-.02em;color:#f5f5f7;text-align:left;}
+  /* Desktop "stage" mode: pinned, media expands to full-bleed (added by JS) */
+  .hero--stage{height:100vh;min-height:640px;padding-bottom:0;}
+  .hero--stage .hero-media{position:absolute;inset:0;margin:0;width:auto;aspect-ratio:auto;border-radius:0;}
+  .hero--stage .hero-caption{left:0;right:0;bottom:11vh;text-align:center;font-size:clamp(30px,5.4vw,78px);font-weight:700;letter-spacing:-.04em;line-height:1.05;padding:0 6vw;}
 
-  /* ============ HERO ============ */
-  .hero{
-    position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
-    overflow:hidden;color:var(--white);text-align:center;padding:140px 0 60px;
-  }
-  .hero-bg{
-    position:absolute;inset:-20% 0 0 0;height:145%;z-index:0;
-    background:url('images/nussynormal.jpg') center/cover no-repeat;
-    filter: brightness(0.38) contrast(1.12) saturate(1.05);
-    will-change:transform;
-    transform-origin:center top;
-  }
-  .hero-scrim{
-    position:absolute;inset:0;z-index:1;
-    background:
-      radial-gradient(circle at center, rgba(11,26,16,0.5) 0%, rgba(11,13,12,0.95) 100%),
-      linear-gradient(180deg, rgba(11,13,12,0.6) 0%, rgba(11,13,12,1) 100%);
-    will-change:opacity;
-  }
-  .hero-content{
-    position:relative;z-index:2;max-width:900px;margin:0 auto;
-    display:flex;flex-direction:column;align-items:center;
-    will-change:transform,opacity;transform-origin:center 30%;
-  }
-  .hero .plate{ margin-bottom:30px; opacity:0; transform:translateY(20px); }
-  .hero h1{
-    font-size:clamp(48px, 7.5vw, 96px);
-    line-height: 1.02;
-    letter-spacing: -0.01em;
-  }
-  .hero h1 .line{ display:block; overflow:hidden; }
-  .hero h1 .l1 .word-inner{ color:rgba(255,255,255,0.4); font-weight: 500; }
-  .hero h1 .l2 .word-inner{ color:var(--white); }
-  .hero h1 .l3 .word-inner{
-    color:var(--accent);
-    text-shadow: 0 0 30px var(--accent-glow);
-  }
-  .word{ display:inline-block; overflow:hidden; vertical-align:top; }
-  .word-inner{ display:inline-block; transform:translateY(115%); will-change:transform; }
-  .hero p.sub{
-    font-size:clamp(16px,1.5vw,19px);max-width:680px;margin-top:28px;
-    color:rgba(255,255,255,.75);font-weight:300;line-height:1.7;
-    opacity:0; transform:translateY(20px);
-  }
+  /* ---------- Stats ---------- */
+  .stats{background:#000;color:#f5f5f7;padding:150px 0 170px;}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+  .stat{padding:8px 28px;border-left:1px solid var(--line-d);text-align:left;}
+  .stat:first-child{border-left:0;padding-left:0;}
+  .stat-num{font-size:clamp(54px,8.6vw,124px);font-weight:700;letter-spacing:-.055em;line-height:1;background:linear-gradient(180deg,#fff 25%,#6e6e73 130%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-variant-numeric:tabular-nums;}
+  .stat-num .sfx{-webkit-text-fill-color:var(--accent);color:var(--accent);}
+  .stat-lbl{margin-top:14px;font-size:clamp(15px,1.4vw,19px);font-weight:500;color:var(--ink-3);}
 
-  /* Buttons */
-  .hero-cta{display:flex;gap:18px;margin-top:40px;justify-content:center;flex-wrap:wrap;opacity:0;transform:translateY(20px);}
-  .btn{
-    font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;
-    padding:16px 36px;cursor:pointer;border-radius: 30px;border:none;
-    transition:background .3s var(--ease), color .3s var(--ease), box-shadow .3s var(--ease);
-    display:inline-flex;align-items:center;gap:10px;
-    will-change:transform;
-  }
-  .btn-primary{
-    background:var(--accent);color:var(--ink);
-    box-shadow: 0 10px 25px var(--accent-glow);
-  }
-  .btn-primary:hover{
-    background:var(--white);
-    box-shadow: 0 15px 30px rgba(255,255,255,0.3);
-  }
-  .btn-ghost{
-    border:1px solid rgba(255,255,255,.25);color:var(--white);
-    background: rgba(255,255,255,0.03);backdrop-filter: blur(10px);
-  }
-  .btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,0.1);}
+  /* ---------- About ---------- */
+  .about{background:#fff;padding:150px 0 130px;}
+  .about .eyebrow{margin-bottom:26px;}
+  .statement{font-size:clamp(28px,4.3vw,58px);font-weight:700;line-height:1.1;letter-spacing:-.035em;color:var(--ink);}
+  .statement .w{display:inline;color:var(--ink);}
+  .about .link-more{margin-top:44px;}
+  .about-visual{position:relative;margin-top:110px;height:clamp(340px,64vh,680px);border-radius:32px;overflow:hidden;background:#111;will-change:transform;}
+  .about-visual img{width:100%;height:100%;object-fit:cover;object-position:center;will-change:transform;}
+  .about-tag{position:absolute;left:24px;bottom:24px;z-index:2;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#f5f5f7;font-size:13px;font-weight:600;padding:8px 16px;border-radius:980px;letter-spacing:.02em;}
 
-  /* Hero Stats */
-  .hero-stats{
-    position:relative;z-index:2;margin-top:70px;width:100%;max-width:860px;
-    display:grid;grid-template-columns:repeat(3,1fr);
-    border:1px solid var(--line);border-radius:16px;
-    background:rgba(255,255,255,0.02);backdrop-filter:blur(16px);
-    overflow:hidden;opacity:0;transform:translateY(24px);
-  }
-  .hero-stats .stat{
-    padding:28px 20px;border-right:1px solid var(--line);
-    transition: background .3s ease;
-  }
-  .hero-stats .stat:hover{ background: rgba(255,255,255,0.03); }
-  .hero-stats .stat:last-child{border-right:none;}
-  .hero-stats .num{
-    font-family:var(--mono);font-size:clamp(32px,3.5vw,44px);color:var(--accent);
-    letter-spacing:.02em;font-weight: 700;
-  }
-  .hero-stats .lbl{
-    font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
-    color:rgba(255,255,255,.5);margin-top:6px;
-  }
+  /* ---------- Crews / bento ---------- */
+  .crews{background:var(--light);padding:150px 0 160px;}
+  .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:20px;}
+  .bento-card{position:relative;border-radius:32px;overflow:hidden;min-height:460px;padding:44px;display:flex;flex-direction:column;justify-content:flex-end;background:#fff;color:var(--ink);will-change:transform,opacity;}
+  .b-wide{grid-column:span 4;}
+  .b-narrow{grid-column:span 2;}
+  .bento-card .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.16,1,.3,1);}
+  .bento-card:hover .bg{transform:scale(1.04);}
+  .bento-card .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 20%,rgba(0,0,0,.82) 100%);}
+  .bento-card>*:not(.bg):not(.shade){position:relative;z-index:2;}
+  .b-dark{color:#f5f5f7;background:#000;}
+  .b-lime{background:linear-gradient(145deg,#d8ff55 0%,#9be000 55%,#5fcf3a 100%);color:#0a1a00;}
+  .b-num{font-size:15px;font-weight:600;margin-bottom:14px;opacity:.8;}
+  .b-dark .b-num{color:var(--accent);opacity:1;}
+  .bento-card h3{font-size:clamp(30px,3.6vw,50px);font-weight:700;line-height:1.05;letter-spacing:-.035em;max-width:560px;}
+  .bento-card p{margin-top:16px;font-size:clamp(16px,1.35vw,19px);line-height:1.4;font-weight:500;letter-spacing:-.015em;max-width:520px;color:var(--ink-2);}
+  .b-dark p{color:#c7c7cc;}
+  .b-lime p{color:rgba(10,26,0,.74);}
+  .b-ghost{position:absolute !important;top:24px;right:34px;font-size:clamp(120px,16vw,220px);font-weight:800;letter-spacing:-.06em;line-height:1;color:rgba(0,0,0,.05);z-index:1 !important;pointer-events:none;}
+  .b-lime .b-ghost{color:rgba(10,26,0,.1);}
 
-  .scroll-cue{
-    position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:2;
-    display:flex;flex-direction:column;align-items:center;gap:10px;
-    font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.45);
-    opacity:0;
-  }
-  .scroll-cue .stick{width:1px;height:40px;background:rgba(255,255,255,.15);position:relative;overflow:hidden;}
-  .scroll-cue .stick::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--accent);animation:cueDrip 2s infinite;}
-  @keyframes cueDrip{ 0%{top:-100%;} 60%{top:100%;} 100%{top:100%;} }
+  /* ---------- Family quote ---------- */
+  .family{position:relative;min-height:90vh;background:#000;color:#f5f5f7;text-align:center;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:120px 0;}
+  .family-bg{position:absolute;inset:0;background:url('images/NussyDark.jpg') center/cover no-repeat;opacity:.3;filter:grayscale(1);will-change:transform;}
+  .family::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,0) 0%,#000 78%);pointer-events:none;}
+  .family-inner{position:relative;z-index:2;max-width:1100px;padding:0 28px;will-change:transform,opacity,filter;}
+  .family blockquote{font-size:clamp(34px,6.2vw,92px);font-weight:700;line-height:1.04;letter-spacing:-.045em;}
+  .family blockquote .lime{background:linear-gradient(92deg,#d8ff55,#9be000 50%,#3fbf3f);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:normal;}
+  .family cite{display:block;margin-top:34px;font-style:normal;font-size:clamp(15px,1.4vw,19px);font-weight:500;color:var(--ink-3);}
 
-  /* Ticker */
-  .ticker-outer{
-    background:var(--ink);color:rgba(255,255,255,0.7);
-    overflow:hidden;white-space:nowrap;
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-    position:relative;
-  }
-  .ticker{
-    display:inline-flex;gap:70px;padding:18px 0;
-    animation:scroll 30s linear infinite;
-  }
-  .ticker span{
-    font-family:var(--mono);font-size:13px;letter-spacing:.14em;
-    display:inline-flex;align-items:center;gap:12px;
-  }
-  .ticker span b{color:var(--accent);font-weight:600;}
-  .ticker span::before{content:'◇';font-size:10px;color:rgba(255,255,255,0.3);}
-  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  /* ---------- Team gallery ---------- */
+  .team{background:#000;color:#f5f5f7;padding:150px 0 0;}
+  .team .head .lead{color:#a1a1a6;}
+  .gallery-pin{display:none;}
+  .gallery-static{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-bottom:150px;}
+  .gallery-static figure,.gallery-pin figure{position:relative;border-radius:28px;overflow:hidden;background:#111;}
+  .gallery-static img{width:100%;height:420px;object-fit:cover;}
+  .gallery-static figcaption,.gallery-pin figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 28px;font-size:17px;font-weight:600;letter-spacing:-.015em;background:linear-gradient(0deg,rgba(0,0,0,.82),transparent);}
+  .team.gallery--pin .gallery-static{display:none;}
+  .team.gallery--pin .gallery-pin{display:block;}
+  .scroll-pin{height:100vh;display:flex;align-items:center;overflow:hidden;perspective:1700px;}
+  .scroll-images{display:flex;gap:28px;width:max-content;padding:0 8vw;will-change:transform;}
+  .scroll-images figure{flex:none;width:min(74vw,1020px);height:62vh;will-change:transform;}
+  .scroll-images img{width:100%;height:100%;object-fit:cover;}
 
-  /* Sections base */
-  section{padding:120px 0;position:relative;}
-  .section-head{max-width:720px;margin-bottom:60px;}
-  .section-head .plate{ margin-bottom:20px;background:var(--fog); border-color:var(--line-light);color:var(--green-mid); }
-  .section-head .plate::before{background:var(--accent);box-shadow:none;}
-  .section-head h2{font-size:clamp(32px,4vw,52px);color:var(--ink);}
-  .section-head p{margin-top:18px;font-size:17px;line-height:1.65;color:#555;}
+  /* ---------- Drivers ---------- */
+  .drivers{background:var(--light);padding:150px 0 160px;}
+  .chips-wrap{display:flex;justify-content:center;margin-bottom:56px;}
+  .chips{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:4px;padding:5px;background:rgba(0,0,0,.06);border-radius:980px;}
+  .chip{border:0;background:transparent;font-size:15px;font-weight:500;line-height:1;padding:11px 22px;border-radius:980px;color:var(--ink);cursor:pointer;transition:background .3s,color .3s;}
+  .chip:hover{background:rgba(0,0,0,.06);}
+  .chip.active{background:var(--ink);color:#fff;}
+  .driver-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:24px;align-items:start;}
+  .driver-card{background:#fff;border-radius:var(--radius);overflow:hidden;will-change:transform,opacity;}
+  .driver-card .photo{position:relative;aspect-ratio:4/3.3;background:#e8e8ed;overflow:hidden;}
+  .driver-card .photo img{width:100%;height:100%;object-fit:cover;object-position:center top;will-change:transform,clip-path;}
+  .num-badge{position:absolute;top:16px;left:16px;z-index:3;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff;font-size:12px;font-weight:600;padding:6px 12px;border-radius:980px;letter-spacing:.02em;}
+  .driver-card .info{padding:26px 28px 30px;}
+  .driver-card h3{font-size:24px;font-weight:700;letter-spacing:-.03em;line-height:1.15;}
+  .role{margin-top:7px;font-size:13px;font-weight:600;color:var(--accent-ink);letter-spacing:.02em;text-transform:uppercase;}
+  .bio{margin-top:14px;font-size:15px;line-height:1.55;color:#515154;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}
+  .driver-card.open .bio{display:block;-webkit-line-clamp:unset;overflow:visible;}
+  .more-btn{margin-top:12px;background:none;border:0;padding:0;cursor:pointer;font-size:14px;font-weight:600;color:var(--accent-ink);}
+  .more-btn[hidden]{display:none;}
+  .more-btn:hover{text-decoration:underline;}
+  .driver-note{margin-top:44px;text-align:center;font-size:13px;color:var(--ink-3);}
 
-  /* Generic scroll reveal (GSAP-driven) */
-  .reveal-gsap{ opacity:0; transform:translateY(70px) scale(.96); will-change:transform,opacity; }
-  .reveal-left{ opacity:0; transform:translateX(-90px); will-change:transform,opacity; }
+  /* ---------- Roadmap ---------- */
+  .roadmap{background:#000;color:#f5f5f7;padding:160px 0 180px;}
+  .roadmap .head .lead{color:#a1a1a6;}
+  .rm-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:56px;padding-top:64px;}
+  .rm-line{position:absolute;top:12px;left:0;right:0;height:2px;background:var(--line-d);}
+  .rm-fill{position:absolute;inset:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform-origin:left center;will-change:transform;}
+  .rm-item{position:relative;}
+  .rm-dot{position:absolute;top:-58px;left:0;width:14px;height:14px;border-radius:50%;background:#000;border:2px solid var(--accent);will-change:transform;}
+  .rm-item.future .rm-dot{background:var(--accent);box-shadow:0 0 18px var(--accent);}
+  .rm-year{font-size:clamp(60px,8vw,112px);font-weight:700;letter-spacing:-.055em;line-height:1;background:linear-gradient(180deg,#fff 20%,#6e6e73 140%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
+  .rm-item.future .rm-year{background:linear-gradient(180deg,#d8ff55,#3fbf3f);-webkit-background-clip:text;background-clip:text;}
+  .rm-item h3{margin-top:18px;font-size:clamp(24px,2.4vw,32px);font-weight:700;letter-spacing:-.03em;}
+  .rm-item p{margin-top:12px;font-size:17px;line-height:1.45;color:#a1a1a6;max-width:380px;}
 
-  /* About */
-  .about{background:var(--fog);}
-  .about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:76px;align-items:start;}
-  .about-copy{ padding:16vh 0 46vh; }
-  .about-copy p{font-size:16.5px;line-height:1.8;color:#444;margin-bottom:34px;}
-  .about-copy p strong{color:var(--ink);font-weight:600;}
-  .about-media{position:relative;box-shadow:var(--shadow);overflow:hidden;border-radius:16px;will-change:transform;}
-  .about-media img{ transform:scale(1.45) rotate(2deg); will-change:transform; }
-  .about-media .tag{
-    position:absolute;bottom:20px;left:20px;z-index:3;
-    background:rgba(11,13,12,0.85);backdrop-filter:blur(10px);
-    border:1px solid var(--line);border-radius:20px;
-    padding:8px 16px;font-family:var(--mono);font-size:12px;color:var(--accent);
-  }
+  /* ---------- Partners ---------- */
+  .partners{background:#fff;padding:160px 0 170px;}
+  .p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .p-card{background:var(--light);border-radius:32px;padding:44px 40px 48px;min-height:300px;display:flex;flex-direction:column;will-change:transform,opacity;}
+  .p-ico{width:52px;height:52px;border-radius:16px;background:var(--ink);display:flex;align-items:center;justify-content:center;margin-bottom:auto;}
+  .p-ico svg{width:26px;height:26px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+  .p-card h3{margin-top:60px;font-size:clamp(26px,2.5vw,34px);font-weight:700;line-height:1.08;letter-spacing:-.035em;}
+  .p-card p{margin-top:12px;font-size:17px;line-height:1.45;color:var(--ink-2);}
+  .cta-block{text-align:center;margin-top:76px;}
+  .cta-block .btn{margin:0 6px;}
 
-  /* Family quote (pinned statement) */
-  .family{
-    position:relative;height:100vh;
-    color:var(--white);text-align:center;overflow:hidden;
-    background: var(--ink);
-    display:flex;align-items:center;justify-content:center;
-  }
-  .family-bg{
-    position:absolute;inset:0;
-    background:url('images/NussyDark.jpg') center/cover no-repeat;
-    opacity: 0.28; filter: grayscale(1);
-    transform:scale(1);will-change:transform;
-  }
-  .family-inner{position:relative;z-index:2;max-width:880px;margin:0 auto;padding:0 32px;will-change:transform,opacity,filter;}
-  .family blockquote{
-    font-family:var(--display);font-size:clamp(28px,4.4vw,52px);
-    font-weight:500;text-transform:none;line-height:1.3;
-  }
-  .family blockquote .lime{color:var(--accent);font-style:normal;}
-  .family cite{
-    display:block;margin-top:28px;font-style:normal;
-    font-family:var(--mono);font-size:13px;letter-spacing:.14em;color:rgba(255,255,255,.5);
-  }
+  /* ---------- Join ---------- */
+  .join{background:radial-gradient(ellipse 80% 70% at 50% 115%,rgba(155,224,0,.32),rgba(0,0,0,0) 62%),#000;color:#f5f5f7;text-align:center;padding:170px 0 180px;}
+  .join .lead{color:#a1a1a6;margin:24px auto 0;}
+  .join-roles{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:44px 0 52px;}
+  .join-roles span{font-size:15px;font-weight:500;padding:10px 20px;border-radius:980px;background:rgba(255,255,255,.1);color:#e8e8ed;}
 
-  /* Team horizontal pin gallery */
-  .team-section{padding-bottom:0;}
-  .scroll-track{ position:relative; }
-  .scroll-pin{ height:100vh; display:flex; align-items:center; overflow:hidden; perspective:1600px; }
-  .scroll-images{ display:flex; gap:32px; width:max-content; padding:0 8vw; will-change:transform; }
-  .scroll-images figure{
-    position:relative; flex:none; width:min(78vw,760px); height:58vh;
-    border-radius:18px; overflow:hidden; box-shadow:var(--shadow);
-    will-change:transform; transform-style:preserve-3d;
-  }
-  .scroll-images img{ width:100%; height:100%; object-fit:cover; }
-  .scroll-images figcaption{
-    position:absolute;left:0;bottom:0;right:0;z-index:3;padding:22px 26px;
-    background:linear-gradient(0deg, rgba(11,13,12,.92) 0%, transparent 100%);
-    color:var(--white);font-family:var(--mono);font-size:13px;letter-spacing:.08em;
-  }
-  /* Mobile / non-pin fallback for team gallery */
-  .gallery-grid-static{ display:none; grid-template-columns:repeat(3,1fr); gap:28px; }
-  .gallery-grid-static figure{ position:relative; box-shadow:var(--shadow); overflow:hidden; border-radius:12px; }
-  .gallery-grid-static img{ width:100%; height:340px; object-fit:cover; }
-  .gallery-grid-static figcaption{
-    position:absolute;left:0;bottom:0;right:0;z-index:3;padding:20px;
-    background:linear-gradient(0deg, rgba(11,13,12,.9) 0%, transparent 100%);
-    color:var(--white);font-family:var(--mono);font-size:13px;letter-spacing:.08em;
-  }
+  /* ---------- Footer ---------- */
+  footer{background:var(--light);color:var(--ink-2);font-size:12px;line-height:1.5;padding:34px 0 28px;}
+  .foot-note{padding-bottom:18px;border-bottom:1px solid var(--line-l);max-width:980px;}
+  .foot-cols{display:grid;grid-template-columns:1.2fr repeat(3,1fr);gap:30px;padding:26px 0 30px;border-bottom:1px solid var(--line-l);}
+  .foot-brand .logo-crop img{filter:brightness(0);opacity:.85;}
+  .foot-cols h4{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:10px;}
+  .foot-cols li{list-style:none;margin-bottom:7px;}
+  .foot-cols a:hover{color:var(--ink);text-decoration:underline;}
+  .foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:18px;}
 
-  /* Pillars */
-  .pillars{background:var(--white);}
-  .pillar-grid{ display:grid;grid-template-columns:repeat(4,1fr);gap:20px; }
-  .pillar{
-    background:var(--fog);padding:40px 28px;border-radius:12px;
-    border:1px solid var(--line-light);transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  /* ---------- Responsive ---------- */
+  @media (max-width:1024px){
+    .stats-grid{grid-template-columns:repeat(2,1fr);row-gap:56px;}
+    .stat:nth-child(3){border-left:0;padding-left:0;}
+    .p-grid{grid-template-columns:1fr;}
+    .p-card{min-height:240px;}
+    .foot-cols{grid-template-columns:1fr 1fr;}
   }
-  .pillar:hover{ transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--accent); }
-  .pillar .num{
-    font-family:var(--mono);color:var(--green-mid);background:rgba(155, 224, 0, 0.15);
-    display:inline-block;padding:4px 10px;font-size:12px;border-radius:6px;font-weight:700;
-  }
-  .pillar h3{font-size:22px;margin-top:20px;color:var(--ink);}
-  .pillar p{font-size:14.5px;line-height:1.7;color:#666;margin-top:12px;}
-
-  /* Drivers */
-  .drivers{background:var(--fog);}
-  .driver-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
-  .driver-card{
-    background:var(--white);box-shadow:var(--shadow);
-    border-radius:12px;overflow:hidden;
-    border:1px solid var(--line-light);
-    transition: transform .3s ease, box-shadow .3s ease;
-    opacity:0;
-  }
-  .driver-card:hover{ transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
-  .driver-card .photo{height:260px;position:relative;overflow:hidden;}
-  .driver-card .photo img{width:100%;height:100%;object-fit:cover;clip-path:inset(0 0 100% 0);will-change:clip-path;}
-  .driver-card .num-badge{
-    position:absolute;top:16px;left:16px;z-index:4;
-    background:rgba(11,13,12,0.85);backdrop-filter:blur(8px);
-    border-radius:20px;color:var(--accent);
-    padding:4px 14px;font-family:var(--mono);font-weight:700;font-size:13px;
-    border:1px solid rgba(155, 224, 0, 0.3);
-  }
-  .driver-card .info{padding:26px;}
-  .driver-card .info h3{font-size:22px;color:var(--ink);}
-  .driver-card .info .role{
-    font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:#777;
-    text-transform:uppercase;margin-top:6px;
-  }
-  .driver-card .info .bio{font-size:14.5px;line-height:1.7;color:#555;margin-top:16px;}
-  .driver-note{margin-top:30px;font-size:13px;color:#888;font-style:italic;}
-
-  /* Roadmap */
-  .roadmap{background:var(--ink);color:var(--white);}
-  .roadmap .section-head p{color:rgba(255,255,255,.6);}
-  .roadmap .section-head .plate{background:rgba(255,255,255,0.05);color:var(--accent);border-color:var(--line);}
-  .roadmap .section-head h2{color:var(--white);}
-  .timeline{position:relative;padding-left:48px;}
-  .timeline-rail{ position:absolute;left:9px;top:8px;bottom:8px;width:1px;background:var(--line); }
-  .timeline-progress{ position:absolute;left:9px;top:8px;width:1px;height:0%;background:var(--accent);box-shadow:0 0 8px var(--accent-glow); }
-  .t-item{position:relative;padding-bottom:56px;opacity:0;}
-  .t-item:last-child{padding-bottom:0;}
-  .t-item::before{
-    content:'';position:absolute;left:-48px;top:6px;width:12px;height:12px;
-    background:var(--ink);border:2px solid var(--accent);border-radius:50%;
-    transform:scale(0);transform-origin:center;
-  }
-  .t-item.future::before{background:var(--accent);box-shadow:0 0 12px var(--accent);}
-  .t-item.dot-in::before{ transform:scale(1); transition:transform .5s cubic-bezier(.34,1.56,.64,1); }
-  .t-year{font-family:var(--mono);color:var(--accent);font-size:14px;letter-spacing:.1em;}
-  .t-item h3{font-size:24px;margin-top:8px;}
-  .t-item p{font-size:15.5px;line-height:1.7;color:rgba(255,255,255,.6);margin-top:8px;max-width:600px;}
-
-  /* Join CTA */
-  .join{background:var(--white);text-align:center;padding:140px 0;}
-  .join .plate{ background:var(--fog); border-color:var(--line-light); color:var(--green-mid); margin-bottom:24px; }
-  .join .plate::before{ background:var(--accent); box-shadow:none; }
-  .join h2{font-size:clamp(36px,5vw,60px);color:var(--ink);}
-  .join p{max-width:600px;margin:22px auto 42px;font-size:17.5px;line-height:1.65;color:#555;}
-  .join-roles{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:48px;}
-  .join-roles span{
-    font-family:var(--mono);font-size:13px;letter-spacing:.06em;
-    border:1px solid var(--line-light);padding:10px 22px;color:#444;
-    background: var(--fog); border-radius:30px;
-  }
-  .join .btn-primary{background:var(--accent);color:var(--ink);box-shadow: 0 10px 25px var(--accent-glow);}
-  .join .btn-primary:hover{background:var(--ink);color:var(--white);}
-  .magnetic-wrap{ display:inline-block; }
-
-  /* Footer */
-  footer{background:var(--ink);color:rgba(255,255,255,.5);padding:70px 0 36px;border-top:1px solid var(--line);}
-  .footer-top{
-    display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:44px;
-    padding-bottom:48px;border-bottom:1px solid var(--line);
-  }
-  .footer-brand img{height:34px;filter:brightness(0) invert(1);margin-bottom:20px;}
-  .footer-brand p{max-width:320px;font-size:14px;line-height:1.7;}
-  .footer-links{display:flex;gap:74px;flex-wrap:wrap;}
-  .footer-col h4{
-    font-family:var(--display);font-size:15px;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--white);margin-bottom:16px;
-  }
-  .footer-col ul{list-style:none;}
-  .footer-col ul li{margin-bottom:10px;font-size:14px;}
-  .footer-col ul li a:hover{color:var(--accent);}
-  .footer-bottom{
-    display:flex;justify-content:space-between;align-items:center;padding-top:32px;
-    font-size:13px;flex-wrap:wrap;gap:12px;
-  }
-
-  /* ============ PRELOADER ============ */
-  .preloader{
-    position:fixed;inset:0;z-index:5000;background:var(--ink);
-    display:flex;align-items:center;justify-content:center;
-  }
-  .preloader img{ height:56px; width:auto; opacity:0; transform:scale(.92); }
-
-  /* ============ MOBILE MENU ============ */
-  @media (max-width:920px){
-    .nav ul{
-      position:fixed;inset:0;background:rgba(11, 13, 12, 0.98);
-      backdrop-filter: blur(20px);
-      flex-direction:column;justify-content:center;align-items:center;gap:28px;
-      opacity:0;visibility:hidden;transition:opacity .35s ease, visibility .35s ease;
-      z-index:150;
-    }
-    .nav ul.open{ opacity:1; visibility:visible; }
-    .nav ul li a{font-size:24px;}
-    .burger{display:flex;z-index:160;}
-    .about-grid{grid-template-columns:1fr;gap:44px;}
-    .about-media img{transform:scale(1.05);}
-    .gallery-grid-static{grid-template-columns:1fr;}
-    .pillar-grid{grid-template-columns:1fr 1fr;}
-    .driver-grid{grid-template-columns:1fr;}
-    .hero-stats{grid-template-columns:1fr;}
-    .hero-stats .stat{border-right:none;border-bottom:1px solid var(--line);}
+  @media (max-width:900px){
+    .gnav ul{position:fixed;inset:0;flex-direction:column;align-items:flex-start;justify-content:center;gap:0;padding:0 34px;background:rgba(0,0,0,.96);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s;z-index:1;}
+    .gnav ul.open{opacity:1;visibility:visible;}
+    .gnav ul li{width:100%;border-bottom:1px solid var(--line-d);}
+    .gnav ul a{display:block;font-size:30px;font-weight:700;letter-spacing:-.03em;color:#f5f5f7;padding:16px 0;}
+    .gnav ul .li-join{display:block;}
+    .gnav-cta{display:none;}
+    .burger{display:block;}
+    .bento{grid-template-columns:1fr;}
+    .b-wide,.b-narrow{grid-column:auto;}
+    .bento-card{min-height:380px;padding:34px 28px;}
+    .rm-grid{grid-template-columns:1fr;gap:56px;padding-top:0;}
+    .rm-line,.rm-dot{display:none;}
+    .rm-item{padding-left:26px;border-left:2px solid var(--line-d);}
+    .gallery-static{grid-template-columns:1fr;}
+    .hero-media{margin-top:44px;aspect-ratio:4/3.4;}
+    .hero-caption{left:22px;right:22px;bottom:18px;}
+    .about-visual{margin-top:70px;border-radius:26px;}
+    .stats{padding:110px 0 120px;}
+    .about,.crews,.drivers,.partners{padding-top:100px;padding-bottom:100px;}
+    .roadmap,.join{padding-top:110px;padding-bottom:120px;}
+    .head{margin-bottom:48px;}
   }
   @media (max-width:560px){
     .wrap{padding:0 20px;}
-    .pillar-grid{grid-template-columns:1fr;}
-    .footer-top{flex-direction:column;}
-    .family blockquote{font-size:clamp(24px,7vw,34px);}
+    .stat{padding:0 14px;}
+    .driver-grid{grid-template-columns:1fr;}
+    .foot-cols{grid-template-columns:1fr;}
+    .hero h1{letter-spacing:-.04em;}
   }
-
-  /* Reduced motion: keep it simple & safe */
-  @media (prefers-reduced-motion: reduce){
-    .word-inner{ transform:none !important; }
-    .driver-card .photo img{ clip-path:none !important; }
+  @media (prefers-reduced-motion:reduce){
+    .link-more::after,.bento-card .bg{transition:none;}
   }
 </style>
 </head>
-<body class="loading">
+<body>
 
-<div class="preloader" id="preloader">
-  <img src="images/logo.png" alt="Nussy Motorsport">
-</div>
-
-<div class="scroll-progress" id="scrollProgress"></div>
-
-<header id="siteHeader">
-  <nav class="nav">
-    <a class="brand" href="#top">
-      <img src="images/logo.png" alt="Nussy Motorsport">
-    </a>
+<header class="gnav" id="siteHeader">
+  <nav class="gnav-in" aria-label="Primary">
+    <a class="logo-crop" href="#top" aria-label="Nussy Motorsport — home"><img src="images/logo.png" alt="Nussy Motorsport"></a>
     <ul id="navList">
-      <li><a href="#about" data-en="About" data-de="Über uns" class="i18n">About</a></li>
-      <li><a href="#team" data-en="Team" data-de="Team" class="i18n">Team</a></li>
-      <li><a href="#drivers" data-en="Drivers" data-de="Fahrer" class="i18n">Drivers</a></li>
-      <li><a href="#roadmap" data-en="Roadmap" data-de="Roadmap" class="i18n">Roadmap</a></li>
-      <li><a href="#join" data-en="Join Us" data-de="Mitmachen" class="i18n">Join Us</a></li>
+      <li><a href="#about" class="i18n" data-en="About" data-de="Über uns">About</a></li>
+      <li><a href="#drivers" class="i18n" data-en="Drivers" data-de="Fahrer">Drivers</a></li>
+      <li><a href="#roadmap" class="i18n" data-en="Roadmap" data-de="Roadmap">Roadmap</a></li>
+      <li><a href="#partners" class="i18n" data-en="Partners" data-de="Partner">Partners</a></li>
+      <li class="li-join"><a href="#join" class="i18n" data-en="Join us" data-de="Mitmachen">Join us</a></li>
     </ul>
-    <div class="nav-right">
-      <div class="lang-toggle">
+    <div class="gnav-right">
+      <div class="lang" role="group" aria-label="Language">
         <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
         <button id="btn-de" onclick="setLang('de')">DE</button>
       </div>
-      <button class="burger" id="burgerBtn" aria-label="Navigation" aria-expanded="false" aria-controls="navList">
-        <span></span><span></span><span></span>
-      </button>
+      <a href="#join" class="gnav-cta i18n" data-en="Join us" data-de="Mitmachen">Join us</a>
+      <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="navList"><span></span><span></span></button>
     </div>
   </nav>
 </header>
 
-<div id="top"></div>
+<main>
 
-<!-- Hero -->
-<section class="hero">
-  <div class="hero-bg" id="heroBg"></div>
-  <div class="hero-scrim"></div>
-  <div class="hero-content wrap">
-    <div class="plate">
-      <span class="i18n" data-en="International Esports Racing Team" data-de="Internationales Esports Racing Team">International Esports Racing Team</span>
-    </div>
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-copy" id="heroCopy">
+    <p class="hero-eyebrow i18n" data-en="International Esports Racing Team" data-de="Internationales Esports Racing Team">International Esports Racing Team</p>
     <h1>
-      <span class="line l1" data-en="One Team." data-de="Ein Team.">One Team.</span>
-      <span class="line l2" data-en="One Family." data-de="Eine Familie.">One Family.</span>
-      <span class="line l3" data-en="One Mission." data-de="Eine Mission.">One Mission.</span>
+      <span class="line" data-en="One Team. One Family." data-de="Ein Team. Eine Familie.">One Team. One Family.</span>
+      <span class="line l2" data-en="One Mission." data-de="Eine Mission.">One Mission.</span>
     </h1>
-    <p class="sub i18n" data-en="20+ drivers, engineers and creators from across the globe, racing under one green-and-white livery in the world's toughest sim racing championships — with our sights fixed firmly on the karting grid in 2027." data-de="20+ Fahrer, Ingenieure und Creator aus aller Welt, vereint unter einer grün-weißen Livery in den härtesten Sim-Racing-Meisterschaften der Welt — mit klarem Blick auf die Kartbahn im Jahr 2027.">
-        20+ drivers, engineers and creators from across the globe, racing under one green-and-white livery in the world's toughest sim racing championships — with our sights fixed firmly on the karting grid in 2027.
-    </p>
-    <div class="hero-cta">
-      <a href="#drivers" class="btn btn-primary i18n magnetic" data-en="Meet the Team" data-de="Team kennenlernen">Meet the Team</a>
-      <a href="#roadmap" class="btn btn-ghost i18n magnetic" data-en="Our Road to Karting" data-de="Unser Weg zum Kart">Our Road to Karting</a>
-    </div>
-
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="num" data-count="20" data-suffix="+">0</div>
-        <div class="lbl i18n" data-en="Team Members" data-de="Teammitglieder">Team Members</div>
-      </div>
-      <div class="stat">
-        <div class="num" data-count="2026" data-suffix="">0</div>
-        <div class="lbl i18n" data-en="Founded" data-de="Gegründet">Founded</div>
-      </div>
-      <div class="stat">
-        <div class="num" data-count="2027" data-suffix="">0</div>
-        <div class="lbl i18n" data-en="Karting Target" data-de="Kart-Ziel">Karting Target</div>
-      </div>
+    <p class="hero-sub i18n" data-en="20+ drivers, engineers and creators from across the globe — racing under one green-and-white livery, with our sights set on the karting grid in 2027." data-de="20+ Fahrer, Ingenieure und Creator aus aller Welt — vereint unter einer grün-weißen Livery, mit klarem Blick auf die Kartbahn 2027.">20+ drivers, engineers and creators from across the globe — racing under one green-and-white livery, with our sights set on the karting grid in 2027.</p>
+    <div class="hero-links">
+      <a href="#drivers" class="link-more i18n" data-en="Meet the team" data-de="Team kennenlernen">Meet the team</a>
+      <a href="#roadmap" class="link-more i18n" data-en="Our road to karting" data-de="Unser Weg zum Kart">Our road to karting</a>
     </div>
   </div>
-  <div class="scroll-cue" id="scrollCue">
-    <span class="i18n" data-en="Scroll" data-de="Scrollen">Scroll</span>
-    <div class="stick"></div>
-  </div>
+  <figure class="hero-media" id="heroMedia">
+    <img src="images/nussynormal.jpg" alt="Nussy Motorsport car in the pit lane on race day" fetchpriority="high">
+    <figcaption class="hero-caption i18n" id="heroCaption" data-en="Racing under one green-and-white livery." data-de="Vereint unter einer grün-weißen Livery.">Racing under one green-and-white livery.</figcaption>
+  </figure>
 </section>
 
-<div class="ticker-outer">
-  <div class="ticker" id="tickerRow"></div>
-</div>
-
-<section class="about" id="about">
+<!-- ============ STATS ============ -->
+<section class="stats" id="stats">
   <div class="wrap">
-    <div class="section-head reveal-gsap">
-      <div class="plate">
-        <span class="i18n" data-en="Pit Board // About" data-de="Boxentafel // Über uns">Pit Board // About</span>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-num"><span class="n" data-count="20">20</span><span class="sfx">+</span></div>
+        <p class="stat-lbl i18n" data-en="Team members" data-de="Teammitglieder">Team members</p>
       </div>
-      <h2 class="i18n" data-en="Built like a family. Racing like professionals." data-de="Aufgebaut wie eine Familie. Rennen wie Profis.">Built like a family. Racing like professionals.</h2>
-    </div>
-    <div class="about-grid">
-      <div class="about-copy">
-        <p class="reveal-left i18n" data-en="Nussy Motorsport was founded in 2026 — not as a business plan, but as a group of sim racers who trusted each other on track and off it. That trust is still the foundation of everything we do." data-de="Nussy Motorsport wurde 2026 gegründet — nicht als Businessplan, sondern als eine Gruppe von Sim-Racern, die sich auf und abseits der Strecke vertraut haben. Dieses Vertrauen ist bis heute das Fundament von allem, was wir tun.">
-          Nussy Motorsport was founded in 2026 — not as a business plan, but as a group of sim racers who trusted each other on track and off it. That trust is still the foundation of everything we do.
-        </p>
-        <p class="reveal-left i18n" data-en="Today we're an <strong>international roster of 20+ members</strong> — drivers, race engineers, strategists, media producers and partnership leads — competing in premier endurance and GT esports championships, on the same simulators used by real-world race teams." data-de="Heute sind wir ein <strong>internationales Team mit über 20 Mitgliedern</strong> — Fahrer, Renningenieure, Strategen, Medienschaffende und Partnerschaftsverantwortliche — die in erstklassigen Endurance- und GT-Esports-Meisterschaften an den Start gehen, auf denselben Simulatoren, die auch echte Rennteams nutzen.">
-          Today we're an <strong>international roster of 20+ members</strong> — drivers, race engineers, strategists, media producers and partnership leads — competing in premier endurance and GT esports championships, on the same simulators used by real-world race teams.
-        </p>
-        <p class="reveal-left i18n" data-en="Our next chapter takes that same discipline off the screen: a structured pathway that puts our drivers behind the wheel of a real kart in 2027. Same team. Same green. Real tarmac." data-de="Unser nächstes Kapitel bringt genau diese Disziplin von der Simulation auf die echte Strecke: ein strukturierter Weg, der unsere Fahrer 2027 ins echte Kart setzt. Gleiches Team. Gleiches Grün. Echter Asphalt.">
-          Our next chapter takes that same discipline off the screen: a structured pathway that puts our drivers behind the wheel of a real kart in 2027. Same team. Same green. Real tarmac.
-        </p>
+      <div class="stat">
+        <div class="stat-num"><span class="n" data-count="11">11</span><span class="sfx">+</span></div>
+        <p class="stat-lbl i18n" data-en="Nations on the roster" data-de="Nationen im Kader">Nations on the roster</p>
       </div>
-      <div class="about-media panel-cut" id="aboutMedia">
-        <img src="images/Mercedes.png" alt="Nussy Motorsport Mercedes-AMG GT3 on track">
-        <div class="tag">#9 · PRO CLASS</div>
+      <div class="stat">
+        <div class="stat-num"><span class="n" data-count="2026" data-from="1990">2026</span></div>
+        <p class="stat-lbl i18n" data-en="Founded" data-de="Gegründet">Founded</p>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><span class="n" data-count="2027" data-from="1990">2027</span></div>
+        <p class="stat-lbl i18n" data-en="Real karting target" data-de="Ziel: echtes Karting">Real karting target</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="wrap narrow">
+    <p class="eyebrow reveal i18n" data-en="About" data-de="Über uns">About</p>
+    <p class="statement" id="statement" data-en="Nussy Motorsport started in 2026 — not as a business plan, but as a group of sim racers who trusted each other on track and off it. Today we're an international roster racing GT3, GT4 and prototypes on the same simulators real teams use. Next, we take that discipline off the screen: a real kart, in 2027." data-de="Nussy Motorsport entstand 2026 — nicht als Businessplan, sondern als Gruppe von Sim-Racern, die sich auf und abseits der Strecke vertraut haben. Heute sind wir ein internationales Team in GT3, GT4 und Prototypen — auf denselben Simulatoren, die echte Rennteams nutzen. Als Nächstes bringen wir diese Disziplin von der Simulation auf die Strecke: ein echtes Kart, 2027.">Nussy Motorsport started in 2026 — not as a business plan, but as a group of sim racers who trusted each other on track and off it. Today we're an international roster racing GT3, GT4 and prototypes on the same simulators real teams use. Next, we take that discipline off the screen: a real kart, in 2027.</p>
+    <a href="#drivers" class="link-more on-light i18n" data-en="Meet the roster" data-de="Zum Kader">Meet the roster</a>
+  </div>
+  <div class="wrap">
+    <figure class="about-visual" id="aboutVisual">
+      <img src="images/Mercedes.png" alt="Nussy Motorsport Mercedes-AMG GT3 on track" loading="lazy">
+      <figcaption class="about-tag">#9 · PRO CLASS</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ CREWS (bento) ============ -->
+<section class="crews" id="crews">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow i18n" data-en="Inside the team" data-de="Im Team">Inside the team</p>
+      <h2 class="h2 i18n" data-en="Four crews. One garage." data-de="Vier Crews. Eine Box.">Four crews. One garage.</h2>
+    </div>
+    <div class="bento">
+      <article class="bento-card b-wide b-dark">
+        <img class="bg" src="images/Mercedes.png" alt="" loading="lazy"><div class="shade"></div>
+        <div class="b-num">01</div>
+        <h3 class="i18n" data-en="Drivers" data-de="Fahrer">Drivers</h3>
+        <p class="i18n" data-en="A multi-class roster racing GT3, GT4 and prototype machinery across the world's leading endurance and sprint series." data-de="Ein Fahrerkader über mehrere Klassen hinweg — GT3, GT4 und Prototypen — in den führenden Endurance- und Sprintserien der Welt.">A multi-class roster racing GT3, GT4 and prototype machinery across the world's leading endurance and sprint series.</p>
+      </article>
+      <article class="bento-card b-narrow">
+        <span class="b-ghost" aria-hidden="true">02</span>
+        <div class="b-num">02</div>
+        <h3 class="i18n" data-en="Engineers &amp; Strategy" data-de="Ingenieure &amp; Strategie">Engineers &amp; Strategy</h3>
+        <p class="i18n" data-en="Setup work, stint planning and live race strategy, built with the same rigor as a real-world pit wall." data-de="Setup-Arbeit, Stint-Planung und Live-Strategie — mit derselben Präzision wie an einer echten Boxenmauer.">Setup work, stint planning and live race strategy, built with the same rigor as a real-world pit wall.</p>
+      </article>
+      <article class="bento-card b-narrow b-lime">
+        <span class="b-ghost" aria-hidden="true">03</span>
+        <div class="b-num">03</div>
+        <h3 class="i18n" data-en="Media &amp; Content" data-de="Medien &amp; Content">Media &amp; Content</h3>
+        <p class="i18n" data-en="Broadcast-quality highlights, livery design and storytelling that brings every race weekend to our fans." data-de="Highlights in Broadcast-Qualität, Liverydesign und Storytelling, das jedes Rennwochenende zu unseren Fans bringt.">Broadcast-quality highlights, livery design and storytelling that brings every race weekend to our fans.</p>
+      </article>
+      <article class="bento-card b-wide b-dark">
+        <img class="bg" src="images/nussy199.jpg" alt="" loading="lazy"><div class="shade"></div>
+        <div class="b-num">04</div>
+        <h3 class="i18n" data-en="Partnerships" data-de="Partnerschaften">Partnerships</h3>
+        <p class="i18n" data-en="The people building the relationships that will carry this team from the sim rig onto a real kart track in 2027." data-de="Die Menschen, die die Beziehungen aufbauen, die dieses Team 2027 vom Simulator auf die echte Kartbahn bringen.">The people building the relationships that will carry this team from the sim rig onto a real kart track in 2027.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAMILY QUOTE ============ -->
 <section class="family" id="family">
   <div class="family-bg" id="familyBg"></div>
   <div class="family-inner">
-    <blockquote class="i18n" data-en='We didn&rsquo;t build a roster. We built a <span class="lime">family</span> that happens to race.' data-de='Wir haben kein Kader zusammengestellt. Wir haben eine <span class="lime">Familie</span> aufgebaut, die zufällig Rennen fährt.'>
-      We didn&rsquo;t build a roster. We built a <span class="lime">family</span> that happens to race.
-    </blockquote>
+    <blockquote class="i18n" data-en='We didn&rsquo;t build a roster. We built a <span class="lime">family</span> that happens to race.' data-de='Wir haben kein Kader zusammengestellt. Wir haben eine <span class="lime">Familie</span> aufgebaut, die zufällig Rennen fährt.'>We didn&rsquo;t build a roster. We built a <span class="lime">family</span> that happens to race.</blockquote>
     <cite class="i18n" data-en="— The Nussy Motorsport Principle" data-de="— Das Nussy-Motorsport-Prinzip">— The Nussy Motorsport Principle</cite>
   </div>
 </section>
 
-<section class="team-section" id="team">
-  <div class="wrap section-head reveal-gsap">
-    <div class="plate">
-      <span class="i18n" data-en="On Track" data-de="Auf der Strecke">On Track</span>
+<!-- ============ TEAM GALLERY ============ -->
+<section class="team" id="team">
+  <div class="wrap team-body">
+    <div class="head reveal">
+      <p class="eyebrow on-dark i18n" data-en="On track" data-de="Auf der Strecke">On track</p>
+      <h2 class="h2 i18n" data-en="Where our team lives." data-de="Zuhause unseres Teams.">Where our team lives.</h2>
+      <p class="lead i18n" data-en="From qualifying under floodlights to fighting for position in the midday sun — this is the world our team races in every week." data-de="Von der Qualifikation unter Flutlicht bis zum Positionskampf in der Mittagssonne — das ist die Welt, in der unser Team jede Woche antritt.">From qualifying under floodlights to fighting for position in the midday sun — this is the world our team races in every week.</p>
     </div>
-    <h2 class="i18n" data-en="Where our team lives." data-de="Zuhause unseres Teams.">Where our team lives.</h2>
-    <p class="i18n" data-en="From qualifying under floodlights to fighting for position in the midday sun — this is the world our team races in every week." data-de="Von der Qualifikation unter Flutlicht bis zum Positionskampf in der Mittagssonne — das ist die Welt, in der unser Team jede Woche antritt.">
-      From qualifying under floodlights to fighting for position in the midday sun — this is the world our team races in every week.
-    </p>
+    <div class="gallery-static">
+      <figure><img src="images/nussynormal.jpg" alt="Car in the pit lane on a sunny race day" loading="lazy"><figcaption class="i18n" data-en="Pit Lane · Race Day" data-de="Boxengasse · Renntag">Pit Lane · Race Day</figcaption></figure>
+      <figure><img src="images/NussyDark.jpg" alt="Car under floodlights in the rain" loading="lazy"><figcaption class="i18n" data-en="Night Qualifying · Wet Conditions" data-de="Nachtqualifikation · Nasse Bedingungen">Night Qualifying · Wet Conditions</figcaption></figure>
+      <figure><img src="images/nussy199.jpg" alt="Car exiting a corner at night" loading="lazy"><figcaption class="i18n" data-en="#199 · Fighting for Position" data-de="#199 · Kampf um die Position">#199 · Fighting for Position</figcaption></figure>
+    </div>
   </div>
-
-  <div class="scroll-track" id="scrollTrack">
+  <div class="gallery-pin" id="scrollTrack">
     <div class="scroll-pin">
       <div class="scroll-images" id="scrollImages">
-        <figure>
-          <img src="images/nussynormal.jpg" alt="Nussy Motorsport car in the pit lane during a sunny race day">
-          <figcaption class="i18n" data-en="Pit Lane · Race Day" data-de="Boxengasse · Renntag">Pit Lane · Race Day</figcaption>
-        </figure>
-        <figure>
-          <img src="images/NussyDark.jpg" alt="Nussy Motorsport car under floodlights in the rain">
-          <figcaption class="i18n" data-en="Night Qualifying · Wet Conditions" data-de="Nachtqualifikation · Nasse Bedingungen">Night Qualifying · Wet Conditions</figcaption>
-        </figure>
-        <figure>
-          <img src="images/nussy199.jpg" alt="Nussy Motorsport car exiting a corner at night">
-          <figcaption class="i18n" data-en="#199 · Fighting for Position" data-de="#199 · Kampf um die Position">#199 · Fighting for Position</figcaption>
-        </figure>
-      </div>
-    </div>
-  </div>
-
-  <div class="wrap">
-    <div class="gallery-grid-static" id="galleryStatic">
-      <figure class="panel-cut">
-        <img src="images/nussynormal.jpg" alt="Nussy Motorsport car in the pit lane during a sunny race day">
-        <figcaption class="i18n" data-en="Pit Lane · Race Day" data-de="Boxengasse · Renntag">Pit Lane · Race Day</figcaption>
-      </figure>
-      <figure class="panel-cut">
-        <img src="images/NussyDark.jpg" alt="Nussy Motorsport car under floodlights in the rain">
-        <figcaption class="i18n" data-en="Night Qualifying · Wet Conditions" data-de="Nachtqualifikation · Nasse Bedingungen">Night Qualifying · Wet Conditions</figcaption>
-      </figure>
-      <figure class="panel-cut">
-        <img src="images/nussy199.jpg" alt="Nussy Motorsport car exiting a corner at night">
-        <figcaption class="i18n" data-en="#199 · Fighting for Position" data-de="#199 · Kampf um die Position">#199 · Fighting for Position</figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<section class="pillars">
-  <div class="wrap">
-    <div class="section-head reveal-gsap">
-      <div class="plate">
-        <span class="i18n" data-en="Inside the Team" data-de="Im Team">Inside the Team</span>
-      </div>
-      <h2 class="i18n" data-en="Four crews. One garage." data-de="Vier Crews. Eine Box.">Four crews. One garage.</h2>
-    </div>
-    <div class="pillar-grid">
-      <div class="pillar">
-        <div class="num">01</div>
-        <h3 class="i18n" data-en="Drivers" data-de="Fahrer">Drivers</h3>
-        <p class="i18n" data-en="A multi-class roster racing GT3, GT4 and prototype machinery across the world's leading endurance and sprint series." data-de="Ein Fahrerkader über mehrere Klassen hinweg — GT3, GT4 und Prototypen — in den führenden Endurance- und Sprintserien der Welt.">A multi-class roster racing GT3, GT4 and prototype machinery across the world's leading endurance and sprint series.</p>
-      </div>
-      <div class="pillar">
-        <div class="num">02</div>
-        <h3 class="i18n" data-en="Engineers &amp; Strategy" data-de="Ingenieure &amp; Strategie">Engineers &amp; Strategy</h3>
-        <p class="i18n" data-en="Setup work, stint planning and live race strategy, built with the same rigor as a real-world pit wall." data-de="Setup-Arbeit, Stint-Planung und Live-Strategie — mit derselben Präzision wie an einer echten Boxenmauer.">Setup work, stint planning and live race strategy, built with the same rigor as a real-world pit wall.</p>
-      </div>
-      <div class="pillar">
-        <div class="num">03</div>
-        <h3 class="i18n" data-en="Media &amp; Content" data-de="Medien &amp; Content">Media &amp; Content</h3>
-        <p class="i18n" data-en="Broadcast-quality highlights, livery design and storytelling that brings every race weekend to our fans." data-de="Highlights in Broadcast-Qualität, Liverydesign und Storytelling, das jedes Rennwochenende zu unseren Fans bringt.">Broadcast-quality highlights, livery design and storytelling that brings every race weekend to our fans.</p>
-      </div>
-      <div class="pillar">
-        <div class="num">04</div>
-        <h3 class="i18n" data-en="Partnerships" data-de="Partnerschaften">Partnerships</h3>
-        <p class="i18n" data-en="The people building the relationships that will carry this team from the sim rig onto a real kart track in 2027." data-de="Die Menschen, die die Beziehungen aufbauen, die dieses Team 2027 vom Simulator auf die echte Kartbahn bringen.">The people building the relationships that will carry this team from the sim rig onto a real kart track in 2027.</p>
+        <figure><img src="images/nussynormal.jpg" alt="Car in the pit lane on a sunny race day" loading="lazy"><figcaption class="i18n" data-en="Pit Lane · Race Day" data-de="Boxengasse · Renntag">Pit Lane · Race Day</figcaption></figure>
+        <figure><img src="images/NussyDark.jpg" alt="Car under floodlights in the rain" loading="lazy"><figcaption class="i18n" data-en="Night Qualifying · Wet Conditions" data-de="Nachtqualifikation · Nasse Bedingungen">Night Qualifying · Wet Conditions</figcaption></figure>
+        <figure><img src="images/nussy199.jpg" alt="Car exiting a corner at night" loading="lazy"><figcaption class="i18n" data-en="#199 · Fighting for Position" data-de="#199 · Kampf um die Position">#199 · Fighting for Position</figcaption></figure>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ============ DRIVERS ============ -->
 <section class="drivers" id="drivers">
   <div class="wrap">
-    <div class="section-head reveal-gsap">
-      <div class="plate">
-        <span class="i18n" data-en="The Roster" data-de="Das Aufgebot">The Roster</span>
+    <div class="head reveal">
+      <p class="eyebrow i18n" data-en="The roster" data-de="Das Aufgebot">The roster</p>
+      <h2 class="h2 i18n" data-en="Meet the team." data-de="Lern das Team kennen.">Meet the team.</h2>
+      <p class="lead i18n" data-en="20+ members strong and growing. Here's who's behind the wheel." data-de="Über 20 Mitglieder — und es werden mehr. Das sind die Menschen am Steuer.">20+ members strong and growing. Here's who's behind the wheel.</p>
+    </div>
+
+    <div class="chips-wrap reveal">
+      <div class="chips" role="tablist" aria-label="Filter roster">
+        <button class="chip active" data-filter="all"><span class="i18n" data-en="All" data-de="Alle">All</span></button>
+        <button class="chip" data-filter="gt3">GT3</button>
+        <button class="chip" data-filter="f1">F1</button>
+        <button class="chip" data-filter="media"><span class="i18n" data-en="Media" data-de="Medien">Media</span></button>
+        <button class="chip" data-filter="mgmt">Management</button>
       </div>
-      <h2>Meet our Team.</h2>
-      <p>20+ members strong and growing. Here's a taste of who's behind the wheel.</p>
     </div>
 
     <div class="driver-grid" id="driverGrid">
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/matt.jpeg" alt="Driver number 009"><div class="num-badge">#009</div></div>
-        <div class="info">
-          <h3>Matt Diaconu</h3>
-          <div class="role">GT3 Pro Driver · Romania</div>
-          <p class="bio">Hi, I'm Matt Diaconu and I'm racing for NUSSY Motorsport we illustrate high levels of consistency such as my consistency of 99.28% in the last few league races at ASPL and am racing Endurance Racing in the GT3 class. Come on join me on this journey.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="gt3">
+        <div class="photo"><img src="images/matt.jpeg" alt="Matt Diaconu" loading="lazy" decoding="async"><div class="num-badge">#009</div></div>
+        <div class="info"><h3>Matt Diaconu</h3><div class="role">GT3 Pro Driver · Romania</div>
+          <p class="bio">Hi, I'm Matt Diaconu and I'm racing for NUSSY Motorsport we illustrate high levels of consistency such as my consistency of 99.28% in the last few league races at ASPL and am racing Endurance Racing in the GT3 class. Come on join me on this journey.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/charlie.jpeg" alt="Driver number 13"><div class="num-badge">#13</div></div>
-        <div class="info">
-          <h3>Charlie Backhouse</h3>
-          <div class="role">GT3 Academy · United Kingdom</div>
-          <p class="bio">I drive for nussy motorsport as an academy driver trying to improve my racing every chance I get.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="gt3">
+        <div class="photo"><img src="images/charlie.jpeg" alt="Charlie Backhouse" loading="lazy" decoding="async"><div class="num-badge">#13</div></div>
+        <div class="info"><h3>Charlie Backhouse</h3><div class="role">GT3 Academy · United Kingdom</div>
+          <p class="bio">I drive for nussy motorsport as an academy driver trying to improve my racing every chance I get.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/bells.png" alt=""><div class="num-badge">Media</div></div>
-        <div class="info">
-          <h3>Bells</h3>
-          <div class="role">Graphic &amp; Media Specialist / Social Media manager · United Kingdom</div>
-          <p class="bio">:]</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="media">
+        <div class="photo"><img src="images/bells.png" alt="Bells" loading="lazy" decoding="async"><div class="num-badge">Media</div></div>
+        <div class="info"><h3>Bells</h3><div class="role">Graphic &amp; Media Specialist / Social Media manager · United Kingdom</div>
+          <p class="bio">:]</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/vlad.png" alt="Driver #11"><div class="num-badge">#11</div></div>
-        <div class="info">
-          <h3>Vladyslav Holovanov</h3>
-          <div class="role">GT3 Specialist · Slovakia</div>
-          <p class="bio">Hi im Vladyslav Holovanov I'm racing for Nussy team about me: GT3 driver from Slovakia. I specialize in Assetto Corsa Competizione, I'm constantly working to improve my pace, consistency, and racecraft while pushing towards professional-level performance. Every lap is another step closer to my goal of competing at the highest level. Join me on this journey.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="gt3">
+        <div class="photo"><img src="images/vlad.png" alt="Vladyslav Holovanov" loading="lazy" decoding="async"><div class="num-badge">#11</div></div>
+        <div class="info"><h3>Vladyslav Holovanov</h3><div class="role">GT3 Specialist · Slovakia</div>
+          <p class="bio">Hi im Vladyslav Holovanov I'm racing for Nussy team about me: GT3 driver from Slovakia. I specialize in Assetto Corsa Competizione, I'm constantly working to improve my pace, consistency, and racecraft while pushing towards professional-level performance. Every lap is another step closer to my goal of competing at the highest level. Join me on this journey.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/Triggy.jpg" alt="Driver #77"><div class="num-badge">#77</div></div>
-        <div class="info">
-          <h3>Darcy Bernuetz</h3>
-          <div class="role">GT3 Specialist · Australia</div>
-          <p class="bio">Karting and sim racer driving for Nussy Motorsport on ACC.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="gt3">
+        <div class="photo"><img src="images/Triggy.jpg" alt="Darcy Bernuetz" loading="lazy" decoding="async"><div class="num-badge">#77</div></div>
+        <div class="info"><h3>Darcy Bernuetz</h3><div class="role">GT3 Specialist · Australia</div>
+          <p class="bio">Karting and sim racer driving for Nussy Motorsport on ACC.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/Jenson.png" alt="Driver #101"><div class="num-badge">#101</div></div>
-        <div class="info">
-          <h3>Jenson Mabbley</h3>
-          <div class="role">GT3 Academy · United Kingdom</div>
-          <p class="bio">Hello I'm Jenson Mabbley, I'm a driver for Nussy Motorsport. Check me out on TikTok jenson_sim | 111.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="gt3">
+        <div class="photo"><img src="images/Jenson.png" alt="Jenson Mabbley" loading="lazy" decoding="async"><div class="num-badge">#101</div></div>
+        <div class="info"><h3>Jenson Mabbley</h3><div class="role">GT3 Academy · United Kingdom</div>
+          <p class="bio">Hello I'm Jenson Mabbley, I'm a driver for Nussy Motorsport. Check me out on TikTok jenson_sim | 111.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/alvaro.jpg" alt="Driver #20"><div class="num-badge">#20</div></div>
-        <div class="info">
-          <h3>Álvaro Tortajada</h3>
-          <div class="role">F1 Specialist · Spain</div>
-          <p class="bio">Spanish F1 driver of Nussy, Valencia, and Umar Sadiq is the GOAT.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="f1">
+        <div class="photo"><img src="images/alvaro.jpg" alt="Álvaro Tortajada" loading="lazy" decoding="async"><div class="num-badge">#20</div></div>
+        <div class="info"><h3>Álvaro Tortajada</h3><div class="role">F1 Specialist · Spain</div>
+          <p class="bio">Spanish F1 driver of Nussy, Valencia, and Umar Sadiq is the GOAT.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/Kirito.png" alt="Driver"><div class="num-badge">Management</div></div>
-        <div class="info">
-          <h3>Kirito Akerman</h3>
-          <div class="role">Discord Systems Manager · Spain</div>
-          <p class="bio">Responsible for Discord management, bot configuration, permissions, server organization, and automation. Focused on creating a clean, efficient, and enjoyable experience for the entire community.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="mgmt">
+        <div class="photo"><img src="images/Kirito.png" alt="Kirito Akerman" loading="lazy" decoding="async"><div class="num-badge">Management</div></div>
+        <div class="info"><h3>Kirito Akerman</h3><div class="role">Discord Systems Manager · Spain</div>
+          <p class="bio">Responsible for Discord management, bot configuration, permissions, server organization, and automation. Focused on creating a clean, efficient, and enjoyable experience for the entire community.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/marek.png" alt="Driver #61"><div class="num-badge">#61</div></div>
-        <div class="info">
-          <h3>Marek Bittner</h3>
-          <div class="role">GT3 Specialist · Czechia</div>
-          <p class="bio">15-year-old sim racer from Czechia, racing in Assetto Corsa Competizione for Nussy Motorsport, F1, and Gran Turismo 7. Focused on clean racing, consistency, racecraft, and improving.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="gt3">
+        <div class="photo"><img src="images/marek.png" alt="Marek Bittner" loading="lazy" decoding="async"><div class="num-badge">#61</div></div>
+        <div class="info"><h3>Marek Bittner</h3><div class="role">GT3 Specialist · Czechia</div>
+          <p class="bio">15-year-old sim racer from Czechia, racing in Assetto Corsa Competizione for Nussy Motorsport, F1, and Gran Turismo 7. Focused on clean racing, consistency, racecraft, and improving.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/christopher.png" alt="Driver #95"><div class="num-badge">#95</div></div>
-        <div class="info">
-          <h3>Christopher Lawrence Erwin</h3>
-          <div class="role">F1 Specialist · America</div>
-          <p class="bio">I love the new regulations.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="f1">
+        <div class="photo"><img src="images/christopher.png" alt="Christopher Lawrence Erwin" loading="lazy" decoding="async"><div class="num-badge">#95</div></div>
+        <div class="info"><h3>Christopher Lawrence Erwin</h3><div class="role">F1 Specialist · America</div>
+          <p class="bio">I love the new regulations.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/kayle.png" alt="Driver Media"><div class="num-badge">Media</div></div>
-        <div class="info">
-          <h3>Kayley</h3>
-          <div class="role">Media Specialist · United Kingdom</div>
-          <p class="bio">Hey, I'm Kayley and I am a small editor looking to build my audience and expand my editing skills. &lt;3</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="media">
+        <div class="photo"><img src="images/kayle.png" alt="Kayley" loading="lazy" decoding="async"><div class="num-badge">Media</div></div>
+        <div class="info"><h3>Kayley</h3><div class="role">Media Specialist · United Kingdom</div>
+          <p class="bio">Hey, I'm Kayley and I am a small editor looking to build my audience and expand my editing skills. &lt;3</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/zz.png" alt="Driver #24"><div class="num-badge">#24</div></div>
-        <div class="info">
-          <h3>Szalontai Zalán Márk</h3>
-          <div class="role">F1 Specialist · Hungary</div>
-          <p class="bio">I am 13 years old young driver. I love Formula 1 and I've been playing Formula 1 games for 4 years.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="f1">
+        <div class="photo"><img src="images/zz.png" alt="Szalontai Zalán Márk" loading="lazy" decoding="async"><div class="num-badge">#24</div></div>
+        <div class="info"><h3>Szalontai Zalán Márk</h3><div class="role">F1 Specialist · Hungary</div>
+          <p class="bio">I am 13 years old young driver. I love Formula 1 and I've been playing Formula 1 games for 4 years.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/chad.png" alt="Driver #199"><div class="num-badge">#199</div></div>
-        <div class="info">
-          <h3>Chad Wilmott</h3>
-          <div class="role">GT3 Specialist, THE BEST NUSSY DRIVER · Jamaica</div>
-          <p class="bio">Karting Driver 🇯🇲🇹🇹 · Esports driver.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="gt3">
+        <div class="photo"><img src="images/chad.png" alt="Chad Wilmott" loading="lazy" decoding="async"><div class="num-badge">#199</div></div>
+        <div class="info"><h3>Chad Wilmott</h3><div class="role">GT3 Specialist, THE BEST NUSSY DRIVER · Jamaica</div>
+          <p class="bio">Karting Driver 🇯🇲🇹🇹 · Esports driver.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/ryan.png" alt="Driver #40"><div class="num-badge">#40</div></div>
-        <div class="info">
-          <h3>Ryan Flack</h3>
-          <div class="role">GT3 Academy · United Kingdom</div>
-          <p class="bio">Young racer that's committed to improving and having fun doing it.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="gt3">
+        <div class="photo"><img src="images/ryan.png" alt="Ryan Flack" loading="lazy" decoding="async"><div class="num-badge">#40</div></div>
+        <div class="info"><h3>Ryan Flack</h3><div class="role">GT3 Academy · United Kingdom</div>
+          <p class="bio">Young racer that's committed to improving and having fun doing it.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/molnar.png" alt="Driver #97"><div class="num-badge">#97</div></div>
-        <div class="info">
-          <h3>Máté Molnár</h3>
-          <div class="role">F1 Specialist · Hungary</div>
-          <p class="bio">I am Máté Molnár, a Hungarian Formula 1 sim racing driver representing Nussy Motorsport. I am constantly striving to improve my speed, consistency, and racecraft, always pushing myself to perform at the highest level. For me, sim racing is more than just a hobby — it's a passion. "Every lap is another step towards becoming a better driver."</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="f1">
+        <div class="photo"><img src="images/molnar.png" alt="Máté Molnár" loading="lazy" decoding="async"><div class="num-badge">#97</div></div>
+        <div class="info"><h3>Máté Molnár</h3><div class="role">F1 Specialist · Hungary</div>
+          <p class="bio">I am Máté Molnár, a Hungarian Formula 1 sim racing driver representing Nussy Motorsport. I am constantly striving to improve my speed, consistency, and racecraft, always pushing myself to perform at the highest level. For me, sim racing is more than just a hobby — it's a passion. "Every lap is another step towards becoming a better driver."</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/connor.png" alt="Driver"><div class="num-badge">Management</div></div>
-        <div class="info">
-          <h3>Connor Blacow</h3>
-          <div class="role">Management · United Kingdom</div>
-          <p class="bio">Once the COO of Nussy Cooperation, now a helping hand in management.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="mgmt">
+        <div class="photo"><img src="images/connor.png" alt="Connor Blacow" loading="lazy" decoding="async"><div class="num-badge">Management</div></div>
+        <div class="info"><h3>Connor Blacow</h3><div class="role">Management · United Kingdom</div>
+          <p class="bio">Once the COO of Nussy Cooperation, now a helping hand in management.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/Vihaan.png" alt="Driver Media"><div class="num-badge">Media</div></div>
-        <div class="info">
-          <h3>Vihaan Sisodia</h3>
-          <div class="role">Media Specialist · Switzerland</div>
-          <p class="bio">Video editor for Nussy Motorsport. CrumbzzzF1 on TikTok, @vihaan.vs13 on all socials.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="media">
+        <div class="photo"><img src="images/Vihaan.png" alt="Vihaan Sisodia" loading="lazy" decoding="async"><div class="num-badge">Media</div></div>
+        <div class="info"><h3>Vihaan Sisodia</h3><div class="role">Media Specialist · Switzerland</div>
+          <p class="bio">Video editor for Nussy Motorsport. CrumbzzzF1 on TikTok, @vihaan.vs13 on all socials.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/raphael.png" alt="Driver #16"><div class="num-badge">#16</div></div>
-        <div class="info">
-          <h3>Raphael Delgado</h3>
-          <div class="role">F1 Specialist · USA</div>
-          <p class="bio">Our strongest F1 driver, trying to build up even more skill and compete in championships for Nussy Motorsport.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="f1">
+        <div class="photo"><img src="images/raphael.png" alt="Raphael Delgado" loading="lazy" decoding="async"><div class="num-badge">#16</div></div>
+        <div class="info"><h3>Raphael Delgado</h3><div class="role">F1 Specialist · USA</div>
+          <p class="bio">Our strongest F1 driver, trying to build up even more skill and compete in championships for Nussy Motorsport.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/daniel.png" alt="Driver #93"><div class="num-badge">#93</div></div>
-        <div class="info">
-          <h3>Daniel Gonzalez</h3>
-          <div class="role">F1 Specialist · Spain</div>
-          <p class="bio">One of the biggest legends in our team, part of an F1 pace and speed foundation. With extreme pace and always good lap times, he performs better than most.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="f1">
+        <div class="photo"><img src="images/daniel.png" alt="Daniel Gonzalez" loading="lazy" decoding="async"><div class="num-badge">#93</div></div>
+        <div class="info"><h3>Daniel Gonzalez</h3><div class="role">F1 Specialist · Spain</div>
+          <p class="bio">One of the biggest legends in our team, part of an F1 pace and speed foundation. With extreme pace and always good lap times, he performs better than most.</p><button class="more-btn" hidden></button></div>
+      </article>
 
-      <div class="driver-card">
-        <div class="photo panel-cut"><img src="images/mrc.png" alt="Driver #42"><div class="num-badge">#42</div></div>
-        <div class="info">
-          <h3>Marco Baba</h3>
-          <div class="role">Media Specialist · Germany</div>
-          <p class="bio">Hi, I'm Marco, video editor for Nussy Motorsport's media team. I've been sim racing since early 2023 — starting with GT7 on PlayStation, then ACC, and for the last year exclusively LMU on PC. Since August 2025 I've been sharing my sim racing journey as mrcbaba on Instagram and Twitch.</p>
-        </div>
-      </div>
+      <article class="driver-card" data-cat="media">
+        <div class="photo"><img src="images/mrc.png" alt="Marco Baba" loading="lazy" decoding="async"><div class="num-badge">#42</div></div>
+        <div class="info"><h3>Marco Baba</h3><div class="role">Media Specialist · Germany</div>
+          <p class="bio">Hi, I'm Marco, video editor for Nussy Motorsport's media team. I've been sim racing since early 2023 — starting with GT7 on PlayStation, then ACC, and for the last year exclusively LMU on PC. Since August 2025 I've been sharing my sim racing journey as mrcbaba on Instagram and Twitch.</p><button class="more-btn" hidden></button></div>
+      </article>
 
     </div>
-    <p class="driver-note">Driver bios are written once and shown as-is in every language.</p>
+    <p class="driver-note i18n" data-en="Driver bios are written once and shown as-is in every language." data-de="Fahrer-Bios werden nur einmal geschrieben und in jeder Sprache unverändert angezeigt.">Driver bios are written once and shown as-is in every language.</p>
   </div>
 </section>
 
+<!-- ============ ROADMAP ============ -->
 <section class="roadmap" id="roadmap">
   <div class="wrap">
-    <div class="section-head reveal-gsap">
-      <div class="plate">
-        <span class="i18n" data-en="The Journey" data-de="Die Reise">The Journey</span>
-      </div>
-      <h2 class="i18n" data-en="From the sim rig to the karting grid." data-de="Vom Simulator zur Kartbahn.">From the sim rig to the karting grid.</h2>
-      <p class="i18n" data-en="Every step has been deliberate. Karting isn't a side project — it's the reason the team exists." data-de="Jeder Schritt war bewusst geplant. Karting ist kein Nebenprojekt — es ist der Grund, warum es dieses Team gibt.">
-        Every step has been deliberate. Karting isn't a side project — it's the reason the team exists.
-      </p>
+    <div class="head reveal">
+      <p class="eyebrow on-dark i18n" data-en="The journey" data-de="Die Reise">The journey</p>
+      <h2 class="h2 i18n" data-en="From the sim rig to the karting grid." data-de="Vom Simulator zur Kartbahn.">From the sim rig to the karting grid.</h2>
+      <p class="lead i18n" data-en="Every step has been deliberate. Karting isn't a side project — it's the reason the team exists." data-de="Jeder Schritt war bewusst geplant. Karting ist kein Nebenprojekt — es ist der Grund, warum es dieses Team gibt.">Every step has been deliberate. Karting isn't a side project — it's the reason the team exists.</p>
     </div>
-
-    <div class="timeline" id="timeline">
-      <div class="timeline-rail"></div>
-      <div class="timeline-progress" id="timelineProgress"></div>
-      <div class="t-item">
-        <div class="t-year">2026</div>
+    <div class="rm-grid" id="rmGrid">
+      <div class="rm-line"><div class="rm-fill" id="rmFill"></div></div>
+      <div class="rm-item">
+        <span class="rm-dot"></span>
+        <div class="rm-year">2026</div>
         <h3 class="i18n" data-en="Founded" data-de="Gegründet">Founded</h3>
         <p class="i18n" data-en="A small group of sim racers competes together for the first time under a shared livery." data-de="Eine kleine Gruppe von Sim-Racern tritt erstmals gemeinsam unter einer gemeinsamen Livery an.">A small group of sim racers competes together for the first time under a shared livery.</p>
       </div>
-      <div class="t-item">
-        <div class="t-year">2026</div>
-        <h3 class="i18n" data-en="International Growth" data-de="Internationales Wachstum">International Growth</h3>
-        <p class="i18n" data-en="The roster grows past 20 members across 9 nations, competing in premier endurance and GT esports championships." data-de="Der Kader wächst auf über 20 Mitglieder aus 9 Nationen und tritt in erstklassigen Endurance- und GT-Esports-Meisterschaften an.">The roster grows past 20 members across 9 nations, competing in premier endurance and GT esports championships.</p>
+      <div class="rm-item">
+        <span class="rm-dot"></span>
+        <div class="rm-year">2026</div>
+        <h3 class="i18n" data-en="International growth" data-de="Internationales Wachstum">International growth</h3>
+        <p class="i18n" data-en="The roster grows past 20 members across 11+ nations, competing in premier endurance and GT esports championships." data-de="Der Kader wächst auf über 20 Mitglieder aus mehr als 11 Nationen und tritt in erstklassigen Endurance- und GT-Esports-Meisterschaften an.">The roster grows past 20 members across 11+ nations, competing in premier endurance and GT esports championships.</p>
       </div>
-      <div class="t-item future">
-        <div class="t-year">2027</div>
-        <h3 class="i18n" data-en="The Karting Grid" data-de="Die Kartstrecke">The Karting Grid</h3>
+      <div class="rm-item future">
+        <span class="rm-dot"></span>
+        <div class="rm-year">2027</div>
+        <h3 class="i18n" data-en="The karting grid" data-de="Die Kartstrecke">The karting grid</h3>
         <p class="i18n" data-en="Nussy Motorsport takes to the tarmac in real-world kart racing, fielding team drivers in physical competition." data-de="Nussy Motorsport geht auf den echten Asphalt: Team-Fahrer treten im physischen Kart-Rennsport gegeneinander an.">Nussy Motorsport takes to the tarmac in real-world kart racing, fielding team drivers in physical competition.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="join" id="join">
-  <div class="wrap reveal-gsap">
-    <div class="plate">
-      <span class="i18n" data-en="Recruitment" data-de="Rekrutierung">Recruitment</span>
+<!-- ============ PARTNERS ============ -->
+<section class="partners" id="partners">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow i18n" data-en="Partners" data-de="Partner">Partners</p>
+      <h2 class="h2 i18n" data-en="Build the future of racing with us." data-de="Gestalte die Zukunft des Rennsports mit uns.">Build the future of racing with us.</h2>
+      <p class="lead i18n" data-en="Nussy Motorsport is growing fast — from the sim rig today to a real kart grid in 2027. Partners who join now become part of the whole journey." data-de="Nussy Motorsport wächst schnell — vom Simulator heute zum echten Kart-Grid 2027. Partner, die jetzt einsteigen, begleiten die gesamte Reise.">Nussy Motorsport is growing fast — from the sim rig today to a real kart grid in 2027. Partners who join now become part of the whole journey.</p>
     </div>
-    <h2 class="i18n" data-en="Drive with us. Race with us." data-de="Fahr mit uns. Kämpfe mit uns.">Drive with us. Race with us.</h2>
-    <p class="i18n" data-en="We are always looking for passionate drivers, engineers, creators and partners who share our dedication and vision." data-de="Wir sind immer auf der Suche nach leidenschaftlichen Fahrern, Ingenieuren, Creatorn und Partnern, die unsere Leidenschaft und Vision teilen.">We are always looking for passionate drivers, engineers, creators and partners who share our dedication and vision.</p>
-    <div class="join-roles">
-      <span class="i18n" data-en="GT3 / GT4 Drivers" data-de="GT3 / GT4 Fahrer">GT3 / GT4 Drivers</span>
-      <span class="i18n" data-en="Race Engineers" data-de="Renningenieure">Race Engineers</span>
-      <span class="i18n" data-en="Content Creators" data-de="Content Creator">Content Creators</span>
-      <span class="i18n" data-en="Sponsors &amp; Partners" data-de="Sponsoren &amp; Partner">Sponsors &amp; Partners</span>
+    <div class="p-grid">
+      <article class="p-card">
+        <div class="p-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg></div>
+        <h3 class="i18n" data-en="A truly global team" data-de="Ein wirklich globales Team">A truly global team</h3>
+        <p class="i18n" data-en="Drivers, engineers and creators from 11+ nations, racing and creating together every week." data-de="Fahrer, Ingenieure und Creator aus über 11 Nationen — gemeinsam am Start, jede Woche.">Drivers, engineers and creators from 11+ nations, racing and creating together every week.</p>
+      </article>
+      <article class="p-card">
+        <div class="p-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9.5 5 2.5-5 2.5z"/></svg></div>
+        <h3 class="i18n" data-en="Broadcast-quality content" data-de="Content in Broadcast-Qualität">Broadcast-quality content</h3>
+        <p class="i18n" data-en="Highlights, livery design and storytelling that bring every race weekend to life." data-de="Highlights, Liverydesign und Storytelling, die jedes Rennwochenende lebendig machen.">Highlights, livery design and storytelling that bring every race weekend to life.</p>
+      </article>
+      <article class="p-card">
+        <div class="p-ico"><svg viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></div>
+        <h3 class="i18n" data-en="A real-world pathway" data-de="Ein Weg auf die echte Strecke">A real-world pathway</h3>
+        <p class="i18n" data-en="In 2027 the team steps onto a real karting grid. Partners come along from day one." data-de="2027 geht das Team auf ein echtes Kart-Grid. Partner sind vom ersten Tag an dabei.">In 2027 the team steps onto a real karting grid. Partners come along from day one.</p>
+      </article>
     </div>
-    <span class="magnetic-wrap">
-      <a href="mailto:Support@nussymotorsport.de" class="btn btn-primary i18n magnetic" data-en="Get in Touch" data-de="Kontakt Aufnehmen">Get in Touch</a>
-    </span>
+    <div class="cta-block reveal">
+      <a href="mailto:Support@nussymotorsport.de?subject=Partnership%20enquiry" class="btn btn-dark i18n" data-en="Become a partner" data-de="Partner werden">Become a partner</a>
+    </div>
   </div>
 </section>
 
+<!-- ============ JOIN ============ -->
+<section class="join" id="join">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow on-dark i18n" data-en="Recruitment" data-de="Rekrutierung">Recruitment</p>
+      <h2 class="h2 i18n" data-en="Drive with us. Race with us." data-de="Fahr mit uns. Kämpfe mit uns.">Drive with us. Race with us.</h2>
+      <p class="lead i18n" data-en="We are always looking for passionate drivers, engineers, creators and partners who share our dedication and vision." data-de="Wir sind immer auf der Suche nach leidenschaftlichen Fahrern, Ingenieuren, Creatorn und Partnern, die unsere Leidenschaft und Vision teilen.">We are always looking for passionate drivers, engineers, creators and partners who share our dedication and vision.</p>
+      <div class="join-roles">
+        <span class="i18n" data-en="GT3 / GT4 Drivers" data-de="GT3 / GT4 Fahrer">GT3 / GT4 Drivers</span>
+        <span class="i18n" data-en="Race Engineers" data-de="Renningenieure">Race Engineers</span>
+        <span class="i18n" data-en="Content Creators" data-de="Content Creator">Content Creators</span>
+        <span class="i18n" data-en="Sponsors &amp; Partners" data-de="Sponsoren &amp; Partner">Sponsors &amp; Partners</span>
+      </div>
+      <a href="mailto:Support@nussymotorsport.de" class="btn btn-primary i18n" data-en="Get in touch" data-de="Kontakt aufnehmen">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
 <footer>
   <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <img src="images/logo.png" alt="Nussy Motorsport">
-        <p class="i18n" data-en="An international esports racing team preparing for real-world karting." data-de="Ein internationales Esports-Rennteam auf dem Weg zum echten Kartsport.">An international esports racing team preparing for real-world karting.</p>
+    <p class="foot-note i18n" data-en="Nussy Motorsport is an international esports racing team preparing for real-world karting in 2027." data-de="Nussy Motorsport ist ein internationales Esports-Rennteam auf dem Weg zum echten Kartsport 2027.">Nussy Motorsport is an international esports racing team preparing for real-world karting in 2027.</p>
+    <div class="foot-cols">
+      <div class="foot-brand"><a class="logo-crop" href="#top" aria-label="Nussy Motorsport"><img src="images/logo.png" alt="Nussy Motorsport"></a></div>
+      <div>
+        <h4 class="i18n" data-en="Team" data-de="Team">Team</h4>
+        <ul>
+          <li><a href="#about" class="i18n" data-en="About" data-de="Über uns">About</a></li>
+          <li><a href="#team" class="i18n" data-en="On track" data-de="Auf der Strecke">On track</a></li>
+          <li><a href="#drivers" class="i18n" data-en="Drivers" data-de="Fahrer">Drivers</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+        </ul>
       </div>
-      <div class="footer-links">
-        <div class="footer-col">
-          <h4 class="i18n" data-en="Navigation" data-de="Navigation">Navigation</h4>
-          <ul>
-            <li><a href="#about" class="i18n" data-en="About" data-de="Über uns">About</a></li>
-            <li><a href="#team" class="i18n" data-en="Team" data-de="Team">Team</a></li>
-            <li><a href="#drivers" class="i18n" data-en="Drivers" data-de="Fahrer">Drivers</a></li>
-            <li><a href="#roadmap" class="i18n" data-en="Roadmap" data-de="Roadmap">Roadmap</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4 class="i18n" data-en="Connect" data-de="Verbinden">Connect</h4>
-          <ul>
-            <li><a href="#">Discord</a></li>
-            <li><a href="#">YouTube</a></li>
-            <li><a href="#">Twitch</a></li>
-            <li><a href="#">Instagram</a></li>
-          </ul>
-        </div>
+      <div>
+        <h4 class="i18n" data-en="Get involved" data-de="Mitmachen">Get involved</h4>
+        <ul>
+          <li><a href="#partners" class="i18n" data-en="Partners" data-de="Partner">Partners</a></li>
+          <li><a href="#join" class="i18n" data-en="Join us" data-de="Mitmachen">Join us</a></li>
+          <li><a href="mailto:Support@nussymotorsport.de">Support@nussymotorsport.de</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="i18n" data-en="Connect" data-de="Verbinden">Connect</h4>
+        <ul>
+          <li><a href="#">Discord</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Twitch</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
       </div>
     </div>
-    <div class="footer-bottom">
-      <div>&copy; 2026 Nussy Motorsport. All rights reserved.</div>
-      <div class="i18n" data-en="Part of Nussy Cooperation" data-de="Teil der Nussy Cooperation">Part of Nussy Cooperation</div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 Nussy Motorsport. All rights reserved.</span>
+      <span class="i18n" data-en="Part of Nussy Cooperation" data-de="Teil der Nussy Cooperation">Part of Nussy Cooperation</span>
     </div>
   </div>
 </footer>
@@ -973,358 +722,349 @@
 (function(){
   "use strict";
 
-  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hasGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
-  if (hasGsap) gsap.registerPlugin(ScrollTrigger);
+  if (!hasGsap) { root.classList.remove('js'); } else { gsap.registerPlugin(ScrollTrigger); }
 
-  /* ============ LANGUAGE SWITCH ============ */
   var currentLang = 'en';
-  function applyLang(lang) {
-    document.querySelectorAll('.i18n').forEach(function(el){
-      var text = el.getAttribute('data-' + lang);
-      if (text) el.innerHTML = text;
-    });
-    splitHeroLines();
-  }
-  window.setLang = function(lang) {
-    currentLang = lang;
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-    document.getElementById('btn-de').classList.toggle('active', lang === 'de');
-    applyLang(lang);
-    if (hasGsap) {
-      clearTimeout(window.__stRefresh);
-      window.__stRefresh = setTimeout(function(){ ScrollTrigger.refresh(); }, 120);
-    }
-  };
+  var introDone = false;
+  var stmtTween = null;
 
-  /* ============ HERO WORD SPLIT ============ */
-  function splitHeroLines() {
-    document.querySelectorAll('.hero h1 .line').forEach(function(lineEl){
-      var text = lineEl.getAttribute('data-' + currentLang) || lineEl.textContent;
-      var words = text.trim().split(/\s+/);
-      lineEl.innerHTML = words.map(function(w){
+  function refreshSoon(){
+    if (!hasGsap) return;
+    clearTimeout(window.__stRefresh);
+    window.__stRefresh = setTimeout(function(){ ScrollTrigger.refresh(); }, 150);
+  }
+
+  /* ---------- Hero headline: split into words ---------- */
+  function splitHero(){
+    document.querySelectorAll('.hero h1 .line').forEach(function(line){
+      var t = (line.getAttribute('data-' + currentLang) || line.textContent).trim();
+      line.innerHTML = t.split(/\s+/).map(function(w){
         return '<span class="word"><span class="word-inner">' + w + '</span></span>';
       }).join(' ');
     });
+    if (hasGsap && !introDone) gsap.set('.hero .word-inner', { yPercent: 110 });
   }
-  splitHeroLines();
 
-  /* ============ MOBILE MENU ============ */
-  var burgerBtn = document.getElementById('burgerBtn');
+  /* ---------- About statement: word-by-word highlight on scroll ---------- */
+  function buildStatement(){
+    var el = document.getElementById('statement');
+    var text = (el.getAttribute('data-' + currentLang) || el.textContent).trim();
+    el.innerHTML = text.split(/\s+/).map(function(w){ return '<span class="w">' + w + '</span>'; }).join(' ');
+    if (stmtTween) {
+      if (stmtTween.scrollTrigger) stmtTween.scrollTrigger.kill();
+      stmtTween.kill();
+      stmtTween = null;
+    }
+    if (!hasGsap) return;
+    var words = el.querySelectorAll('.w');
+    if (reduced) { gsap.set(words, { color: '#1d1d1f' }); return; }
+    gsap.set(words, { color: '#d2d2d7' });
+    stmtTween = gsap.to(words, {
+      color: '#1d1d1f', stagger: .14, ease: 'none',
+      scrollTrigger: { trigger: el, start: 'top 82%', end: 'bottom 48%', scrub: true }
+    });
+  }
+
+  /* ---------- Language ---------- */
+  function updateMoreLabels(){
+    document.querySelectorAll('.driver-card').forEach(function(card){
+      var btn = card.querySelector('.more-btn');
+      if (!btn) return;
+      var open = card.classList.contains('open');
+      btn.textContent = currentLang === 'de' ? (open ? 'Weniger' : 'Mehr lesen') : (open ? 'Show less' : 'Read more');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  }
+  function applyLang(){
+    document.querySelectorAll('.i18n').forEach(function(el){
+      var text = el.getAttribute('data-' + currentLang);
+      if (text) el.innerHTML = text;
+    });
+    root.lang = currentLang;
+    splitHero();
+    buildStatement();
+    updateMoreLabels();
+  }
+  window.setLang = function(lang){
+    currentLang = lang;
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+    applyLang();
+    markTruncation();
+    refreshSoon();
+  };
+
+  /* ---------- Nav: scrolled state, mobile menu, smooth anchors ---------- */
+  var header = document.getElementById('siteHeader');
+  function onScroll(){ header.classList.toggle('scrolled', (window.scrollY || root.scrollTop) > 10); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  var lenis = null;
+  var burger = document.getElementById('burgerBtn');
   var navList = document.getElementById('navList');
   var menuOpen = false;
-  function toggleMenu() {
-    menuOpen = !menuOpen;
+  function toggleMenu(force){
+    menuOpen = typeof force === 'boolean' ? force : !menuOpen;
     navList.classList.toggle('open', menuOpen);
-    burgerBtn.classList.toggle('active', menuOpen);
+    burger.classList.toggle('active', menuOpen);
     document.body.classList.toggle('menu-open', menuOpen);
-    burgerBtn.setAttribute('aria-expanded', String(menuOpen));
+    burger.setAttribute('aria-expanded', String(menuOpen));
+    if (lenis) { menuOpen ? lenis.stop() : lenis.start(); }
     if (hasGsap && menuOpen) {
-      gsap.fromTo(navList.querySelectorAll('li'),
-        { opacity: 0, y: 24 },
-        { opacity: 1, y: 0, duration: .5, stagger: .06, ease: 'power3.out', delay: .1 });
+      gsap.fromTo(navList.querySelectorAll('li'), { opacity: 0, y: 26 },
+        { opacity: 1, y: 0, duration: .6, stagger: .06, ease: 'power3.out', delay: .1 });
     }
   }
-  burgerBtn.addEventListener('click', toggleMenu);
-  navList.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){ if (menuOpen) toggleMenu(); });
+  burger.addEventListener('click', function(){ toggleMenu(); });
+
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if (!id || id.length < 2) return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      if (menuOpen) toggleMenu(false);
+      var isTop = id === '#top';
+      if (lenis) lenis.scrollTo(isTop ? 0 : target, { offset: isTop ? 0 : -20, duration: 1.6 });
+      else if (isTop) window.scrollTo({ top: 0, behavior: 'smooth' });
+      else target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   });
 
-  /* ============ HEADER SCROLL STATE + PROGRESS BAR ============ */
-  var header = document.getElementById('siteHeader');
-  var progressBar = document.getElementById('scrollProgress');
-  function updateChrome() {
-    var scrollTop = window.scrollY || document.documentElement.scrollTop;
-    header.classList.toggle('scrolled', scrollTop > 50);
-    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    progressBar.style.width = progress + '%';
-  }
-  window.addEventListener('scroll', updateChrome, { passive: true });
-  updateChrome();
-
-  /* ============ TICKER CONTENT ============ */
-  var tickerItems = [
-    "<b>20+</b> TEAM MEMBERS",
-    "<b>GT3 &amp; PROTO</b> CHAMPIONSHIPS",
-    "<b>TARGET 2027:</b> REAL KARTING GRID",
-    "<b>ONE LIVERY</b> ONE FAMILY",
-    "<b>24H</b> ENDURANCE SPECIALISTS"
-  ];
-  var tickerRow = document.getElementById('tickerRow');
-  var fullContent = tickerItems.map(function(item){ return '<span>' + item + '</span>'; }).join('');
-  tickerRow.innerHTML = fullContent + fullContent + fullContent;
-
-  /* ============ COUNTERS ============ */
-  function runCounters() {
-    document.querySelectorAll('.hero-stats .num[data-count]').forEach(function(counter){
-      var target = +counter.getAttribute('data-count');
-      var suffix = counter.getAttribute('data-suffix') || '';
-      var obj = { val: 0 };
-      if (hasGsap && !reducedMotion) {
-        gsap.to(obj, {
-          val: target, duration: 1.6, ease: 'power2.out',
-          onUpdate: function(){ counter.textContent = Math.round(obj.val) + suffix; }
-        });
-      } else {
-        counter.textContent = target + suffix;
-      }
-    });
-  }
-
-  /* ============ MAGNETIC BUTTONS ============ */
-  if (!reducedMotion && hasGsap && matchMedia('(hover:hover)').matches) {
-    document.querySelectorAll('.magnetic').forEach(function(btn){
-      btn.addEventListener('mousemove', function(e){
-        var r = btn.getBoundingClientRect();
-        var x = e.clientX - r.left - r.width / 2;
-        var y = e.clientY - r.top - r.height / 2;
-        gsap.to(btn, { x: x * 0.25, y: y * 0.5, duration: .4, ease: 'power3.out' });
-      });
-      btn.addEventListener('mouseleave', function(){
-        gsap.to(btn, { x: 0, y: 0, duration: .5, ease: 'elastic.out(1, 0.4)' });
-      });
-    });
-  }
-
-  /* ============ PRELOADER + INTRO TIMELINE ============ */
-  function playIntro() {
-    document.body.classList.remove('loading');
-    if (!hasGsap) { runCounters(); return; }
-
-    var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    tl.to('.preloader img', { opacity: 1, scale: 1, duration: .5 })
-      .to('.preloader', { yPercent: -100, duration: .9, ease: 'expo.inOut', delay: .25 })
-      .set('.preloader', { display: 'none' })
-      .to('.hero .plate', { opacity: 1, y: 0, duration: .6 }, '-=0.5')
-      .to('.hero .word-inner', { yPercent: -115, duration: 1, stagger: .04, ease: 'expo.out' }, '-=0.35')
-      .to('.hero .sub', { opacity: 1, y: 0, duration: .7 }, '-=0.6')
-      .to('.hero-cta', { opacity: 1, y: 0, duration: .7 }, '-=0.5')
-      .to('.hero-stats', { opacity: 1, y: 0, duration: .7, onStart: runCounters }, '-=0.5')
-      .to('#scrollCue', { opacity: 1, duration: .6 }, '-=0.3');
-  }
-
-  /* ============ LENIS SMOOTH SCROLL ============ */
-  var lenis = null;
-  if (!reducedMotion && typeof Lenis !== 'undefined') {
+  /* ---------- Smooth scroll (Lenis) wired into GSAP ---------- */
+  if (hasGsap && !reduced && typeof Lenis !== 'undefined') {
     try {
-      lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
-      lenis.on('scroll', function(){ if (hasGsap) ScrollTrigger.update(); });
-      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-      requestAnimationFrame(raf);
-      if (hasGsap) {
-        gsap.ticker.add(function(time){ lenis.raf(time * 1000); });
-        gsap.ticker.lagSmoothing(0);
-      }
-    } catch (e) { lenis = null; }
-  } else {
-    document.documentElement.classList.add('no-lenis');
+      lenis = new Lenis({ lerp: 0.09 });      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    } catch (err) { lenis = null; }
+  }
+  if (!lenis) root.classList.add('native-scroll');
+
+  /* ---------- Roster: filter + expandable bios ---------- */
+  function markTruncation(){
+    document.querySelectorAll('.driver-card').forEach(function(card){
+      var bio = card.querySelector('.bio'), btn = card.querySelector('.more-btn');
+      if (!bio || !btn) return;
+      if (card.classList.contains('open')) { btn.hidden = false; return; }
+      btn.hidden = !(bio.scrollHeight > bio.clientHeight + 2);
+    });
+  }
+  document.querySelectorAll('.more-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      btn.closest('.driver-card').classList.toggle('open');
+      updateMoreLabels();
+      refreshSoon();
+    });
+  });
+
+  function applyFilter(f){
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.driver-card'));
+    var show = cards.filter(function(c){ return f === 'all' || c.getAttribute('data-cat') === f; });
+    if (hasGsap) {
+      cards.forEach(function(c){
+        gsap.set(c, { opacity: 1, y: 0, scale: 1 });
+        var im = c.querySelector('.photo img');
+        if (im) gsap.set(im, { clipPath: 'inset(0% 0% 0% 0%)', scale: 1 });
+      });
+    }
+    cards.forEach(function(c){ c.style.display = show.indexOf(c) > -1 ? '' : 'none'; });
+    if (hasGsap) {
+      gsap.fromTo(show, { opacity: 0, y: 50, scale: .94 },
+        { opacity: 1, y: 0, scale: 1, duration: .8, stagger: .045, ease: 'power4.out' });
+    }
+    markTruncation();
+    refreshSoon();
+  }
+  document.querySelectorAll('.chip').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      document.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('active'); });
+      chip.classList.add('active');
+      applyFilter(chip.getAttribute('data-filter'));
+    });
+  });
+
+  /* ---------- Counters ---------- */
+  function setupCounters(){
+    document.querySelectorAll('.stat .n').forEach(function(n){
+      var to = +n.getAttribute('data-count');
+      var from = +(n.getAttribute('data-from') || 0);
+      if (!hasGsap || reduced) { n.textContent = to; return; }
+      var o = { v: from };
+      n.textContent = from;
+      gsap.to(o, {
+        v: to, duration: 2.4, ease: 'power3.out',
+        scrollTrigger: { trigger: n, start: 'top 88%', once: true },
+        onUpdate: function(){ n.textContent = Math.round(o.v); }
+      });
+    });
   }
 
-  /* ============ SCROLL-DRIVEN ANIMATIONS ============ */
-  if (hasGsap) {
-    // Generic reveal-on-scroll for batched elements — big travel, no timid fades
-    ScrollTrigger.batch('.reveal-gsap', {
-      start: 'top 88%',
+  /* ---------- Intro ---------- */
+  function playIntro(){
+    if (introDone) return;
+    introDone = true;
+    if (!hasGsap) return;
+    var tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+    tl.fromTo('.hero-eyebrow', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: .9 }, 0)
+      .set('.hero h1', { opacity: 1 }, 0)
+      .to('.hero .word-inner', { yPercent: 0, duration: 1.3, stagger: .08, ease: 'expo.out' }, .1)
+      .fromTo('.hero-sub', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 1 }, .55)
+      .fromTo('.hero-links', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 1 }, .7)
+      .fromTo('.hero-media', { opacity: 0 }, { opacity: 1, duration: 1.6, ease: 'power2.out' }, .5);
+  }
+
+  /* ---------- Scroll-driven choreography ---------- */
+  function revealBatch(sel, from, to, start, stagger){
+    var els = gsap.utils.toArray(sel);
+    if (!els.length) return;
+    gsap.set(els, from);
+    ScrollTrigger.batch(els, {
+      start: start || 'top 90%', once: true,
       onEnter: function(batch){
-        gsap.to(batch, { opacity: 1, y: 0, scale: 1, duration: 1.1, stagger: .14, ease: 'power4.out', overwrite: true });
-      },
-      once: true
+        gsap.to(batch, Object.assign({ duration: 1.2, stagger: stagger || .12, ease: 'power4.out' }, to));
+      }
+    });
+  }
+
+  function setupScroll(){
+    setupCounters();
+
+    revealBatch('.reveal', { opacity: 0, y: 70 }, { opacity: 1, y: 0 }, 'top 90%');
+    revealBatch('.stat', { opacity: 0, y: 90 }, { opacity: 1, y: 0 }, 'top 90%', .14);
+    revealBatch('.bento-card', { opacity: 0, y: 110, scale: .9 }, { opacity: 1, y: 0, scale: 1 }, 'top 92%', .14);
+    revealBatch('.p-card', { opacity: 0, y: 100, scale: .94 }, { opacity: 1, y: 0, scale: 1 }, 'top 92%', .14);
+    revealBatch('.rm-item', { opacity: 0, y: 90 }, { opacity: 1, y: 0 }, 'top 88%', .18);
+
+    // Roadmap dots pop in
+    var dots = gsap.utils.toArray('.rm-dot');
+    gsap.set(dots, { scale: 0 });
+    ScrollTrigger.batch(dots, {
+      start: 'top 88%', once: true,
+      onEnter: function(b){ gsap.to(b, { scale: 1, duration: .9, stagger: .2, delay: .2, ease: 'back.out(3)' }); }
     });
 
-    // About copy — big diagonal slide-in per paragraph
-    ScrollTrigger.batch('.reveal-left', {
-      start: 'top 90%',
-      onEnter: function(batch){
-        gsap.to(batch, { opacity: 1, x: 0, duration: 1, stagger: .18, ease: 'power4.out' });
-      },
-      once: true
-    });
-
-    // Pillars — alternate big slide-in from left/right with a tilt that settles
-    var pillars = gsap.utils.toArray('.pillar');
-    pillars.forEach(function(p, i){
-      var fromLeft = i % 2 === 0;
-      gsap.set(p, { opacity: 0, x: fromLeft ? -140 : 140, rotate: fromLeft ? -6 : 6, scale: .88 });
-    });
-    ScrollTrigger.batch(pillars, {
-      start: 'top 90%',
-      onEnter: function(batch){
-        gsap.to(batch, { opacity: 1, x: 0, rotate: 0, scale: 1, duration: 1.1, stagger: .12, ease: 'back.out(1.5)', clearProps: 'transform' });
-      },
-      once: true
-    });
-
-    // Driver cards — big rise + alternating tilt + directional clip-path wipe
-    var driverCards = gsap.utils.toArray('.driver-card');
-    driverCards.forEach(function(card, i){
-      gsap.set(card, { opacity: 0, y: 130, scale: .8, rotate: i % 2 === 0 ? -3 : 3 });
+    // Driver cards: big rise + photo wipe & settle
+    var cards = gsap.utils.toArray('.driver-card');
+    cards.forEach(function(card){
+      gsap.set(card, { opacity: 0, y: 130, scale: .88 });
       var img = card.querySelector('.photo img');
-      if (img) {
-        var fromLeftClip = i % 3 === 0;
-        var fromBottomClip = i % 3 === 1;
-        gsap.set(img, {
-          clipPath: fromBottomClip ? 'inset(0 0 100% 0)' : fromLeftClip ? 'inset(0 100% 0 0)' : 'inset(0 0 0 100%)',
-          scale: 1.25
-        });
-      }
+      if (img) gsap.set(img, { clipPath: 'inset(0% 0% 100% 0%)', scale: 1.25 });
     });
-    ScrollTrigger.batch(driverCards, {
-      start: 'top 92%',
+    ScrollTrigger.batch(cards, {
+      start: 'top 94%', once: true,
       onEnter: function(batch){
-        gsap.to(batch, { opacity: 1, y: 0, scale: 1, rotate: 0, duration: .9, stagger: .09, ease: 'power4.out', clearProps: 'transform' });
-        batch.forEach(function(card){
+        gsap.to(batch, { opacity: 1, y: 0, scale: 1, duration: 1.1, stagger: .09, ease: 'power4.out' });
+        batch.forEach(function(card, i){
           var img = card.querySelector('.photo img');
-          if (img) {
-            gsap.to(img, { clipPath: 'inset(0 0 0 0)', duration: 1.3, ease: 'power4.inOut' });
-            gsap.to(img, { scale: 1, duration: 1.6, ease: 'power3.out' });
-          }
+          if (!img) return;
+          gsap.to(img, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, delay: i * .09, ease: 'power4.inOut' });
+          gsap.to(img, { scale: 1, duration: 1.8, delay: i * .09, ease: 'power3.out' });
         });
-      },
-      once: true
+      }
     });
 
-    // Timeline draw + dot pop, alternating slide-in per milestone
-    gsap.to('#timelineProgress', {
-      height: '100%', ease: 'none',
-      scrollTrigger: { trigger: '#timeline', start: 'top 75%', end: 'bottom 60%', scrub: .6 }
-    });
-    var tItems = gsap.utils.toArray('.t-item');
-    tItems.forEach(function(item, i){
-      gsap.set(item, { opacity: 0, x: i % 2 === 0 ? -100 : 100 });
-    });
-    ScrollTrigger.batch(tItems, {
-      start: 'top 80%',
-      onEnter: function(batch){
-        gsap.to(batch, { opacity: 1, x: 0, duration: .9, stagger: .18, ease: 'power4.out' });
-        batch.forEach(function(item, i){
-          gsap.delayedCall(.25 + i * .18, function(){ item.classList.add('dot-in'); });
-        });
-      },
-      once: true
-    });
+    var mm = gsap.matchMedia();
+    mm.add({ isDesktop: '(min-width: 901px)', isReduced: '(prefers-reduced-motion: reduce)' }, function(ctx){
+      var desktop = ctx.conditions.isDesktop, rm = ctx.conditions.isReduced;
+      var hero = document.querySelector('.hero');
+      var copy = document.getElementById('heroCopy');
+      var media = document.getElementById('heroMedia');
+      var heroImg = media.querySelector('img');
+      var caption = document.getElementById('heroCaption');
+      var team = document.getElementById('team');
 
-    gsap.matchMedia().add({
-      isDesktop: '(min-width: 901px)',
-      isMobile: '(max-width: 900px)',
-      reduced: '(prefers-reduced-motion: reduce)'
-    }, function(ctx){
-      var isDesktop = ctx.conditions.isDesktop;
-      var reduced = ctx.conditions.reduced;
-
-      // Hero — deep parallax + pinned "curtain" exit: content zooms/dives away
-      // as the next section rises over it, instead of just scrolling past.
-      if (!reduced) {
-        gsap.to('#heroBg', {
-          yPercent: 30, scale: 1.28, ease: 'none',
-          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
-        });
-
-        if (isDesktop) {
-          gsap.timeline({
-            scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=70%', scrub: .7, pin: true, anticipatePin: 1 }
-          })
-          .to('.hero-content', { scale: .78, y: -60, opacity: 0, filter: 'blur(6px)', ease: 'power2.in' }, 0)
-          .to('.hero-scrim', { opacity: 0.35, ease: 'none' }, 0)
-          .to('#scrollCue', { opacity: 0, ease: 'none' }, 0);
-        }
+      if (rm) {
+        // Calm mode: show final states, no scroll choreography
+        gsap.set('.family-inner', { opacity: 1 });
+        return;
       }
 
-      // About — sticky media: image pins beside the scrolling copy and
-      // dramatically de-zooms/straightens as the reader moves through the text.
-      if (isDesktop) {
-        var aboutEnd = function(){
-          var copyEl = document.querySelector('.about-copy');
-          var extra = copyEl.offsetHeight - window.innerHeight + 200;
-          return '+=' + Math.max(extra, 500);
-        };
-        gsap.fromTo('#aboutMedia img',
-          { scale: 1.45, rotate: 2 },
-          { scale: 1, rotate: 0, ease: 'none',
-            scrollTrigger: { trigger: '.about-copy', start: 'top 100px', end: aboutEnd, scrub: .7, invalidateOnRefresh: true } });
-        ScrollTrigger.create({
-          trigger: '.about-copy',
-          start: 'top 100px',
-          end: aboutEnd,
-          pin: '#aboutMedia',
-          pinSpacing: false,
-          invalidateOnRefresh: true
+      /* HERO: pinned stage — the photo grows from a card to full-bleed */
+      if (desktop) {
+        hero.classList.add('hero--stage');
+        var heroTl = gsap.timeline({
+          scrollTrigger: { trigger: hero, start: 'top top', end: '+=130%', scrub: .8, pin: true, anticipatePin: 1, invalidateOnRefresh: true }
         });
+        heroTl
+          .fromTo(media,
+            { clipPath: function(){ return 'inset(' + (copy.offsetTop + copy.offsetHeight + 30) + 'px 7vw 7vh 7vw round 28px)'; } },
+            { clipPath: 'inset(0px 0vw 0vh 0vw round 0px)', ease: 'power2.inOut', duration: 1 }, 0)
+          .fromTo(heroImg, { scale: 1.22 }, { scale: 1, ease: 'none', duration: 1 }, 0)
+          .to(copy, { opacity: 0, y: -110, scale: .92, ease: 'power2.in', duration: .45 }, 0)
+          .fromTo(caption, { opacity: 0, y: 60 }, { opacity: 1, y: 0, ease: 'power2.out', duration: .35 }, .65);
       } else {
-        gsap.fromTo('#aboutMedia img',
-          { scale: 1.3 },
-          { scale: 1, ease: 'none',
-            scrollTrigger: { trigger: '#aboutMedia', start: 'top 90%', end: 'bottom 40%', scrub: .6 } });
+        gsap.fromTo(heroImg, { scale: 1.2 }, { scale: 1, ease: 'none',
+          scrollTrigger: { trigger: media, start: 'top 90%', end: 'bottom 30%', scrub: true } });
       }
 
-      if (isDesktop && !reduced) {
-        // Family pinned big statement — deep scale/blur build, longer hold
-        gsap.set('.family-inner', { opacity: 0, scale: .55, y: 60, filter: 'blur(14px)' });
-        var famTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: '.family', start: 'top top', end: '+=130%', scrub: .6, pin: true, anticipatePin: 1
-          }
-        });
-        famTl.to('.family-inner', { opacity: 1, scale: 1, y: 0, filter: 'blur(0px)', ease: 'power1.inOut', duration: .7 }, 0)
-             .to('#familyBg', { scale: 1.35, ease: 'none', duration: 1 }, 0)
-             .to('.family-inner', { scale: 1.08, ease: 'power1.in', duration: .3 }, .7);
+      /* ABOUT visual: grows into place while the photo drifts */
+      var vis = document.getElementById('aboutVisual');
+      gsap.fromTo(vis, { scale: .86 }, { scale: 1, ease: 'none',
+        scrollTrigger: { trigger: vis, start: 'top 98%', end: 'top 35%', scrub: true } });
+      gsap.fromTo(vis.querySelector('img'), { scale: 1.38, yPercent: -7 }, { scale: 1.16, yPercent: 7, ease: 'none',
+        scrollTrigger: { trigger: vis, start: 'top bottom', end: 'bottom top', scrub: true } });
 
-        // Team horizontal pin gallery — images scale/tilt through 3D space
-        // as they pass, instead of a flat side-scroll.
-        var track = document.getElementById('scrollTrack');
+      /* Roadmap line fills with scroll */
+      gsap.fromTo('#rmFill', { scaleX: 0 }, { scaleX: 1, ease: 'none',
+        scrollTrigger: { trigger: '#rmGrid', start: 'top 78%', end: 'bottom 62%', scrub: .6 } });
+
+      /* FAMILY quote: pinned statement builds out of blur */
+      if (desktop) {
+        gsap.set('.family-inner', { opacity: 0, scale: .55, y: 60, filter: 'blur(16px)' });
+        gsap.timeline({ scrollTrigger: { trigger: '.family', start: 'top top', end: '+=130%', scrub: .6, pin: true, anticipatePin: 1 } })
+          .to('.family-inner', { opacity: 1, scale: 1, y: 0, filter: 'blur(0px)', ease: 'power1.inOut', duration: .7 }, 0)
+          .to('#familyBg', { scale: 1.35, ease: 'none', duration: 1 }, 0)
+          .to('.family-inner', { scale: 1.08, ease: 'power1.in', duration: .3 }, .7);
+
+        /* GALLERY: pinned horizontal run with 3D depth */
+        team.classList.add('gallery--pin');
         var imagesEl = document.getElementById('scrollImages');
         var figures = gsap.utils.toArray('#scrollImages figure');
-        document.getElementById('galleryStatic').style.display = 'none';
-        track.style.display = 'block';
-
         ScrollTrigger.create({
-          trigger: track,
-          start: 'top top',
-          end: function(){ return '+=' + (imagesEl.scrollWidth * 1.15); },
-          pin: true,
-          scrub: 1,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
+          trigger: '#scrollTrack', start: 'top top',
+          end: function(){ return '+=' + Math.round(imagesEl.scrollWidth * 1.1); },
+          pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true,
           onUpdate: function(self){
             var maxX = imagesEl.scrollWidth - window.innerWidth + 64;
             gsap.set(imagesEl, { x: -self.progress * maxX });
-            var centerX = window.innerWidth / 2;
+            var cx = window.innerWidth / 2;
             figures.forEach(function(fig){
               var r = fig.getBoundingClientRect();
-              var figCenter = r.left + r.width / 2;
-              var dist = (figCenter - centerX) / centerX; // -1..1 roughly
-              var clamped = Math.max(-1, Math.min(1, dist));
-              gsap.set(fig, {
-                scale: 1 - Math.abs(clamped) * 0.22,
-                rotateY: clamped * -22,
-                opacity: 1 - Math.abs(clamped) * 0.35
-              });
+              var d = Math.max(-1, Math.min(1, (r.left + r.width / 2 - cx) / cx));
+              gsap.set(fig, { scale: 1 - Math.abs(d) * .2, rotateY: d * -20, opacity: 1 - Math.abs(d) * .4 });
             });
           }
         });
       } else {
-        // Mobile / reduced-motion fallback: static grid, no pin
-        var track2 = document.getElementById('scrollTrack');
-        if (track2) track2.style.display = 'none';
-        var gStatic = document.getElementById('galleryStatic');
-        if (gStatic) gStatic.style.display = 'grid';
+        gsap.set('.family-inner', { opacity: 1 });
+        gsap.fromTo('.family-inner', { scale: .86, y: 40 }, { scale: 1, y: 0, ease: 'none',
+          scrollTrigger: { trigger: '.family', start: 'top 80%', end: 'center 55%', scrub: true } });
       }
+
+      return function(){
+        hero.classList.remove('hero--stage');
+        team.classList.remove('gallery--pin');
+      };
     });
   }
 
-  /* ============ BOOT ============ */
-  function boot(){
-    setTimeout(playIntro, reducedMotion ? 0 : 250);
-    if (hasGsap) setTimeout(function(){ ScrollTrigger.refresh(); }, 400);
-  }
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    boot();
-  } else {
-    document.addEventListener('DOMContentLoaded', boot);
-  }
-  window.addEventListener('load', function(){
-    if (hasGsap) ScrollTrigger.refresh();
-  });
+  /* ---------- Boot ---------- */
+  splitHero();
+  buildStatement();
+  updateMoreLabels();
+  if (hasGsap) setupScroll(); else setupCounters();
+
+  function start(){ playIntro(); markTruncation(); refreshSoon(); }
+  if (document.readyState === 'complete') start();
+  else { window.addEventListener('load', start); setTimeout(start, 2500); }
+  window.addEventListener('resize', function(){ markTruncation(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ markTruncation(); refreshSoon(); });
 })();
 </script>
 </body>
